@@ -1,44 +1,28 @@
-import 'dart:io';
-
+import 'package:capitalvotes/blocs/contest_bloc.dart';
 import 'package:capitalvotes/pages/add_nominee_without_category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:capitalvotes/shared/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
-class CreatorViewContest extends StatefulWidget {
-  final File contestImage;
-  final File contestNomineeImage;
-
-
-  CreatorViewContest({Key key, this.contestImage, this.contestNomineeImage})
-      : super(key: key);
+class CreatorContestView extends StatefulWidget {
 
   @override
-  _CreatorViewContestState createState() => _CreatorViewContestState();
+  _CreatorContestViewState createState() => _CreatorContestViewState();
 }
 
-class _CreatorViewContestState extends State<CreatorViewContest> {
-  String contestName;
-  String contestDescription;
-  String contestEndDate;
-
-  Future readContestFromPreference() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      contestName = preferences.getString('contestName');
-      contestDescription = preferences.getString('contestDescription');
-      contestEndDate = preferences.getString('contestEndDate');
-    });
-  }
+class _CreatorContestViewState extends State<CreatorContestView> {
 
   @override
   Widget build(BuildContext context) {
-    readContestFromPreference();
+
     // Media Query Responsiveness
     final screenHeight = MediaQuery.of(context).size.height;
 
     final screenWidth = MediaQuery.of(context).size.width;
+
+    ContestBloc contestBloc = Provider.of<ContestBloc>(context);
+
 
     return Scaffold(
       appBar: topAppBar3('Contest View', context),
@@ -50,13 +34,9 @@ class _CreatorViewContestState extends State<CreatorViewContest> {
               color: Color(0Xee3D2960),
               child: Stack(overflow: Overflow.visible, children: <Widget>[
                 Positioned.fill(
-                    child: widget.contestImage == null
-                        ? Image.asset('images/default_cover_pic.jpg',
-                            fit: BoxFit.cover)
-                        : Image.file(
-                            widget.contestImage,
-                            fit: BoxFit.cover,
-                          )),
+                    child: contestBloc.getContestBanner == null
+                        ? Image.asset('images/default_cover_pic.jpg', fit: BoxFit.cover)
+                        : Image.memory(stringToImageFile(contestBloc.getContestBanner), fit: BoxFit.cover,)),
                 Positioned(
                     bottom: -(screenHeight * 0.04),
                     left: screenWidth * 0.36,
@@ -82,7 +62,7 @@ class _CreatorViewContestState extends State<CreatorViewContest> {
             child: Column(
               children: <Widget>[
                 Text(
-                  contestName != null ? contestName : 'Contest Name',
+                  contestBloc.getContestName != null ? contestBloc.getContestName : 'Contest Name',
                   style: TextStyle(
                       fontFamily: 'poppins',
                       fontSize: 15,
@@ -92,8 +72,8 @@ class _CreatorViewContestState extends State<CreatorViewContest> {
                 Container(
                   width: screenWidth * 0.5,
                   child: Text(
-                      contestDescription != null
-                          ? contestDescription
+                      contestBloc.getContestDescription != null
+                          ? contestBloc.getContestDescription
                           : 'contest Description',
                       style: TextStyle(
                           fontFamily: 'poppins',
@@ -114,8 +94,8 @@ class _CreatorViewContestState extends State<CreatorViewContest> {
                             fontFamily: 'poppins',
                             color: Color(0xffE5306C))),
                     Text(
-                        contestEndDate != null
-                            ? contestEndDate
+                        contestBloc.getEndDate != null
+                            ? contestBloc.getEndDate
                             : 'September 23',
                         style: TextStyle(
                             fontSize: 9.0,
@@ -132,7 +112,7 @@ class _CreatorViewContestState extends State<CreatorViewContest> {
             width: screenWidth,
             height: screenHeight * 0.04,
             color: Color(0xffE5306C),
-            child: Text(
+            child:  Text(
               'All Nominees',
               style: TextStyle(
                   fontFamily: 'poppins', color: Colors.white, fontSize: 14),

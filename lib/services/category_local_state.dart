@@ -12,7 +12,6 @@ class LocalCategoryBlocState extends ChangeNotifier{
 
   String get getCategoryDescription => _categoryDescription;
 
-
   String get getCategoryBanner => _categoryBanner;
 
 

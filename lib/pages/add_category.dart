@@ -1,9 +1,9 @@
 import 'package:capitalvotes/blocs/contest_bloc.dart';
 import 'package:capitalvotes/pages/add_category_data.dart';
-import 'package:capitalvotes/pages/update_category_data.dart';
+//import 'package:capitalvotes/pages/update_category_data.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
-import 'package:capitalvotes/pages/confirm_contest.dart';
-import 'package:capitalvotes/pages/voterate.dart';
+//import 'package:capitalvotes/pages/confirm_contest.dart';
+//import 'package:capitalvotes/pages/voterate.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ class _AddCategoryState extends State<AddCategory> {
   _deleteCategory(category, contestBloc) {
     contestBloc.removeCategoryFromContest(category);
     print('The delete is: $category');
-    popGoTo(context, AddCategory());
+    popGoTo(context, '/AddCategoryData');
   }
 
   _updateCategory(category, localCategoryUpdateBlocState, contestBloc) {
@@ -33,7 +33,7 @@ class _AddCategoryState extends State<AddCategory> {
     print('The update is: $category');
     print('The category index to update is: ${contestBloc.contestCategoryList.indexOf(category)}');
 
-    popGoTo(context, UpdateCategoryData());
+    popGoTo(context, '/AddCategoryData');
   }
 
   @override
@@ -104,7 +104,7 @@ class _AddCategoryState extends State<AddCategory> {
 
     return Scaffold(
       appBar: topAppBar2('Add Category', context),
-      backgroundColor: Color(0xffe2e0e5),
+      backgroundColor: Colors.white,
       body: Builder(
         builder: (context) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
@@ -171,10 +171,10 @@ class _AddCategoryState extends State<AddCategory> {
                           onPressed: () {
                             if (contestBloc.getIsPaidFor == false &&
                                 contestBloc.contestCategoryList.length > 0) {
-                              pushGoTo(context, ConfirmContest());
+                              pushGoTo(context, '/ConfirmContest');
                             } else if (contestBloc.getIsPaidFor == true &&
                                 contestBloc.contestCategoryList.length > 0) {
-                              pushGoTo(context, VoteRate());
+                              pushGoTo(context, '/VoteRate');
                             } else {
                               print('Not enabled');
                             }

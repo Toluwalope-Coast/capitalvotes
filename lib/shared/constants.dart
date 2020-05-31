@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:capitalvotes/services/imagecapture.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+
+import 'multiline_textfield.dart';
 
 
 // advert top containers
@@ -18,6 +21,7 @@ Widget advertContainer() {
 AppBar topAppBar(String title) {
   return AppBar(
     automaticallyImplyLeading: true,
+    titleSpacing: 0.0,
     title: Text(title),
     elevation: 0.0,
   );
@@ -30,7 +34,7 @@ AppBar topAppBar2(String title, context) {
       title,
       style: Theme.of(context).textTheme.headline4,
     ),
-    backgroundColor: Color(0xffe2e0e5),
+    backgroundColor: Colors.white,
     iconTheme: Theme.of(context).iconTheme,
     titleSpacing: 0.0,
     elevation: 0.0,
@@ -55,29 +59,43 @@ AppBar topAppBar3(String title, context) {
 // Push Page Routing
 
 void pushGoTo(context, page) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => page),
-  );
+  Navigator.pushNamed(context, page);
 }
+
+
+
+
 
 // Replacement Page Routing
 
 void replaceGoTo(context, page) {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => page),
-  );
+  Navigator.pushReplacementNamed(context, page);
 }
 
 // Pop Page Routing
 
 void popGoTo(context, page) {
-  Navigator.pop(
+  Navigator.popAndPushNamed(context, page);
+}
+
+// routing with dsta
+
+void navigateToMultilineText(context, String value) {
+
+  Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => page),
+    MaterialPageRoute(builder: (context) => MultiLineTextField(location: value)),
   );
 }
+
+void navigateToImageCapture(context, String value) {
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => ImageCapture(location: value)),
+  );
+}
+
 
 void cardWidget() {
   Card(

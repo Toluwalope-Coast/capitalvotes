@@ -1,5 +1,4 @@
 import 'package:capitalvotes/blocs/category_bloc.dart';
-import 'package:capitalvotes/blocs/nominee_with_category_bloc.dart';
 import 'package:capitalvotes/blocs/nominee_without_category_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,7 @@ class ContestBloc extends ChangeNotifier{
 
 //  bool _brand;
 
-  List <NomineeWithOutCategoryBloc> nomineeWithOutCategoryList = [];
+  List <NomineeWithOutCategoryBloc> contestantWithOutCategoryList = [];
 
   List <CategoryBloc> contestCategoryList = [];
 
@@ -154,26 +153,26 @@ class ContestBloc extends ChangeNotifier{
 
   // Special Functions
 
-// Nominee without Category
+// Contestant without Category
 
 
-  addNomineeToContestList(NomineeWithOutCategoryBloc nominee){
-    nomineeWithOutCategoryList.add(nominee);
+  addContestantToContestList(NomineeWithOutCategoryBloc contestant){
+    contestantWithOutCategoryList.add(contestant);
     notifyListeners();
   }
 
-  removeNomineeFromContestList(int index){
-    nomineeWithOutCategoryList.removeAt(index);
+  removeContestantFromContestList(int index){
+    contestantWithOutCategoryList.removeAt(index);
     notifyListeners();
   }
-  updateNomineeFromContestList(int index, NomineeWithOutCategoryBloc nominee){
-    nomineeWithOutCategoryList.removeAt(index);
-    nomineeWithOutCategoryList.insert(index, nominee);
+  updateContestantFromContestList(int index, NomineeWithOutCategoryBloc contestant){
+    removeContestantFromContestList(index);
+    contestantWithOutCategoryList.insert(index, contestant);
     notifyListeners();
   }
 
-  deleteTheEntireNomineeFromContestList(){
-    nomineeWithOutCategoryList.clear();
+  deleteTheEntireContestantFromContestList(){
+    contestantWithOutCategoryList.clear();
     notifyListeners();
   }
 
@@ -189,30 +188,6 @@ class ContestBloc extends ChangeNotifier{
 
   removeCategoryFromContest(CategoryBloc category){
     contestCategoryList.removeAt(contestCategoryList.indexOf(category));
-    notifyListeners();
-  }
-  updateCategoryListFromContest(int index, CategoryBloc category){
-    contestCategoryList.removeAt(index);
-    contestCategoryList.insert(index, category);
-    notifyListeners();
-  }
-
-  removeTheEntireCategoryList(){
-    contestCategoryList.clear();
-    notifyListeners();
-  }
-
-
-// Category Nominee
-
-
-  addNomineeToCategoryList(int index, NomineeWithCategoryBloc nominee){
-    contestCategoryList[index].addNomineeToCategoryList(nominee);
-    notifyListeners();
-  }
-
-  removeNomineeFromCategory(int index, NomineeWithCategoryBloc nominee){
-    contestCategoryList[index].removeNomineeFromCategoryList(index).removeAt(contestCategoryList.indexOf(category));
     notifyListeners();
   }
   updateCategoryListFromContest(int index, CategoryBloc category){

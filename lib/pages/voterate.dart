@@ -1,5 +1,5 @@
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-import 'package:capitalvotes/pages/creator_view_contest.dart';
+import 'package:capitalvotes/pages/confirm_contest.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +111,7 @@ class _VoteRateState extends State<VoteRate> {
 
                   print('The Currency selected is: ${contestBloc.getCurrencyType}');
                   print('The vote rate is: ${contestBloc.getVoteRate}');
-                  pushGoTo(context, CreatorViewContest());
+                  pushGoTo(context, ConfirmContest());
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40)),

@@ -2,18 +2,10 @@ import 'package:capitalvotes/blocs/category_bloc.dart';
 import 'package:capitalvotes/blocs/contest_bloc.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
 import 'package:capitalvotes/shared/constants.dart';
-import 'dart:io';
-import 'package:capitalvotes/pages/add_category.dart';
-import 'package:capitalvotes/shared/multiline_textfield.dart';
 import 'package:provider/provider.dart';
-import 'package:capitalvotes/pages/imagecapture.dart';
 import 'package:flutter/material.dart';
 
 class UpdateCategoryData extends StatefulWidget {
-  final File updateCategoryImage;
-
-
-  UpdateCategoryData({Key key, this.updateCategoryImage}) : super(key: key);
 
   @override
   _UpdateCategoryDataState createState() => _UpdateCategoryDataState();
@@ -22,7 +14,8 @@ class UpdateCategoryData extends StatefulWidget {
 class _UpdateCategoryDataState extends State<UpdateCategoryData> {
   final _formKey = GlobalKey<FormState>();
 
-  _multiLineNav() => pushGoTo(context, MultiLineTextField(location: 'updateCategory'));
+
+  _multiLineNav() => navigateToMultilineText(context, 'updateCategory');
 
 
   _save(contestBloc, localCategoryUpdateBlocState) {
@@ -50,9 +43,7 @@ class _UpdateCategoryDataState extends State<UpdateCategoryData> {
 //
 //      localCategoryUpdateBlocState.setCategoryBanner = null;
 
-      replaceGoTo(context, AddCategory());
-
-      print('The Updated Value is placed in index : ${contestBloc.contestCategoryList.indexOf(categoryBloc)}');
+      popGoTo(context,'/AddCategory');
 
     } else{
 
@@ -81,22 +72,13 @@ class _UpdateCategoryDataState extends State<UpdateCategoryData> {
 
 
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text(
-            'Update Category',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          backgroundColor: Color(0xffe2e0e5),
-          iconTheme: Theme.of(context).iconTheme,
-          elevation: 0.0,
-        ),
-        backgroundColor: Color(0xffe2e0e5),
+        appBar: topAppBar2('Update Category', context),
+        backgroundColor: Colors.white,
         body: Builder(
             builder: (context) => ListView(children: <Widget>[
               InkWell(
                 onTap: () {
-                  pushGoTo(context, ImageCapture(location: 'update_category'));
+                  navigateToImageCapture(context, 'update_category');
                 },
                 child: Container(
                   height: screenHeight * 0.30,

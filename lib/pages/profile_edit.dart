@@ -1,10 +1,7 @@
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
-import 'package:capitalvotes/pages/imagecapture.dart';
-import 'package:capitalvotes/pages/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_country_picker/flutter_country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:capitalvotes/shared/multiline_textfield.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +20,9 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   Country _selected;
 
-  _multiLineNav() => pushGoTo(context, MultiLineTextField(location: 'profile'));
+
+  _multiLineNav() => navigateToMultilineText(context, 'profile');
+
 
   _save(userProfileBloc) {
     userProfileBloc.setCountry = _selected;
@@ -42,7 +41,7 @@ class _ProfileEditState extends State<ProfileEdit> {
       // you'd often call a server or save the information in a database.
 
 
-      pushGoTo(context, Profile());
+      pushGoTo(context, '/Profile');
     }
   }
 
@@ -56,7 +55,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     UserProfileBloc userProfileBloc = Provider.of<UserProfileBloc>(context);
 
     return Scaffold(
-        appBar: topAppBar('Edit Profile'),
+        appBar: topAppBar2('Edit Profile', context),
         backgroundColor: Colors.white,
         body: Builder(
             builder: (context) => ListView(children: <Widget>[
@@ -72,11 +71,8 @@ class _ProfileEditState extends State<ProfileEdit> {
                             left: screenWidth * 0.36,
                             child: InkWell(
                                 onTap: () {
-                                  pushGoTo(
-                                      context,
-                                      ImageCapture(
-                                        location: 'edit_profile',
-                                      ));
+                                  navigateToImageCapture(
+                                      context, 'edit_profile');
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: Colors.white,

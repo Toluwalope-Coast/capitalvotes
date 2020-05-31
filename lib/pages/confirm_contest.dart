@@ -1,5 +1,4 @@
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-import 'package:capitalvotes/pages/creator_view_contest.dart';
 import 'package:flutter/material.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:provider/provider.dart';
@@ -38,9 +37,9 @@ class _ConfirmContestState extends State<ConfirmContest> {
             child: Container(
               width: screenWidth * 0.2,
               child: FlatButton(onPressed: () {
-                // Saved to the database
-                var contestPage = MaterialPageRoute(builder: (BuildContext context) => CreatorViewContest());
-                Navigator.of(context).push(contestPage);},
+
+                Navigator.of(context).pushNamedAndRemoveUntil('/CreatorContestView', ModalRoute.withName('/Home'));},
+
                 padding: const EdgeInsets.all(0.0),
                 color: Color(0xffE5306C),
                 shape: RoundedRectangleBorder(

@@ -1,9 +1,5 @@
 import 'package:capitalvotes/pages/add_contest.dart';
-import 'package:capitalvotes/pages/add_payment_card_screen.dart';
-import 'package:capitalvotes/pages/add_paypal_account_screen.dart';
-import 'package:capitalvotes/pages/add_promo_code_screen.dart';
 import 'package:capitalvotes/pages/home.dart';
-import 'package:capitalvotes/pages/payment_method_screen.dart';
 import 'package:capitalvotes/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'search.dart';
@@ -16,7 +12,8 @@ class PageLoader extends StatefulWidget {
 class _PageLoader extends State<PageLoader> {
   int feedCounts = 0;
   int _selectedIndex = 0;
-  final _pageOptions = [Home(), Search(), AddContest(), AddPaymentCardScreen()];
+  final _pageOptions = [Home(), Search(), AddContest(), Profile()];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -25,44 +22,37 @@ class _PageLoader extends State<PageLoader> {
 
   @override
   Widget build(BuildContext context) {
+
     // Media Query Responsiveness
     final screenHeight = MediaQuery.of(context).size.height;
 
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Center(
-        child: _pageOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: SizedBox(
-//          height: screenHeight *,
-//          width: screenWidth,
-              child: BottomNavigationBar(
-                currentIndex: _selectedIndex,
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.home),
-                      title: Text('', style: TextStyle(fontSize: 0.0))),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.search),
-                      title: Text('', style: TextStyle(fontSize: 0.0))),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.add),
-                      title: Text('', style: TextStyle(fontSize: 0.0))),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.person),
-                      title: Text('', style: TextStyle(fontSize: 0.0)))
-                ],
-                selectedItemColor: Color(0xffE5306C),
-                onTap: _onItemTapped,
-                backgroundColor: Colors.white,
-                unselectedItemColor: Colors.grey,
-                elevation: 0.0,
-                type: BottomNavigationBarType.fixed,
-                iconSize: 25,
-              ),
-            ),
+        body: Center(
+          child: _pageOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: SizedBox(
+          height: screenHeight * 0.12,
+          width: screenWidth,
+          child: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('', style: TextStyle(fontSize: 0.0))),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search), title: Text('', style: TextStyle(fontSize: 0.0))),
+              BottomNavigationBarItem(icon: Icon(Icons.add), title: Text('', style: TextStyle(fontSize: 0.0))),
+              BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('', style: TextStyle(fontSize: 0.0)))
+            ],
+            selectedItemColor: Color(0xffE5306C),
+            onTap: _onItemTapped,
+            backgroundColor: Colors.white,
+            unselectedItemColor: Colors.grey,
+            elevation: 0.0,
+            type: BottomNavigationBarType.fixed,
+            iconSize: 30,
 
-    );
+          ),
+        ));
   }
 }

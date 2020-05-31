@@ -1,17 +1,9 @@
-import 'dart:io';
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-import 'package:capitalvotes/pages/add_category.dart';
-import 'package:capitalvotes/pages/confirm_contest.dart';
 import 'package:provider/provider.dart';
-import 'package:capitalvotes/pages/imagecapture.dart';
 import 'package:flutter/material.dart';
 import 'package:capitalvotes/shared/constants.dart';
-import 'package:capitalvotes/shared/multiline_textfield.dart';
 
 class AddContest extends StatefulWidget {
-  final File contestImage;
-
-  AddContest({Key key, this.contestImage}) : super(key: key);
 
   @override
   _AddContestState createState() => _AddContestState();
@@ -26,7 +18,8 @@ class _AddContestState extends State<AddContest> {
   final DateTime _selectedDate = DateTime.now();
   final TimeOfDay _selectedTime = TimeOfDay.now();
 
-  _multiLineNav() => pushGoTo(context, MultiLineTextField(location: 'contest'));
+
+  _multiLineNav() => navigateToMultilineText(context, 'contest');
 
 
 // Date picker
@@ -103,7 +96,6 @@ class _AddContestState extends State<AddContest> {
   // The Save button
 
   _save(contestBloc) {
-    contestBloc.setContestBanner = imageFileToString(widget.contestImage);
     print('The contest Image string is: ${contestBloc.getContestBanner}');
     print('The contest Name is: ${contestBloc.getContestName}');
     print('The contest Description is: ${contestBloc.getContestDescription}');
@@ -119,9 +111,9 @@ class _AddContestState extends State<AddContest> {
       // you'd often call a server or save the information in a database.
 
       if (contestBloc.getIsCategory == false) {
-        pushGoTo(context, ConfirmContest());
+        pushGoTo(context, '/ConfirmContest');
       } else {
-        pushGoTo(context, AddCategory());
+        pushGoTo(context, '/AddCategory');
       }
 //
 //                                        Scaffold.of(context).showSnackBar(
@@ -150,23 +142,14 @@ class _AddContestState extends State<AddContest> {
 
 
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text(
-            'Create Contest',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          backgroundColor: Colors.white,
-          iconTheme: Theme.of(context).iconTheme,
-          elevation: 0.0,
-        ),
+        appBar: topAppBar2('Create Contest', context),
         backgroundColor: Colors.white,
         body: Builder(
             builder: (context) => ListView(
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      pushGoTo(context, ImageCapture(location: 'add_contest'));
+                      navigateToImageCapture(context, 'add_contest');
                     },
                     child: Container(
                       height: screenHeight * 0.30,
@@ -185,13 +168,8 @@ class _AddContestState extends State<AddContest> {
                                 color: Color(0X99FFFFFF),
                               )),
                           Positioned.fill(
-                              child: widget.contestImage != null
-                                  ? Image.file(
-                                      widget.contestImage,
-                                      fit: BoxFit.cover,
-                                      height: screenHeight * 0.25,
-                                      width: screenWidth,
-                                    )
+                              child: contestBloc.getContestBanner != null
+                                  ? Image.memory(stringToImageFile(contestBloc.getContestBanner), fit: BoxFit.cover,)
                                   : Container(color: Colors.transparent)),
 //                                  : Text('')),
                           Positioned(
@@ -205,7 +183,7 @@ class _AddContestState extends State<AddContest> {
                                       borderRadius: BorderRadius.circular(40)),
                                   icon: Icon(Icons.photo_library,
                                       color: Colors.white, size: 16.0),
-                                  label: Text(widget.contestImage == null ? 'Add Cover Picture' :  'Edit Cover Image' ,
+                                  label: Text(contestBloc.getContestBanner == null ? 'Add Cover Picture' :  'Edit Cover Image' ,
                                       style: TextStyle(
                                           fontSize: 9.0,
                                           fontFamily: 'poppins',
@@ -484,7 +462,7 @@ class _AddContestState extends State<AddContest> {
                                 child: RaisedButton(
                                     padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02,),
                                     color: contestBloc.getContestName != null &&
-                                            widget.contestImage != null &&
+                                        contestBloc.getContestBanner != null &&
                                             contestBloc.getStartTime != null &&
                                         contestBloc.getEndTime != null &&
                                         contestBloc.getStartDate != null &&
@@ -493,7 +471,7 @@ class _AddContestState extends State<AddContest> {
                                         : Color(0x65E5306C),
                                     onPressed: () {
                                       contestBloc.getContestName != null &&
-                                          widget.contestImage != null &&
+                                          contestBloc.getContestBanner != null &&
                                           contestBloc.getContestDescription != null &&
                                           contestBloc.getStartTime != null &&
                                           contestBloc.getEndTime != null &&

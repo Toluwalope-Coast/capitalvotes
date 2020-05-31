@@ -2,10 +2,7 @@ import 'package:capitalvotes/blocs/category_bloc.dart';
 import 'package:capitalvotes/blocs/contest_bloc.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
 import 'package:capitalvotes/shared/constants.dart';
-import 'package:capitalvotes/pages/add_category.dart';
-import 'package:capitalvotes/shared/multiline_textfield.dart';
 import 'package:provider/provider.dart';
-import 'package:capitalvotes/pages/imagecapture.dart';
 import 'package:flutter/material.dart';
 
 class AddCategoryData extends StatefulWidget {
@@ -17,7 +14,8 @@ class AddCategoryData extends StatefulWidget {
 class _AddCategoryDataState extends State<AddCategoryData> {
   final _formKey = GlobalKey<FormState>();
 
-  _multiLineNav() => pushGoTo(context, MultiLineTextField(location: 'category'));
+
+  _multiLineNav() => navigateToMultilineText(context, 'category');
 
 
   _save(contestBloc, localCategoryBlocState) {
@@ -45,7 +43,7 @@ class _AddCategoryDataState extends State<AddCategoryData> {
 
       localCategoryBlocState.setCategoryBanner = null;
 
-      popGoTo(context, AddCategory());
+      popGoTo(context,'/AddCategory');
 
 
     } else{
@@ -74,22 +72,13 @@ class _AddCategoryDataState extends State<AddCategoryData> {
 
 
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: Text(
-            'New Category',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          backgroundColor: Color(0xffe2e0e5),
-          iconTheme: Theme.of(context).iconTheme,
-          elevation: 0.0,
-        ),
-        backgroundColor: Color(0xffe2e0e5),
+        appBar: topAppBar2('New Category', context),
+        backgroundColor: Colors.white,
         body: Builder(
             builder: (context) => ListView(children: <Widget>[
               InkWell(
                 onTap: () {
-                  pushGoTo(context, ImageCapture(location: 'add_category'));
+                  navigateToImageCapture(context, 'add_category');
                 },
                 child: Container(
                   height: screenHeight * 0.30,

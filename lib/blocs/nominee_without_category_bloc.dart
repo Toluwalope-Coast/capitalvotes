@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-
-class NomineeWithOutCategoryBloc extends ChangeNotifier {
-  String id;
-  String name;
-  String contestantImage;
-  String bio;
+class NomineeWithOutCategoryBloc {
+  String nomineeId;
+  String nomineeName;
+  String nomineeImage;
+  String nomineeBio;
+  String nomineeState;
+  String nomineeCountry;
+  String nomineeNumber;
 
 }
