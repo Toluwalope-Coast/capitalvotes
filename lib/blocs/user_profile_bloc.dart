@@ -1,17 +1,20 @@
 
+import 'package:capitalvotes/blocs/payment_card.dart';
 import 'package:flutter/material.dart';
+
+
 
 class UserProfileBloc extends ChangeNotifier{
   String _uID;
   String _fullName;
-  String _userName;
+  String _userName = 'Michael Kings';
   String _gender;
   String _email;
-  String _website;
+  String _website = 'www.michaelkings.com';
   String _phoneNo;
   String _userImage;
-  String _country;
-  String _bio;
+  String _country= 'Lagos,Nigeria';
+  String _bio = '😭connoisseur of RAREGEMS 😁 hey go p 🎨🎞️🎥2D/3D still and motion graphics designer did and Mesa doing and any checks but and the and hmm and and and did';
 
 
   // Getters
@@ -89,6 +92,41 @@ class UserProfileBloc extends ChangeNotifier{
   set setBio(String value) {
     _bio = value;
   }
+
+
+
+
+  List<PaymentCard> paymentCardList = [
+//    PaymentCard(
+//      cardVendorImageUrl: 'assets/images/brands/mc_symbol.png',
+//      cardNum: 992737327,
+//      isDebit: true,
+//      isSelected: false,
+//    ),
+//    PaymentCard(
+//      cardVendorImageUrl: 'assets/images/brands/mc_symbol.png',
+//      cardNum: 3876761562,
+//      isDebit: false,
+//      isSelected: false,
+//    ),
+//    PaymentCard(
+//      cardVendorImageUrl: 'assets/images/brands/mc_symbol.png',
+//      cardNum: 2763526532,
+//      isDebit: true,
+//      isSelected: false,
+//    ),
+  ];
+
+  addPaymentCardToList(PaymentCard paymentCard){
+    paymentCardList.add(paymentCard);
+    notifyListeners();
+  }
+
+
+
+
+
+
 
 
 // Constructors
