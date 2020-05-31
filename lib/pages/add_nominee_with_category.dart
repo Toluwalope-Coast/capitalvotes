@@ -35,6 +35,8 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
         localNomineeWithCategoryBlocState.getNomineeState;
     nomineeWithCategoryBloc.nomineeNumber =
         localNomineeWithCategoryBlocState.getNomineeNumber;
+    nomineeWithCategoryBloc.categoryName =
+        localNomineeWithCategoryBlocState.getNomineeCategoryName;
 
     print(
         'The Nominee Name is: ${nomineeWithCategoryBloc.nomineeName}');
@@ -44,16 +46,20 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
     print(
         'The Nominee State string is: ${nomineeWithCategoryBloc.nomineeState}');
     print(
-        'The Nominee Country string is: ${nomineeWithCategoryBloc.nomineeCountry}');
+        'The Nominee Country string is: ${nomineeWithCategoryBloc
+            .nomineeCountry}');
     print(
-        'The Nominee Number string is: ${nomineeWithCategoryBloc.nomineeNumber}');
+        'The Nominee Number string is: ${nomineeWithCategoryBloc
+            .nomineeNumber}');
 
     // Validate returns true if the form is valid, otherwise false.
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
+      int categoryIndex = contestBloc.contestCategoryList.indexOf(
+          contestBloc.contestCategoryList[nomineeWithCategoryBloc.categoryName]);
 
-      contestBloc.addNomineeToContestList(nomineeWithCategoryBloc);
+      contestBloc.addNomineeToContestCategory(nomineeWithCategoryBloc);
 
       localNomineeWithCategoryBlocState.setNomineeName = null;
 
@@ -71,9 +77,15 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
   @override
   Widget build(BuildContext context) {
     // Media Query Responsiveness
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
 
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     ContestBloc contestBloc = Provider.of<ContestBloc>(context);
 
@@ -150,7 +162,10 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                   children: <Widget>[
                     Text(
                       'Nominee Name',
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2,
                     ),
                     Container(
                         height: screenHeight * 0.06,
@@ -187,7 +202,10 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                     Text(
                       'Nominee Bio',
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2,
                     ),
                     InkWell(
                       onTap: _multiLineNav,
@@ -230,7 +248,10 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                     SizedBox(height: screenHeight * 0.03),
                     Text(
                       'Country',
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2,
                     ),
                     Container(
                       height: screenHeight * 0.06,
@@ -254,9 +275,11 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                         showCurrencyISO: false,
                         //eg. 'GBP'
                         onChanged: (Country country) {
-                          localNomineeWithCategoryBlocState.setNomineeCountry = country.name;
+                          localNomineeWithCategoryBlocState.setNomineeCountry =
+                              country.name;
                           print(
-                              'This is the country ${localNomineeWithCategoryBlocState.getNomineeCountry}.');
+                              'This is the country ${localNomineeWithCategoryBlocState
+                                  .getNomineeCountry}.');
                           setState(() {
                             _selected = country;
                           });
@@ -271,16 +294,21 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                     SizedBox(height: 20.0),
                     Text(
                       'State',
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2,
                     ),
                     Container(
                         height: screenHeight * 0.06,
                         padding: EdgeInsets.all(0.0),
                         child: TextFormField(
                             initialValue:
-                            localNomineeWithCategoryBlocState.getNomineeState == null
+                            localNomineeWithCategoryBlocState.getNomineeState ==
+                                null
                                 ? ''
-                                : localNomineeWithCategoryBlocState.getNomineeState,
+                                : localNomineeWithCategoryBlocState
+                                .getNomineeState,
                             textAlignVertical:
                             TextAlignVertical.bottom,
                             textAlign: TextAlign.left,
@@ -290,7 +318,7 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color:Color(0X553D2960))),
+                                        color: Color(0X553D2960))),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: Color(0X553D2960))),
@@ -304,20 +332,27 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                                     TextBaseline.alphabetic),
                                 filled: true,
                                 fillColor: Colors.white),
-                            onChanged: (value) => localNomineeWithCategoryBlocState.setNomineeState = value)),
+                            onChanged: (value) =>
+                            localNomineeWithCategoryBlocState.setNomineeState =
+                                value)),
                     SizedBox(height: 10.0),
                     Text(
                       'Nominee Number',
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2,
                     ),
                     Container(
                         height: screenHeight * 0.06,
                         padding: EdgeInsets.all(0.0),
                         child: TextFormField(
                             initialValue:
-                            localNomineeWithCategoryBlocState.getNomineeNumber == null
+                            localNomineeWithCategoryBlocState
+                                .getNomineeNumber == null
                                 ? ''
-                                : localNomineeWithCategoryBlocState.getNomineeNumber,
+                                : localNomineeWithCategoryBlocState
+                                .getNomineeNumber,
                             textAlignVertical:
                             TextAlignVertical.bottom,
                             textAlign: TextAlign.left,
@@ -327,7 +362,7 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color:Color(0X553D2960))),
+                                        color: Color(0X553D2960))),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: Color(0X553D2960))),
@@ -341,7 +376,9 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                                     TextBaseline.alphabetic),
                                 filled: true,
                                 fillColor: Colors.white),
-                            onChanged: (value) => localNomineeWithCategoryBlocState.setNomineeState = value)),
+                            onChanged: (value) =>
+                            localNomineeWithCategoryBlocState.setNomineeState =
+                                value)),
                     SizedBox(height: 10.0),
                     Container(
                       width: screenWidth,
@@ -357,7 +394,7 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                                   .getNomineeImage !=
                                   null &&
                               localNomineeWithCategoryBlocState
-                                  .getNomineeCountry  != null &&
+                                  .getNomineeCountry != null &&
                               localNomineeWithCategoryBlocState
                                   .getNomineeState != null
                               ? Color(0xffE5306C)
@@ -373,7 +410,7 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                                     .getNomineeImage !=
                                     null &&
                                 localNomineeWithCategoryBlocState
-                                    .getNomineeCountry  != null &&
+                                    .getNomineeCountry != null &&
                                 localNomineeWithCategoryBlocState
                                     .getNomineeState != null
                                 ? _save(contestBloc,
@@ -383,7 +420,10 @@ class _AddNomineeWithCategoryState extends State<AddNomineeWithCategory> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40)),
                           child: Text('Add',
-                              style: Theme.of(context).textTheme.button)),
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .button)),
                     )
                   ]),
             ))

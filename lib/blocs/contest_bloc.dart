@@ -206,22 +206,21 @@ class ContestBloc extends ChangeNotifier{
 // Category Nominee
 
 
-  addNomineeToCategoryList(int index, NomineeWithCategoryBloc nominee){
+  addNomineeToContestCategory(int index, NomineeWithCategoryBloc nominee){
     contestCategoryList[index].addNomineeToCategoryList(nominee);
     notifyListeners();
   }
 
-  removeNomineeFromCategory(int index, NomineeWithCategoryBloc nominee){
-    contestCategoryList[index].removeNomineeFromCategoryList(index).removeAt(contestCategoryList.indexOf(category));
+  removeNomineeFromContestCategory(int categoryIndex, int nomineeIndex){
+    contestCategoryList[categoryIndex].removeNomineeFromCategoryList(nomineeIndex);
     notifyListeners();
   }
-  updateCategoryListFromContest(int index, CategoryBloc category){
-    contestCategoryList.removeAt(index);
-    contestCategoryList.insert(index, category);
+  updateNomineeListFromContestCategory(int categoryIndex, int nomineeIndex, NomineeWithCategoryBloc nominee){
+    contestCategoryList[categoryIndex].updateNomineeFromCategoryList(nomineeIndex, nominee);
     notifyListeners();
   }
 
-  removeTheEntireCategoryList(){
+  removeTheEntireNomineeFromContestCategory(){
     contestCategoryList.clear();
     notifyListeners();
   }

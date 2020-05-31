@@ -22,7 +22,7 @@ class CategoryBloc{
     nomineesList.removeAt(index);
   }
 updateNomineeFromCategoryList(int index, NomineeWithCategoryBloc nominee){
-    removeNomineeFromCategoryList(index);
+    nomineesList.removeAt(index);
     nomineesList.insert(index, nominee);
 }
 

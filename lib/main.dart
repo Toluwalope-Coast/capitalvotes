@@ -73,7 +73,7 @@ class CapitalVotes extends StatelessWidget {
             '/VoteRate': (context) => VoteRate(),
             '/UpdateCategoryData': (context) => UpdateCategoryData(),
             '/AddNomineeWithCategory': (context) => AddNomineeWithCategory(),
-            '/UpdateNomineeWithCategory': (context) => UpdateNomineeWithCategory(),
+//            '/UpdateNomineeWithCategory': (context) => UpdateNomineeWithCategory(),
             '/AddNomineeWithOutCategory': (context) => AddNomineeWithOutCategory(),
             '/UpdateNomineeWithOutCategory': (context) => UpdateNomineeWithoutCategory(),
             '/ConfirmContest': (context) => ConfirmContest(),
