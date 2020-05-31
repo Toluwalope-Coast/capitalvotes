@@ -35,9 +35,21 @@ void main() => runApp(CapitalVotes());
 class CapitalVotes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
 
 
 
+||||||| parent of 9bcaa76... stage
+<<<<<<< HEAD
+
+
+
+=======
+    // TODO: implement build
+>>>>>>> enny
+=======
+    // TODO: implement build
+>>>>>>> 9bcaa76... stage
 //    return StreamProvider<User>.value(
 //      value: AuthenticationService().authenticatedUser,
 //      child: MaterialApp(
