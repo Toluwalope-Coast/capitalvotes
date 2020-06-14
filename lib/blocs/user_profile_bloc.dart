@@ -93,43 +93,19 @@ class UserProfileBloc extends ChangeNotifier{
     _bio = value;
   }
 
-
-
-
-  List<PaymentCard> paymentCardList = [
-//    PaymentCard(
-//      cardVendorImageUrl: 'assets/images/brands/mc_symbol.png',
-//      cardNum: 992737327,
-//      isDebit: true,
-//      isSelected: false,
-//    ),
-//    PaymentCard(
-//      cardVendorImageUrl: 'assets/images/brands/mc_symbol.png',
-//      cardNum: 3876761562,
-//      isDebit: false,
-//      isSelected: false,
-//    ),
-//    PaymentCard(
-//      cardVendorImageUrl: 'assets/images/brands/mc_symbol.png',
-//      cardNum: 2763526532,
-//      isDebit: true,
-//      isSelected: false,
-//    ),
-  ];
+  List<PaymentCard> paymentCardList = [];
+//  List<ContestBloc> userContestList = [ContestBloc()];
 
   addPaymentCardToList(PaymentCard paymentCard){
     paymentCardList.add(paymentCard);
     notifyListeners();
   }
 
-
-
-
-
-
-
+  removeCardFromPaymentCardList(index) {
+    paymentCardList.removeAt(index);
+    notifyListeners();
+  }
 
 // Constructors
-
 
 }
