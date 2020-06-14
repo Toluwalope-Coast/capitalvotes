@@ -1,5 +1,6 @@
 import 'package:capitalvotes/blocs/payment_card.dart';
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
+import 'package:capitalvotes/shared/constants.dart';
 import 'package:capitalvotes/shared/form_util.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:flutter/material.dart';
@@ -31,55 +32,65 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     UserProfileBloc userProfileBloc = Provider.of<UserProfileBloc>(context);
 
-    // Helper Method to create card widgets
-    Widget getCardContainer(BuildContext context) {
+    // PAYMENTS CARD BUILDER
+    Widget getCardContainer() {
       return Container(
-        height: MediaQuery.of(context).size.height / 4,
-        margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-        padding: EdgeInsets.only(bottom: 20.0),
+        height: MediaQuery.of(context).size.height * 0.24,
+        margin: EdgeInsets.fromLTRB(0.0, 18.0, 0.0, 0.0),
+        padding: EdgeInsets.only(bottom: 10.0),
         child: userProfileBloc.paymentCardList.isEmpty
             ? Center(child: Text('Add A Payment method please'))
-            : ListView.builder(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: userProfileBloc.paymentCardList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  PaymentCard paymentCard = userProfileBloc.paymentCardList[index];
-                  return PaymentMethodCardWidget(
-                    cardBrandImgUrl: paymentCard.cardVendorImageUrl,
-                    cardNum: paymentCard.cardNum,
-                    cardType: paymentCard.getCardType(),
-                    isSelected: paymentCard.isSelected,
-                    onTap: () {
-                      setState(() {
-                        /*
+            : Center(
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: userProfileBloc.paymentCardList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    PaymentCard paymentCard =
+                        userProfileBloc.paymentCardList[index];
+                    return PaymentMethodCardWidget(
+                      cardBrandImgUrl: paymentCard.cardVendorImageUrl,
+                      cardNum: paymentCard.cardNum,
+                      cardType: paymentCard.getCardType(),
+                      isSelected: paymentCard.isSelected,
+                      onTap: () {
+                        setState(() {
+                          /*
                To achieve effect found with radio buttons
                 */
-                        // on every card click
-                        // set state isSeleted = false to deselect all selected cards
-                        userProfileBloc.paymentCardList
-                            .forEach((element) => element.isSelected = false);
-                        // then
-                        // set the selected card state isSelected = true
-                        paymentCard.isSelected = true;
-                      });
-                    },
-                  );
-                },
+                          // on every card click
+                          // set state isSelected = false to deselect all selected cards
+                          userProfileBloc.paymentCardList
+                              .forEach((element) => element.isSelected = false);
+                          // then
+                          // set the selected card state isSelected = true
+                          paymentCard.isSelected = true;
+                        });
+                      },
+                    );
+                  },
+                ),
               ),
       );
     }
+    final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
 
     return Scaffold(
       appBar: _screenAppBar,
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[
-          getCardContainer(context),
+//          PAYMENT CARDS CONTAINER
+          getCardContainer(),
           Divider(thickness: 2.0, color: Colors.grey[200]),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 8.0, 0.0, 20.0),
-            child: Text('Add payment method'),
+            padding: const EdgeInsets.fromLTRB(20.0, 8.0, 0.0, 16.0),
+            child: Text(
+              'Add payment method',
+              style: TextStyle(
+                fontSize: 12.0,
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
@@ -88,24 +99,35 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 PaymentMethodOptionWidget(
+                  enabled: userProfileBloc.paymentCardList.length == 3
+                      ? false
+                      : true,
                   title: 'Add Credit or Debit Card',
                   trailingImgUrl: PaymentMethodImages().mcDarkImgUrl,
                   onTap: () {
-
+                    userProfileBloc.paymentCardList.length == 3
+                        ? print('add no more cards')
+                        : pushGoTo(context, '/AddPaymentCardScreen');
                   },
                 ),
                 PaymentMethodOptionWidget(
+                  enabled: true,
                   title: 'Paypal',
                   trailingImgUrl: PaymentMethodImages().payPalImgUrl,
-                  onTap: () {},
+                  onTap: () {
+                    pushGoTo(context, '/AddPayPalAccountScreen');
+                  },
                 ),
                 PaymentMethodOptionWidget(
+                  enabled: true,
                   title: 'Promo code',
                   trailingImgUrl: PaymentMethodImages().promoCodeImgUrl,
-                  onTap: () {},
+                  onTap: () {
+                    pushGoTo(context, '/PromoCodeScreen');
+                  },
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 20.0),
+                  padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 20.0),
                   child: privacyStatementWidget,
                 ),
               ],
@@ -113,8 +135,12 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
           ),
           Divider(thickness: 2.0, color: Colors.grey[200]),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
+            padding: EdgeInsets.symmetric(
+              vertical: screenHeight * 0.07,
+              horizontal: screenWidth * 0.08,
+            ),
             child: RaisedButton(
+              
               child: Text('PROCEED'),
               color: capitalVotesTheme().primaryColor,
               textColor: Colors.white,
@@ -137,7 +163,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
 Widget privacyStatementWidget = FittedBox(
   child: Row(
     children: <Widget>[
-      Icon(Icons.lock, size: 16.0),
+      Icon(Icons.lock, size: 18.0),
       RichText(
         text: TextSpan(
           style: TextStyle(fontSize: 12.0, color: Colors.black54),
@@ -158,12 +184,7 @@ Widget privacyStatementWidget = FittedBox(
 class PaymentMethodCardWidget extends StatelessWidget {
   final String cardNum;
   final bool isSelected;
-  final double _paymentCardWidth = 100.0;
   final String cardBrandImgUrl, cardType;
-  final Border _isSelectedBorder =
-      Border.all(width: 2.0, color: capitalVotesTheme().primaryColor);
-  final Border _isNotSelectedBorder =
-      Border.all(width: 1.0, color: Colors.grey[300]);
   final VoidCallback onTap;
 
   PaymentMethodCardWidget(
@@ -171,52 +192,48 @@ class PaymentMethodCardWidget extends StatelessWidget {
       this.cardBrandImgUrl,
       this.cardNum,
       this.cardType,
-      this.isSelected,
-      this.onTap});
+      this.onTap,
+      this.isSelected});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      radius: 300.0,
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(12.0),
-        width: _paymentCardWidth,
+        width: MediaQuery.of(context).size.width * 0.285,
+        margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: isSelected ? _isSelectedBorder : _isNotSelectedBorder,
           borderRadius: BorderRadius.circular(12.0),
+          border: isSelected
+              ? Border.all(
+                  color: capitalVotesTheme().primaryColor,
+                  width: 2.0,
+                )
+              : Border.all(color: Colors.white70),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey[200],
-              blurRadius: 4.0,
-              spreadRadius: 4.0,
+              color: Colors.grey[300],
+              blurRadius: 2.0,
+              spreadRadius: 2.0,
             ),
           ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            DecoratedBox(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        width: 1.0,
-                        color: isSelected
-                            ? capitalVotesTheme().primaryColor
-                            : Colors.grey[200])),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image(
-                  width: 80.0,
-                  height: 40.0,
-                  image: AssetImage(cardBrandImgUrl),
-                ),
-              ),
+            Image(
+              width: 60.0,
+              height: 25.0,
+              image: AssetImage(cardBrandImgUrl),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 20.0),
+            Divider(
+              color: Colors.grey,
+              thickness: 1.0,
             ),
-            Text('***${(cardNum).substring(6)}'),
+            Text('**${cardNum.substring(13)}'),
             Text(cardType),
           ],
         ),
@@ -227,13 +244,14 @@ class PaymentMethodCardWidget extends StatelessWidget {
 
 // Helper class to handle UI Design and state of payment method options
 class PaymentMethodOptionWidget extends StatelessWidget {
+  final bool enabled;
   final double width = 320.0;
   final String title;
   final VoidCallback onTap;
   final String trailingImgUrl;
 
   const PaymentMethodOptionWidget(
-      {Key key, this.onTap, this.trailingImgUrl, this.title})
+      {Key key, this.onTap, this.enabled, this.trailingImgUrl, this.title})
       : super(key: key);
 
   @override
@@ -241,20 +259,22 @@ class PaymentMethodOptionWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: width,
-        margin: EdgeInsets.symmetric(vertical: 8.0),
+        width: MediaQuery.of(context).size.width * 0.96,
+        margin: EdgeInsets.symmetric(vertical: 10.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey[200],
-              blurRadius: 4.0,
-              spreadRadius: 4.0,
+              color: Colors.grey[300],
+              offset: Offset(0.0, 3.0),
+              blurRadius: 2.0,
+              spreadRadius: 3.0,
             ),
           ],
         ),
         child: ListTile(
+          enabled: enabled,
           contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
           leading: Container(
             height: 20.0,
@@ -264,22 +284,31 @@ class PaymentMethodOptionWidget extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey[200],
-                  blurRadius: 4.0,
-                  spreadRadius: 4.0,
+                  color: Colors.grey[300],
+                  offset: Offset(0.0, 3.0),
+                  blurRadius: 2.0,
+                  spreadRadius: 1.0,
                 ),
               ],
             ),
           ),
-          title: Text(title, style: display2TextStyle.copyWith(
-            fontWeight: FontWeight.w500,
-          ),),
+          title: Text(
+            title,
+            style: display2TextStyle.copyWith(
+              fontWeight: FontWeight.w500,
+              color: !enabled ? Colors.grey[300] : display2TextStyle.color,
+            ),
+          ),
           trailing: ClipRRect(
             borderRadius: BorderRadius.circular(4.0),
-            child: Image(
-              image: AssetImage(trailingImgUrl),
-              width: 27.0,
-            ),
+            child: !enabled
+                ? SizedBox(
+                    width: 0.0,
+                  )
+                : Image(
+                    image: AssetImage(trailingImgUrl),
+                    width: 27.0,
+                  ),
           ),
         ),
       ),

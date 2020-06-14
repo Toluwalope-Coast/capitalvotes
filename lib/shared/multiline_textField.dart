@@ -2,10 +2,7 @@ import 'package:capitalvotes/blocs/contest_bloc.dart';
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
-import 'package:capitalvotes/services/nominee_with_category_local_state.dart';
-import 'package:capitalvotes/services/nominee_with_category_update_local_state.dart';
-import 'package:capitalvotes/services/nominee_without_category_local_state.dart';
-import 'package:capitalvotes/services/nominee_without_category_update_local_state.dart';
+import 'package:capitalvotes/services/paypal_local_bloc.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,14 +31,8 @@ class _MultiLineTextFieldState extends State<MultiLineTextField> {
         Provider.of<LocalCategoryBlocState>(context);
     LocalCategoryUpdateBlocState localCategoryUpdateBlocState =
         Provider.of<LocalCategoryUpdateBlocState>(context);
-    LocalNomineeWithCategoryBlocState localNomineeWithCategoryBlocState =
-        Provider.of<LocalNomineeWithCategoryBlocState>(context);
-    LocalUpdateNomineeWithCategoryBlocState localUpdateNomineeWithCategoryBlocState =
-    Provider.of<LocalUpdateNomineeWithCategoryBlocState>(context);
-    LocalNomineeWithoutCategoryBlocState localNomineeWithoutCategoryBlocState =
-        Provider.of<LocalNomineeWithoutCategoryBlocState>(context);
-    LocalNomineeWithoutUpdateBlocState localNomineeWithoutUpdateBlocState =
-    Provider.of<LocalNomineeWithoutUpdateBlocState>(context);
+	PayPalLocalBloc payPalLocalBloc =
+    Provider.of<PayPalLocalBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -88,25 +79,15 @@ class _MultiLineTextFieldState extends State<MultiLineTextField> {
                         _multilineTextFieldValue;
                     popGoTo(context, '/UpdateCategoryData');
                     break;
-                  case 'nomineeWithCategory':
-                    localNomineeWithCategoryBlocState.setNomineeBio =
+                  case 'street address 1':
+                    payPalLocalBloc.userStreetAddress1 =
                         _multilineTextFieldValue;
-                    popGoTo(context, '/AddNomineeWithCategory');
+                    popGoTo(context, '/AddPayPalAccountScreen');
                     break;
-                  case 'updateNomineeWithCategory':
-                    localUpdateNomineeWithCategoryBlocState.setNomineeBio =
+                  case 'street address 2':
+                    payPalLocalBloc.userStreetAddress2 =
                         _multilineTextFieldValue;
-                    popGoTo(context, '/UpdateNomineeWithCategory');
-                    break;
-                  case 'nomineeWithoutCategory':
-                    localNomineeWithoutCategoryBlocState.setNomineeBio =
-                        _multilineTextFieldValue;
-                    popGoTo(context, '/AddNomineeWithOutCategory');
-                    break;
-                  case 'updateNomineeWithoutCategory':
-                    localNomineeWithoutUpdateBlocState.setNomineeBio =
-                        _multilineTextFieldValue;
-                    popGoTo(context, '/UpdateNomineeWithOutCategory');
+                    popGoTo(context, '/AddPayPalAccountScreen');
                     break;
                 }
               }

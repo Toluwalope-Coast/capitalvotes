@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 class LocalCategoryBlocState extends ChangeNotifier{
 
+  int _categoryIndex;
   String _categoryName;
   String _categoryDescription;
   String _categoryBanner;
 
 // Getters
+
+  int get getCategoryIndex => _categoryIndex;
 
   String get getCategoryName => _categoryName;
 
@@ -16,6 +19,11 @@ class LocalCategoryBlocState extends ChangeNotifier{
 
 
   //Setters
+
+  set setCategoryIndex(int value) {
+    _categoryIndex = value;
+    notifyListeners();
+  }
 
   set setCategoryName(String value) {
     _categoryName = value;

@@ -1,5 +1,5 @@
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-import 'package:capitalvotes/blocs/nominee_without_category_bloc.dart';
+import 'package:capitalvotes/blocs/nominee_bloc.dart';
 import 'package:capitalvotes/services/nominee_without_category_update_local_state.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:flutter_country_picker/flutter_country_picker.dart';
@@ -23,32 +23,29 @@ class _UpdateNomineeWithoutCategoryState
 
   _save(contestBloc, localNomineeWithoutUpdateBlocState) {
     // instance of the category object
-    NomineeWithOutCategoryBloc nomineeWithOutCategoryBloc =
-        new NomineeWithOutCategoryBloc();
+    NomineeBloc nomineeBloc = new NomineeBloc();
 
-    nomineeWithOutCategoryBloc.nomineeName =
-        localNomineeWithoutUpdateBlocState.getNomineeName;
-    nomineeWithOutCategoryBloc.nomineeBio =
-        localNomineeWithoutUpdateBlocState.getNomineeBio;
-    nomineeWithOutCategoryBloc.nomineeImage =
+    nomineeBloc.nomineeName = localNomineeWithoutUpdateBlocState.getNomineeName;
+    nomineeBloc.nomineeProfession = localNomineeWithoutUpdateBlocState.getNomineeBio;
+    nomineeBloc.nomineeImage =
         localNomineeWithoutUpdateBlocState.getNomineeImage;
-    nomineeWithOutCategoryBloc.nomineeCountry =
+    nomineeBloc.nomineeCountry =
         localNomineeWithoutUpdateBlocState.getNomineeCountry;
-    nomineeWithOutCategoryBloc.nomineeState =
+    nomineeBloc.nomineeState =
         localNomineeWithoutUpdateBlocState.getNomineeState;
-    nomineeWithOutCategoryBloc.nomineeNumber =
+    nomineeBloc.nomineeNumber =
         localNomineeWithoutUpdateBlocState.getNomineeNumber;
 
-    print('The Nominee Name is: ${nomineeWithOutCategoryBloc.nomineeName}');
-    print('The Nominee Bio is: ${nomineeWithOutCategoryBloc.nomineeBio}');
+    print('The Nominee Name is: ${nomineeBloc.nomineeName}');
+    print('The Nominee Bio is: ${nomineeBloc.nomineeProfession}');
     print(
-        'The Nominee Image string is: ${nomineeWithOutCategoryBloc.nomineeImage}');
+        'The Nominee Image string is: ${nomineeBloc.nomineeImage}');
     print(
-        'The Nominee State string is: ${nomineeWithOutCategoryBloc.nomineeState}');
+        'The Nominee State string is: ${nomineeBloc.nomineeState}');
     print(
-        'The Nominee Country string is: ${nomineeWithOutCategoryBloc.nomineeCountry}');
+        'The Nominee Country string is: ${nomineeBloc.nomineeCountry}');
     print(
-        'The Nominee Number string is: ${nomineeWithOutCategoryBloc.nomineeNumber}');
+        'The Nominee Number string is: ${nomineeBloc.nomineeNumber}');
 
     // Validate returns true if the form is valid, otherwise false.
     if (_formKey.currentState.validate()) {
@@ -57,7 +54,7 @@ class _UpdateNomineeWithoutCategoryState
 
       contestBloc.updateNomineeFromContestList(
           localNomineeWithoutUpdateBlocState.getNomineeIndex,
-          nomineeWithOutCategoryBloc);
+          nomineeBloc);
 
       localNomineeWithoutUpdateBlocState.setNomineeName = null;
 
@@ -313,6 +310,7 @@ class _UpdateNomineeWithoutCategoryState
                     Container(
                       width: screenWidth,
                       child: RaisedButton(
+                          padding: EdgeInsets.only(top: screenWidth * 0.054, bottom: screenWidth * 0.054),
                           color:
                               localNomineeWithoutUpdateBlocState
                                               .getNomineeName !=

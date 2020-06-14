@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 class AddCategoryData extends StatefulWidget {
+  final String categoryIndex;
+
+  AddCategoryData({Key key, this.categoryIndex}) : super(key: key);
 
   @override
   _AddCategoryDataState createState() => _AddCategoryDataState();
@@ -19,13 +22,16 @@ class _AddCategoryDataState extends State<AddCategoryData> {
 
 
   _save(contestBloc, localCategoryBlocState) {
+    localCategoryBlocState.setCategoryIndex = int.parse(widget.categoryIndex);
     // instance of the category object
     CategoryBloc categoryBloc = new CategoryBloc();
 
+    categoryBloc.categoryIndex = localCategoryBlocState.getCategoryIndex;
     categoryBloc.categoryBanner = localCategoryBlocState.getCategoryBanner;
     categoryBloc.categoryDescription = localCategoryBlocState.getCategoryDescription;
     categoryBloc.categoryName = localCategoryBlocState.getCategoryName;
 
+    print('The category Index is: ${categoryBloc.categoryIndex}');
     print('The category Image string is: ${categoryBloc.categoryBanner}');
     print('The category Name is: ${categoryBloc.categoryName}');
     print('The category Description is: ${categoryBloc.categoryDescription}');
@@ -36,6 +42,8 @@ class _AddCategoryDataState extends State<AddCategoryData> {
 
       contestBloc.addCategoryList(categoryBloc);
 
+
+      localCategoryBlocState.setCategoryIndex = null;
 
       localCategoryBlocState.setCategoryName = null;
 
@@ -145,10 +153,10 @@ class _AddCategoryDataState extends State<AddCategoryData> {
                                   decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.white30)),
+                                              color: Color(0X553D2960))),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.white30)),
+                                              color:  Color(0X553D2960))),
                                       hintText: 'Category Name',
                                       hintStyle: TextStyle(
                                           fontSize: 14.0,
@@ -175,7 +183,7 @@ class _AddCategoryDataState extends State<AddCategoryData> {
                               padding: EdgeInsets.only(top: 4.0, right: 8.0, bottom: 0.0, left: 8.0),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(color: Colors.white),
+                                  border: Border.all(color: Color(0X553D2960)),
                                   color: Colors.white),
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
@@ -201,10 +209,11 @@ class _AddCategoryDataState extends State<AddCategoryData> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20.0),
+                          SizedBox(height: screenHeight * 0.1),
                           Container(
                             width: screenWidth,
                             child: RaisedButton(
+                              padding: EdgeInsets.only(top: screenWidth * 0.054, bottom: screenWidth * 0.054),
                                 color:  localCategoryBlocState.getCategoryDescription != null &&
                                     localCategoryBlocState.getCategoryBanner != null &&
                                     localCategoryBlocState.getCategoryName != null

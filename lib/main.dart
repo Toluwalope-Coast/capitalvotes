@@ -1,12 +1,15 @@
-//import 'package:capitalvotes/blocs/category_bloc.dart';
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-//import 'package:capitalvotes/blocs/nominee_with_category_bloc.dart';
-//import 'package:capitalvotes/blocs/nominee_without_category_bloc.dart';
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
-import 'package:capitalvotes/pages/pageloader.dart';
-import 'package:capitalvotes/pages/update_nominee_without_category.dart';
+import 'package:capitalvotes/pages/add_nominee_with_category.dart';
+import 'package:capitalvotes/pages/pageLoader.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
+import 'package:capitalvotes/services/nominee_local_state.dart';
+import 'package:capitalvotes/services/nominee_update_local_state.dart';
+import 'package:capitalvotes/services/nominee_without_category_local_state.dart';
+import 'package:capitalvotes/services/nominee_without_category_update_local_state.dart';
+import 'package:capitalvotes/services/paypal_local_bloc.dart';
+import 'package:capitalvotes/services/social_media_bloc_state.dart';
 //import 'package:capitalvotes/services/sign_in_authentication.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:flutter/material.dart';
@@ -17,17 +20,14 @@ import 'package:capitalvotes/pages/profile.dart';
 import 'package:capitalvotes/pages/profile_edit.dart';
 import 'package:capitalvotes/pages/add_contest.dart';
 import 'package:capitalvotes/pages/add_category.dart';
-import 'package:capitalvotes/pages/add_category_data.dart';
-import 'package:capitalvotes/pages/voterate.dart';
+import 'package:capitalvotes/pages/add_nominee.dart';
+import 'package:capitalvotes/pages/voteRate.dart';
 import 'package:capitalvotes/pages/update_category_data.dart';
-import 'package:capitalvotes/pages/add_nominee_with_category.dart';
-//import 'package:capitalvotes/pages/update_nominee_with_category.dart';
-import 'package:capitalvotes/pages/add_nominee_without_category.dart';
+import 'package:capitalvotes/pages/update_nominee_with_category.dart';
 import 'package:capitalvotes/pages/confirm_contest.dart';
-import 'package:capitalvotes/pages/creator_view_contest.dart';
-import 'file:///C:/Users/user/AndroidStudioProjects/capitalvotes/lib/services/imagecapture.dart';
-import 'package:capitalvotes/shared/multiline_textfield.dart';
-//import 'pages/appauthenticator.dart';
+import 'package:capitalvotes/pages/contest_view.dart';
+import 'package:capitalvotes/pages/vote_cart_screen.dart';
+//import 'pages/appAuthenticator.dart';
 //import 'blocs/user.dart';
 
 void main() => runApp(CapitalVotes());
@@ -54,11 +54,17 @@ class CapitalVotes extends StatelessWidget {
           ChangeNotifierProvider<UserProfileBloc>(create: (context) => UserProfileBloc()),
           ChangeNotifierProvider<LocalCategoryBlocState>(create: (context) => LocalCategoryBlocState()),
           ChangeNotifierProvider<LocalCategoryUpdateBlocState>(create: (context) => LocalCategoryUpdateBlocState()),
+          ChangeNotifierProvider<NomineeLocalBlocState>(create: (context) => NomineeLocalBlocState()),
+//          ChangeNotifierProvider<SocialMediaHandleBloc>(create: (context) => SocialMediaHandleBloc()),
+          ChangeNotifierProvider<LocalUpdateNomineeWithCategoryBlocState>(create: (context) => LocalUpdateNomineeWithCategoryBlocState()),
+          ChangeNotifierProvider<LocalNomineeWithoutCategoryBlocState>(create: (context) => LocalNomineeWithoutCategoryBlocState()),
+          ChangeNotifierProvider<LocalNomineeWithoutUpdateBlocState>(create: (context) => LocalNomineeWithoutUpdateBlocState()),
+          ChangeNotifierProvider<PayPalLocalBloc>(create: (context) => PayPalLocalBloc()),
         ],
         child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: capitalVotesTheme(),
-            initialRoute: '/Home',
+          debugShowCheckedModeBanner: false,
+          theme: capitalVotesTheme(),
+          initialRoute: '/AddNominee',
           routes: {
             '/': (context) => PageLoader(),
             '/Home': (context) => Home(),
@@ -66,18 +72,16 @@ class CapitalVotes extends StatelessWidget {
             '/Profile': (context) => Profile(),
             '/AddContest': (context) => AddContest(),
             '/EditProfile': (context) => ProfileEdit(),
-            '/MultiLineText': (context) => MultiLineTextField(),
-            '/ImageCapture': (context) => ImageCapture(),
             '/AddCategory': (context) => AddCategory(),
-            '/AddCategoryData': (context) => AddCategoryData(),
             '/VoteRate': (context) => VoteRate(),
             '/UpdateCategoryData': (context) => UpdateCategoryData(),
+            '/AddNominee': (context) => AddNominee(),
             '/AddNomineeWithCategory': (context) => AddNomineeWithCategory(),
-//            '/UpdateNomineeWithCategory': (context) => UpdateNomineeWithCategory(),
-            '/AddNomineeWithOutCategory': (context) => AddNomineeWithOutCategory(),
-            '/UpdateNomineeWithOutCategory': (context) => UpdateNomineeWithoutCategory(),
+            '/UpdateNomineeWithCategory': (context) => UpdateNomineeWithCategory(),
+            '/UpdateNomineeWithOutCategory': (context) => UpdateNomineeWithCategory(),
             '/ConfirmContest': (context) => ConfirmContest(),
             '/CreatorContestView': (context) => CreatorContestView(),
+            '/VoteScreen': (context) => VoteCartScreen(),
           },
 
         )

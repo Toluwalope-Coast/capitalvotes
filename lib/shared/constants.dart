@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:capitalvotes/services/imagecapture.dart';
+import 'package:capitalvotes/pages/add_category_data.dart';
+import 'package:capitalvotes/services/imageCapture.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-
-import 'multiline_textfield.dart';
+import 'multiline_textField.dart';
 
 
 // advert top containers
@@ -21,8 +21,7 @@ Widget advertContainer() {
 AppBar topAppBar(String title) {
   return AppBar(
     automaticallyImplyLeading: true,
-    titleSpacing: 0.0,
-    title: Text(title),
+    title: Text(title, style: TextStyle(fontSize: 16.0)),
     elevation: 0.0,
   );
 }
@@ -30,12 +29,7 @@ AppBar topAppBar(String title) {
 AppBar topAppBar2(String title, context) {
   return AppBar(
     automaticallyImplyLeading: true,
-    title: Text(
-      title,
-      style: Theme.of(context).textTheme.headline4,
-    ),
-    backgroundColor: Colors.white,
-    iconTheme: Theme.of(context).iconTheme,
+    title: Text(title, style: TextStyle(fontSize: 16.0)),
     titleSpacing: 0.0,
     elevation: 0.0,
   );
@@ -44,12 +38,7 @@ AppBar topAppBar2(String title, context) {
 AppBar topAppBar3(String title, context) {
   return AppBar(
     automaticallyImplyLeading: true,
-    title: Text(
-      title,
-      style: Theme.of(context).textTheme.headline4,
-    ),
-    backgroundColor: Colors.white,
-    iconTheme: Theme.of(context).iconTheme,
+    title: Text(title, style: TextStyle(fontSize: 16.0)),
     titleSpacing: 0.0,
     elevation: 0.0,
   );
@@ -58,10 +47,17 @@ AppBar topAppBar3(String title, context) {
 
 // Push Page Routing
 
-void pushGoTo(context, page) {
+ pushGoTo(context, page) {
   Navigator.pushNamed(context, page);
 }
 
+void navigateToAddCategory(context, String value) {
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => AddCategoryData(categoryIndex: value)),
+  );
+}
 
 
 
@@ -95,6 +91,8 @@ void navigateToImageCapture(context, String value) {
     MaterialPageRoute(builder: (context) => ImageCapture(location: value)),
   );
 }
+
+
 
 
 void cardWidget() {
@@ -158,4 +156,28 @@ String imageFileToString (File imageFile) {
 
 Uint8List stringToImageFile (String imageString) {
   return base64Decode(imageString);
+}
+
+String convertDateToMonth(date) {
+  List months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+  int currentMonth = int.parse(date.substring(5, 7));
+  int currentYear = date.substring(date.indexOf('/')+1, date.indexOf('/'));
+  String month = months[currentMonth].toString();
+  print(month);
+
+  return '$month + $currentYear';
+
 }

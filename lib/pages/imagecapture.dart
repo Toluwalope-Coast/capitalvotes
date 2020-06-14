@@ -1,14 +1,8 @@
 import 'dart:io';
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-import 'package:capitalvotes/blocs/nominee_with_category_bloc.dart';
-import 'package:capitalvotes/blocs/nominee_without_category_bloc.dart';
+import 'package:capitalvotes/blocs/nominee_with_category_entry_bloc.dart';
+import 'package:capitalvotes/blocs/nominee_without_category_entry_bloc.dart';
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
-import 'package:capitalvotes/pages/add_category_data.dart';
-import 'package:capitalvotes/pages/add_contest.dart';
-import 'package:capitalvotes/pages/add_nominee_with_category.dart';
-import 'package:capitalvotes/pages/add_nominee_without_category.dart';
-import 'package:capitalvotes/pages/profile_edit.dart';
-import 'package:capitalvotes/pages/update_category_data.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
 import 'package:capitalvotes/shared/constants.dart';
@@ -84,48 +78,44 @@ class _ImageCaptureState extends State<ImageCapture> {
       case 'add_contest':
         print('Image is: $image');
         contestState.setContestBanner = imageFileToString(image);
-        var contestPage = MaterialPageRoute(
-            builder: (BuildContext context) => AddContest());
-        Navigator.of(context).pop(contestPage);
+        popGoTo(context, '/AddContest');
         break;
       case 'edit_profile':
         print('Image is: $image');
         userProfileState.setUserImage = imageFileToString(image);
-        var userProfilePage = MaterialPageRoute(
-            builder: (BuildContext context) =>
-                ProfileEdit());
-        Navigator.of(context).pop(userProfilePage);
+        popGoTo(context, '/EditProfile');
         break;
+
       case 'add_category':
         print('Image is: $image');
         addCategoryContestState.setCategoryBanner = imageFileToString(image);
-        var contestPage = MaterialPageRoute(
-            builder: (BuildContext context) =>
-                AddCategoryData());
-        Navigator.of(context).pop(contestPage);
+        popGoTo(context, '/AddCategoryData');
         break;
+
       case 'update_category':
         print('Image is: $image');
         updateCategoryContestState.setCategoryBanner = imageFileToString(image);
-        var contestPage = MaterialPageRoute(
-            builder: (BuildContext context) =>
-                UpdateCategoryData(updateCategoryImage: image));
-        Navigator.of(context).pop(contestPage);
+        popGoTo(context, '/UpdateCategoryData');
         break;
+
       case 'add_Nominee_with_category':
         print('Image is: $image');
-        var contestPage = MaterialPageRoute(
-            builder: (BuildContext context) =>
-                AddNomineeWithCategory());
-        Navigator.of(context).pop(contestPage);
+        popGoTo(context, '/AddNomineeWithCategory');
+        break;
+
+      case 'update_Nominee_with_category':
+        print('Image is: $image');
+        popGoTo(context, '/UpdateNomineeWithCategory');
         break;
 
       case 'add_Nominee_without_category':
         print('Image is: $image');
-        var contestPage = MaterialPageRoute(
-            builder: (BuildContext context) => AddNomineeWithOutCategory(
-                contestNomineeWithoutCategoryImage: image));
-        Navigator.of(context).pop(contestPage);
+        popGoTo(context, '/AddNomineeWithOutCategory');
+        break;
+
+      case 'update_Nominee_without_category':
+        print('Image is: $image');
+        popGoTo(context, '/UpdateNomineeWithOutCategory');
         break;
     }
   }

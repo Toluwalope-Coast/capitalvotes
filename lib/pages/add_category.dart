@@ -1,9 +1,5 @@
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-import 'package:capitalvotes/pages/add_category_data.dart';
-//import 'package:capitalvotes/pages/update_category_data.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
-//import 'package:capitalvotes/pages/confirm_contest.dart';
-//import 'package:capitalvotes/pages/voterate.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +13,7 @@ class _AddCategoryState extends State<AddCategory> {
   _deleteCategory(category, contestBloc) {
     contestBloc.removeCategoryFromContest(category);
     print('The delete is: $category');
-    popGoTo(context, '/AddCategoryData');
+    popGoTo(context, '/AddCategory');
   }
 
   _updateCategory(category, localCategoryUpdateBlocState, contestBloc) {
@@ -33,7 +29,7 @@ class _AddCategoryState extends State<AddCategory> {
     print('The update is: $category');
     print('The category index to update is: ${contestBloc.contestCategoryList.indexOf(category)}');
 
-    popGoTo(context, '/AddCategoryData');
+    popGoTo(context, '/UpdateCategoryData');
   }
 
   @override
@@ -119,7 +115,8 @@ class _AddCategoryState extends State<AddCategory> {
                       print(contestBloc.contestCategoryList.length);
                       contestBloc.contestCategoryList.isNotEmpty;
 
-                      pushGoTo(context, AddCategoryData());
+                      navigateToAddCategory(context, contestBloc.contestCategoryList.length.toString());
+                      pushGoTo(context, '/AddCategoryData');
                     },
                     icon: Icon(
                       Icons.add,
@@ -155,7 +152,7 @@ class _AddCategoryState extends State<AddCategory> {
                                 onPressed: () {
                                   _optionMenu(context,
                                       contestBloc.contestCategoryList[index]);
-                                  print('Option Priced');
+                                  print('Option Pressed');
                                 },
                                 icon: Icon(Icons.more_vert,
                                     color: Color(0xffE5306C)),
@@ -168,6 +165,7 @@ class _AddCategoryState extends State<AddCategory> {
                   : Container(
                       width: screenWidth,
                       child: RaisedButton(
+                          padding: EdgeInsets.only(top: screenWidth * 0.054, bottom: screenWidth * 0.054),
                           onPressed: () {
                             if (contestBloc.getIsPaidFor == false &&
                                 contestBloc.contestCategoryList.length > 0) {

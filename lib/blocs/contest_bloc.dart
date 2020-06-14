@@ -1,6 +1,5 @@
 import 'package:capitalvotes/blocs/category_bloc.dart';
-import 'package:capitalvotes/blocs/nominee_with_category_bloc.dart';
-import 'package:capitalvotes/blocs/nominee_without_category_bloc.dart';
+import 'package:capitalvotes/blocs/nominee_bloc.dart';
 import 'package:flutter/material.dart';
 
 class ContestBloc extends ChangeNotifier{
@@ -18,14 +17,16 @@ class ContestBloc extends ChangeNotifier{
   double _voteRate;
   String _currencyType;
   bool _isCategory = false;
-  String _categoryDescription;
-  String _nomineeDescription;
+//  String _categoryDescription;
+//  String _nomineeDescription;
+  int _contestCategoryIndex;
+
 
 
 
 //  bool _brand;
 
-  List <NomineeWithOutCategoryBloc> nomineeWithOutCategoryList = [];
+  List <NomineeBloc> nomineeWithOutCategoryList = [];
 
   List <CategoryBloc> contestCategoryList = [];
 
@@ -46,9 +47,9 @@ class ContestBloc extends ChangeNotifier{
 
   String get getContestDescription => _contestDescription;
 
-  String get getCategoryDescription => _categoryDescription;
-
-  String get getNomineeDescription => _nomineeDescription;
+//  String get getCategoryDescription => _categoryDescription;
+//
+//  String get getNomineeDescription => _nomineeDescription;
 
   String get getContestName => _contestName;
 
@@ -65,6 +66,8 @@ class ContestBloc extends ChangeNotifier{
   String get getCreatorUsername => _creatorUsername;
 
   String get getCurrencyType => _currencyType;
+
+  int get getContestCategoryIndex => _contestCategoryIndex;
 
 
   set setContestID(String value) {
@@ -97,15 +100,15 @@ class ContestBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-  set setNomineeDescription(String value) {
-    _nomineeDescription = value;
-    notifyListeners();
-  }
-
-  set setCategoryDescription(String value) {
-    _categoryDescription = value;
-    notifyListeners();
-  }
+//  set setNomineeDescription(String value) {
+//    _nomineeDescription = value;
+//    notifyListeners();
+//  }
+//
+//  set setCategoryDescription(String value) {
+//    _categoryDescription = value;
+//    notifyListeners();
+//  }
   set setStartDate(String value) {
     _startDate = value;
     notifyListeners();
@@ -151,13 +154,18 @@ class ContestBloc extends ChangeNotifier{
     notifyListeners();
   }
 
+  set setContestCategoryIndex(int index) {
+    _contestCategoryIndex = index;
+    notifyListeners();
+  }
+
 
   // Special Functions
 
 // Nominee without Category
 
 
-  addNomineeToContestList(NomineeWithOutCategoryBloc nominee){
+  addNomineeToContestList(NomineeBloc nominee){
     nomineeWithOutCategoryList.add(nominee);
     notifyListeners();
   }
@@ -166,7 +174,7 @@ class ContestBloc extends ChangeNotifier{
     nomineeWithOutCategoryList.removeAt(index);
     notifyListeners();
   }
-  updateNomineeFromContestList(int index, NomineeWithOutCategoryBloc nominee){
+  updateNomineeFromContestList(int index, NomineeBloc nominee){
     nomineeWithOutCategoryList.removeAt(index);
     nomineeWithOutCategoryList.insert(index, nominee);
     notifyListeners();
@@ -206,8 +214,8 @@ class ContestBloc extends ChangeNotifier{
 // Category Nominee
 
 
-  addNomineeToContestCategory(int index, NomineeWithCategoryBloc nominee){
-    contestCategoryList[index].addNomineeToCategoryList(nominee);
+  addNomineeToContestCategory(int categoryIndex, NomineeBloc nominee){
+    contestCategoryList[categoryIndex].addNomineeToCategoryList(nominee);
     notifyListeners();
   }
 
@@ -215,7 +223,7 @@ class ContestBloc extends ChangeNotifier{
     contestCategoryList[categoryIndex].removeNomineeFromCategoryList(nomineeIndex);
     notifyListeners();
   }
-  updateNomineeListFromContestCategory(int categoryIndex, int nomineeIndex, NomineeWithCategoryBloc nominee){
+  updateNomineeListFromContestCategory(int categoryIndex, int nomineeIndex, NomineeBloc nominee){
     contestCategoryList[categoryIndex].updateNomineeFromCategoryList(nomineeIndex, nominee);
     notifyListeners();
   }
@@ -255,7 +263,7 @@ class ContestBloc extends ChangeNotifier{
 //    this._brand = map['Brand'];
 //  }
 
-  // To map
+// To map
 //
 //  Map<String, dynamic> toMap() {
 //    var map = new Map<String, dynamic>();

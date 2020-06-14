@@ -3,8 +3,8 @@ import 'package:capitalvotes/blocs/contest_bloc.dart';
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
-import 'package:capitalvotes/services/nominee_with_category_local_state.dart';
-import 'package:capitalvotes/services/nominee_with_category_update_local_state.dart';
+import 'package:capitalvotes/services/nominee_local_state.dart';
+import 'package:capitalvotes/services/nominee_update_local_state.dart';
 import 'package:capitalvotes/services/nominee_without_category_local_state.dart';
 import 'package:capitalvotes/services/nominee_without_category_update_local_state.dart';
 import 'package:capitalvotes/shared/constants.dart';
@@ -140,8 +140,8 @@ class _ImageCaptureState extends State<ImageCapture> {
     LocalCategoryUpdateBlocState localCategoryUpdateBlocState =
         Provider.of<LocalCategoryUpdateBlocState>(context);
 
-    LocalNomineeWithCategoryBlocState localNomineeWithCategoryBlocState =
-        Provider.of<LocalNomineeWithCategoryBlocState>(context);
+    NomineeLocalBlocState nomineeLocalBlocState =
+        Provider.of<NomineeLocalBlocState>(context);
 
     LocalUpdateNomineeWithCategoryBlocState localUpdateNomineeWithCategoryBlocState =
     Provider.of<LocalUpdateNomineeWithCategoryBlocState>(context);
@@ -176,7 +176,7 @@ class _ImageCaptureState extends State<ImageCapture> {
                       userProfileBloc,
                       localCategoryBlocState,
                       localCategoryUpdateBlocState,
-                      localNomineeWithCategoryBlocState,
+                      nomineeLocalBlocState,
                       localUpdateNomineeWithCategoryBlocState,
                       localNomineeWithoutCategoryBlocState,
                       localNomineeWithoutUpdateBlocState);

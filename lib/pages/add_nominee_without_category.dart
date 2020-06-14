@@ -1,5 +1,5 @@
 import 'package:capitalvotes/blocs/contest_bloc.dart';
-import 'package:capitalvotes/blocs/nominee_without_category_bloc.dart';
+import 'package:capitalvotes/blocs/nominee_without_category_entry_bloc.dart';
 import 'package:capitalvotes/services/nominee_without_category_local_state.dart';
 import 'package:capitalvotes/shared/constants.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class _AddNomineeWithOutCategory extends State<AddNomineeWithOutCategory> {
 
     nomineeWithOutCategoryBloc.nomineeName =
         localNomineeWithoutCategoryBlocState.getNomineeName;
-    nomineeWithOutCategoryBloc.nomineeBio =
+    nomineeWithOutCategoryBloc.nomineeProfession =
         localNomineeWithoutCategoryBlocState.getNomineeBio;
     nomineeWithOutCategoryBloc.nomineeImage =
         localNomineeWithoutCategoryBlocState.getNomineeImage;
@@ -36,9 +36,17 @@ class _AddNomineeWithOutCategory extends State<AddNomineeWithOutCategory> {
     nomineeWithOutCategoryBloc.nomineeNumber =
         localNomineeWithoutCategoryBlocState.getNomineeNumber;
 
-    print(
-        'The Nominee Name is: ${nomineeWithOutCategoryBloc.nomineeName}');
-    print('The Nominee Bio is: ${nomineeWithOutCategoryBloc.nomineeBio}');
+    nomineeWithOutCategoryBloc.nomineeContestName = contestBloc.getContestName;
+    nomineeWithOutCategoryBloc.nomineeContestBanner = contestBloc.getContestBanner;
+    nomineeWithOutCategoryBloc.nomineeContestEndDate = contestBloc.getEndTime;
+    nomineeWithOutCategoryBloc.isNomineeContestCategory = contestBloc._isCategory;
+    nomineeWithOutCategoryBloc.isNomineeContestCategory = contestBloc._isCategory;
+    nomineeWithOutCategoryBloc.nomineeContestVoteCurrency = contestBloc._currencyType;
+    nomineeWithOutCategoryBloc.nomineeContestVoteCost = contestBloc._voteRate;
+
+
+    print('The Nominee Name is: ${nomineeWithOutCategoryBloc.nomineeName}');
+    print('The Nominee Profession is: ${nomineeWithOutCategoryBloc.nomineeProfession}');
     print(
         'The Nominee Image string is: ${nomineeWithOutCategoryBloc.nomineeImage}');
     print(
@@ -46,7 +54,20 @@ class _AddNomineeWithOutCategory extends State<AddNomineeWithOutCategory> {
     print(
         'The Nominee Country string is: ${nomineeWithOutCategoryBloc.nomineeCountry}');
     print(
-        'The Nominee Number string is: ${nomineeWithOutCategoryBloc.nomineeNumber}');
+        'The Nominee Number is: ${nomineeWithOutCategoryBloc.nomineeNumber}');
+    print(
+        'The Nominee Contest Name is: ${nomineeWithOutCategoryBloc.nomineeContestName}');
+    print(
+        'The Nominee Contest Banner string is: ${nomineeWithOutCategoryBloc.nomineeContestBanner}');
+    print(
+        'The Nominee Contest End Date is: ${nomineeWithOutCategoryBloc.nomineeContestEndDate}');
+    print(
+        'is Nominee Contest a category is: ${nomineeWithOutCategoryBloc.isNomineeContestCategory}');
+    print(
+        'The Nominee Contest Vote Currency is: ${nomineeWithOutCategoryBloc.nomineeContestVoteCurrency}');
+    print(
+        'The Nominee Contest Vote Cost is: ${nomineeWithOutCategoryBloc.nomineeContestVoteCost}');
+
 
     // Validate returns true if the form is valid, otherwise false.
     if (_formKey.currentState.validate()) {
@@ -57,9 +78,19 @@ class _AddNomineeWithOutCategory extends State<AddNomineeWithOutCategory> {
 
       localNomineeWithoutCategoryBlocState.setNomineeName = null;
 
-      localNomineeWithoutCategoryBlocState.setNomineeBio = null;
+      localNomineeWithoutCategoryBlocState.setNomineeProfession = null;
 
       localNomineeWithoutCategoryBlocState.setNomineeImage = null;
+
+      localNomineeWithoutCategoryBlocState.setNomineeState = null;
+
+      localNomineeWithoutCategoryBlocState.setNomineeCountry = null;
+
+      localNomineeWithoutCategoryBlocState.setNomineeNumber = null;
+
+      localNomineeWithoutCategoryBlocState.setNomineeCategoryName = null;
+
+      localNomineeWithoutCategoryBlocState.setNomineeCategoryIndex = null;
 
       popGoTo(context, '/CreatorContestView');
     } else {
@@ -166,17 +197,19 @@ class _AddNomineeWithOutCategory extends State<AddNomineeWithOutCategory> {
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.white30)),
+                                    borderSide: BorderSide(
+                                        color: Color(0X553D2960))),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.white30)),
+                                    borderSide: BorderSide(
+                                        color: Color(0X553D2960))),
                                 hintText: 'Nominee Name',
                                 hintStyle: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 16.0,
                                     fontFamily: 'poppins',
                                     color: Color(0X553D2960),
-                                    fontStyle: FontStyle.italic),
+                                    fontStyle: FontStyle.italic,
+                                    textBaseline:
+                                    TextBaseline.alphabetic),
                                 filled: true,
                                 fillColor: Colors.white),
                             onChanged: (value) {
@@ -194,11 +227,10 @@ class _AddNomineeWithOutCategory extends State<AddNomineeWithOutCategory> {
                       child: Container(
                         height: screenHeight * 0.06,
                         width: screenWidth,
-                        padding: EdgeInsets.only(
-                            top: 4.0, right: 8.0, bottom: 0.0, left: 8.0),
+                        padding: EdgeInsets.only(top: 4.0, right: 8.0, bottom: 0.0, left: 8.0),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            border: Border.all(color: Colors.white),
+                            border: Border.all(color: Color(0X553D2960)),
                             color: Colors.white),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,

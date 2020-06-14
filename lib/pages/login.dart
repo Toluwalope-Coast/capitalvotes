@@ -94,6 +94,7 @@ class _LoginState extends State<Login> {
                       height: screenHeight * 0.09,
                       width: screenWidth * 0.8,
                       child: RaisedButton(
+                          padding: EdgeInsets.only(top: screenWidth * 0.054, bottom: screenWidth * 0.054),
                           color: Color(0xff3B5998),
                           onPressed: () async {
                             dynamic response =

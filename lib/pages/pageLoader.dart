@@ -33,7 +33,7 @@ class _PageLoader extends State<PageLoader> {
           child: _pageOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: SizedBox(
-          height: screenHeight * 0.12,
+          height: 45.0,
           width: screenWidth,
           child: BottomNavigationBar(
             currentIndex: _selectedIndex,
@@ -48,7 +48,7 @@ class _PageLoader extends State<PageLoader> {
             onTap: _onItemTapped,
             backgroundColor: Colors.white,
             unselectedItemColor: Colors.grey,
-            elevation: 0.0,
+            elevation: 16.0,
             type: BottomNavigationBarType.fixed,
             iconSize: 30,
 

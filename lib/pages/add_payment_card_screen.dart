@@ -1,5 +1,6 @@
 import 'package:capitalvotes/blocs/payment_card.dart';
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
+import 'package:capitalvotes/shared/constants.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,29 +15,33 @@ class AddPaymentCardScreen extends StatefulWidget {
 }
 
 class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
-  final AppBar mainAppBar = AppBar(
-    leading: IconButton(
-        icon: Icon(Icons.keyboard_backspace),
-        iconSize: 30.0,
-        color: Colors.white,
-        onPressed: () {}),
-    title: Text(
-      'Add card',
-      style: display2TextStyle.copyWith(color: Colors.white),
-    ),
-    elevation: 0.0,
-    backgroundColor: capitalVotesTheme().primaryColor,
-  );
+  AppBar _screenAppBar(context) {
+    return AppBar(
+      leading: IconButton(
+          icon: Icon(Icons.keyboard_backspace),
+          iconSize: 30.0,
+          color: Colors.white,
+          onPressed: () {
+            popGoTo(context, '/PaymentMethodScreen');
+          }),
+      title: Text(
+        'Add card',
+        style: display2TextStyle.copyWith(color: Colors.white),
+      ),
+      elevation: 0.0,
+      backgroundColor: capitalVotesTheme().primaryColor,
+    );
+  }
 
 //  Country _selectedCountry;
 
   final _formKey = GlobalKey<FormState>();
+  Country _selected;
   String userCardNum;
   String userExpiryDate;
   String userVerificationValue;
-  bool isVisa = false;
-  Country _selected;
   String userCountry;
+  String userCardType = PaymentMethodImages().mcImgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +52,23 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
     _save(userProfileBloc) {
       PaymentCard paymentCard = new PaymentCard();
       paymentCard.verificationValue = userVerificationValue;
+      paymentCard.cardVendorImageUrl = userCardType;
       paymentCard.expiryDate = userExpiryDate;
       paymentCard.cardNum = userCardNum;
       paymentCard.country = userCountry;
+      paymentCard.isDebit = true;
+
+//      ADD PAYMENT CARD INSTANCE TO LIST OF PAYMENT CARDS
       userProfileBloc.addPaymentCardToList(paymentCard);
+
+
+      print('the length of paymentCardList : ${userProfileBloc.paymentCardList.length}');
+      print('the entered verification value is: ${paymentCard.verificationValue}');
+      print('the entered expiry date is: ${paymentCard.expiryDate}');
+      print('the entered card number is: ${paymentCard.cardNum}');
+      print('the selected country is: ${paymentCard.country}');
+
+
     }
 
 //    detectCardType(String cardNum) {
@@ -62,9 +80,8 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
 //    String testIt = '4012888888881881';
 //    print(detectCardType(testIt));
 
-
     return Scaffold(
-      appBar: mainAppBar,
+      appBar: _screenAppBar(context),
       body: ListView(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
@@ -90,9 +107,7 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                           child: Image(
                             width: 40.0,
                             height: 40.0,
-                            image: AssetImage( isVisa
-                                ? PaymentMethodImages().promoCodeImgUrl
-                                : PaymentMethodImages().mcImgUrl),
+                            image: AssetImage(PaymentMethodImages().mcImgUrl),
                           ),
                         ),
                       ),
@@ -254,6 +269,8 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.reset();
                 _formKey.currentState.save();
+                _save(userProfileBloc);
+                popGoTo(context, 'PaymentMethodScreen');
                 _save(userProfileBloc);
               }
             },

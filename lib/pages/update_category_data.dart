@@ -143,10 +143,10 @@ class _UpdateCategoryDataState extends State<UpdateCategoryData> {
                                   decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.white30)),
+                                              color: Color(0X553D2960))),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Colors.white30)),
+                                              color:  Color(0X553D2960))),
                                       hintText: 'Category Name',
                                       hintStyle: TextStyle(
                                           fontSize: 14.0,
@@ -173,7 +173,7 @@ class _UpdateCategoryDataState extends State<UpdateCategoryData> {
                               padding: EdgeInsets.only(top: 4.0, right: 8.0, bottom: 0.0, left: 8.0),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(color: Colors.white),
+                                  border: Border.all(color: Color(0X553D2960)),
                                   color: Colors.white),
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
@@ -196,6 +196,7 @@ class _UpdateCategoryDataState extends State<UpdateCategoryData> {
                           Container(
                             width: screenWidth,
                             child: RaisedButton(
+                                padding: EdgeInsets.only(top: screenWidth * 0.054, bottom: screenWidth * 0.054),
                                 color:  localCategoryUpdateBlocState.getCategoryDescription != null &&
                                     localCategoryUpdateBlocState.getCategoryName != null
                                     ? Color(0xffE5306C)

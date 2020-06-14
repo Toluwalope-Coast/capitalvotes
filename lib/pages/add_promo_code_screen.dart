@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:capitalvotes/shared/form_util.dart';
+import 'package:capitalvotes/shared/constants.dart';
 
 class AddPromoCodeScreen extends StatefulWidget {
   @override
@@ -10,19 +11,6 @@ class AddPromoCodeScreen extends StatefulWidget {
 }
 
 class _AddPromoCodeScreenState extends State<AddPromoCodeScreen> {
-  final AppBar mainAppBar = AppBar(
-    leading: IconButton(
-        icon: Icon(Icons.keyboard_backspace),
-        iconSize: 30.0,
-        color: Colors.black,
-        onPressed: () {}),
-    title: Text(
-      'Promotions',
-      style: display2TextStyle,
-    ),
-    elevation: 0.0,
-    backgroundColor: Colors.white,
-  );
   String promoCode;
   String _promoCodeValidation(String value) {
     if (value.length != 6) {
@@ -47,6 +35,21 @@ class _AddPromoCodeScreenState extends State<AddPromoCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final AppBar mainAppBar = AppBar(
+      leading: IconButton(
+          icon: Icon(Icons.keyboard_backspace),
+          iconSize: 30.0,
+          color: Colors.black,
+          onPressed: () {
+            popGoTo(context, '/PaymentMethodScreen');
+          }),
+      title: Text(
+        'Promotions',
+        style: display2TextStyle,
+      ),
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+    );
     return Scaffold(
       appBar: mainAppBar,
       body: ListView(

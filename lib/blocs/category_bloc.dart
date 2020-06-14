@@ -1,34 +1,34 @@
-import 'package:capitalvotes/blocs/nominee_with_category_bloc.dart';
+import 'package:capitalvotes/blocs/nominee_bloc.dart';
 
 class CategoryBloc{
 
   String categoryId;
+  int categoryIndex;
   String categoryName;
   String categoryDescription;
   String categoryBanner;
 
-  List <NomineeWithCategoryBloc> nomineesList = [];
+  List <NomineeBloc> nomineesList = [];
 
 
 
 // Special Functions
 
-
-  addNomineeToCategoryList(NomineeWithCategoryBloc nominee){
+  addNomineeToCategoryList(NomineeBloc nominee){
     nomineesList.add(nominee);
   }
 
   removeNomineeFromCategoryList(int index){
     nomineesList.removeAt(index);
   }
-updateNomineeFromCategoryList(int index, NomineeWithCategoryBloc nominee){
+  updateNomineeFromCategoryList(int index, NomineeBloc nominee){
     nomineesList.removeAt(index);
     nomineesList.insert(index, nominee);
-}
+  }
 
-deleteTheEntireNomineeFromCategoryList(){
-  nomineesList.clear();
-}
+  deleteTheEntireNomineeFromCategoryList(){
+    nomineesList.clear();
+  }
 
 
 }

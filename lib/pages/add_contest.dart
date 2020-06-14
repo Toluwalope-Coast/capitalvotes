@@ -110,9 +110,12 @@ class _AddContestState extends State<AddContest> {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
 
-      if (contestBloc.getIsCategory == false) {
+      if (contestBloc.getIsCategory == false && contestBloc.getIsPaidFor == false) {
         pushGoTo(context, '/ConfirmContest');
-      } else {
+      } else if (contestBloc.getIsCategory == false && contestBloc.getIsPaidFor == true) {
+        pushGoTo(context, '/VoteRate');
+      }
+      else {
         pushGoTo(context, '/AddCategory');
       }
 //
@@ -472,7 +475,6 @@ class _AddContestState extends State<AddContest> {
                                     onPressed: () {
                                       contestBloc.getContestName != null &&
                                           contestBloc.getContestBanner != null &&
-                                          contestBloc.getContestDescription != null &&
                                           contestBloc.getStartTime != null &&
                                           contestBloc.getEndTime != null &&
                                           contestBloc.getStartDate != null &&

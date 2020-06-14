@@ -627,19 +627,22 @@ Widget _pageDrawer(BuildContext context) {
 //      OPTIONS in the drawer
 //      Edit profile option
             menuOption('Edit Profile', () {
-              pushGoTo(context, ProfileEdit());
+              pushGoTo(context, '/EditProfile');
               debugPrint('it works 0001');
             }, Icons.edit),
 
 //      Create Contest option
             menuOption('Create Contest', () {
-              pushGoTo(context, AddContest());
+              pushGoTo(context, '/AddContest');
               debugPrint('it works 0002');
             }, Icons.add_circle),
 
             menuOption(
               'Payment Method',
-              () {},
+              ()
+              {
+                pushGoTo(context, '/PaymentMethodScreen');
+              },
               Icons.credit_card,
             ),
             menuOption(

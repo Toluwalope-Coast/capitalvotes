@@ -1,8 +1,8 @@
 class PaymentCard {
   String cardNum;
   bool isDebit;
-  bool isSelected;
-  bool isPaypal;
+  bool isSelected = false;
+  bool isPayPal = false;
   String city;
   String email;
   String state;

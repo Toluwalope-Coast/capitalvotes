@@ -23,29 +23,20 @@ class _ConfirmContestState extends State<ConfirmContest> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Text(
-          'Confirm Contest',
-          style: Theme.of(context).textTheme.headline4,
-        ),
-        backgroundColor: Colors.white,
-        iconTheme: Theme.of(context).iconTheme,
-        titleSpacing: 0.0,
+        title: Text('Confirm Contest', style: TextStyle(fontSize: 16.0)),
         elevation: 0.0,
+        titleSpacing: 0.0,
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
             child: Container(
-              width: screenWidth * 0.2,
+              width: screenWidth * 0.3,
               child: FlatButton(onPressed: () {
 
                 Navigator.of(context).pushNamedAndRemoveUntil('/CreatorContestView', ModalRoute.withName('/Home'));},
 
                 padding: const EdgeInsets.all(0.0),
-                color: Color(0xffE5306C),
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.circular(50)),
-                child: Text('Confirm', style: TextStyle(fontFamily: 'poppins', fontSize: 12.0, color: Colors.white)),),
+                child: Text('Confirm', style: TextStyle(fontFamily: 'poppins', fontSize: 16.0, color: Colors.white)),),
             ),
           )
         ],
@@ -85,43 +76,43 @@ class _ConfirmContestState extends State<ConfirmContest> {
           Center(
             widthFactor: screenWidth * 0.6,
             child: Column(
+              verticalDirection: VerticalDirection.down,
               children: <Widget>[
                 Text(
                   contestBloc.getContestName != null ? contestBloc.getContestName : 'Contest Name',
                   style: TextStyle(
                       fontFamily: 'poppins',
-                      fontSize: 15,
+                      fontSize: 14,
                       color: Color(0Xff2e2d2d),
                       fontWeight: FontWeight.bold),
                 ),
                 contestBloc.getContestDescription != null ?
-                Container(
-                  width: screenWidth * 0.5,
+                Padding(
+                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
                   child:  Text(contestBloc.getContestDescription,
                       style: TextStyle(
                           fontFamily: 'poppins',
-                          fontSize: 15,
-                          color: Color(0Xff2e2d2d))),
+                          fontSize: 12,
+                          color: Color(0Xff2e2d2d)), textAlign: TextAlign.center,),
                 ) : Container(height: 0.0),
                 Row(
+                  verticalDirection: VerticalDirection.down,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
                       Icons.alarm,
                       color: Color(0xffE5306C),
-                      size: 9,
+                      size: 12,
                     ),
                     Text('Votes ends ',
                         style: TextStyle(
-                            fontSize: 9.0,
+                            fontSize: 12.0,
                             fontFamily: 'poppins',
                             color: Color(0xffE5306C))),
                     Text(
-                        contestBloc.getEndDate != null
-                            ? contestBloc.getEndDate
-                            : 'September 23',
+                        contestBloc.getEndDate,
                         style: TextStyle(
-                            fontSize: 9.0,
+                            fontSize: 12.0,
                             fontFamily: 'poppins',
                             color: Color(0xffE5306C),
                             fontWeight: FontWeight.bold))
@@ -130,7 +121,57 @@ class _ConfirmContestState extends State<ConfirmContest> {
               ],
             ),
           ),
-          Divider(height: screenHeight * 0.1),
+        Divider(height: screenHeight * 0.01),
+          contestBloc.getIsCategory == true ?
+        Container(
+          alignment: Alignment.center,
+          constraints: BoxConstraints.expand(width: screenWidth, height: screenHeight * 0.3),
+          child: ListView.builder(
+              itemCount: contestBloc.contestCategoryList.length,
+              itemBuilder: (context, index) => ListTile(
+                contentPadding: EdgeInsets.only(top: 0.0, bottom: 0.0, left: 16.0, right: 16.0),
+                title: Text(
+                    '${contestBloc.contestCategoryList[index].categoryName}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'poppins',
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                    )
+                ),
+              )),
+        )
+          : Container(height: 0.0, width: 0.0),
+          contestBloc.getIsCategory == true ?
+          Divider(height: screenHeight * 0.01): Container(height: 0.0, width: 0.0),
+        contestBloc.getVoteRate != null ?
+      Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Vote Cost', style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w600)),
+            Container(
+              alignment: Alignment.center,
+                height: screenHeight * 0.06,
+                width: screenWidth * 0.3,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: Color(0X553D2960)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: Offset(0, 2))
+                    ],
+                    color: Colors.white),
+                child: Text(contestBloc.getVoteRate.toString(), )),
+          ],
+        ),
+      )
+          : Container(height: 0.0, width: 0.0),
+          SizedBox(height: screenHeight * 0.1)
         ]
       ),
     );

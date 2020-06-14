@@ -41,7 +41,7 @@ class _ProfileEditState extends State<ProfileEdit> {
       // you'd often call a server or save the information in a database.
 
 
-      pushGoTo(context, '/Profile');
+      popGoTo(context, '/Profile');
     }
   }
 
@@ -494,7 +494,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                 Container(
                                     width: screenWidth,
                                     child: RaisedButton(
-                                      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02,),
+                                        padding: EdgeInsets.only(top: screenWidth * 0.054, bottom: screenWidth * 0.054),
                                         color:
                                             userProfileBloc.getFullName != null &&
                                                 userProfileBloc.getUserImage !=
