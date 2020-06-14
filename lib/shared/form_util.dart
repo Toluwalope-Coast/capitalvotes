@@ -31,26 +31,29 @@ double miniInputWidth = 140.0;
 *
 */
 
-class PaymentMethodImages {
+class PaymentCardImgUrls {
 // CREDIT/DEBIT CARD VENDOR IMAGES
 // master card
-  String mcDarkImgUrl = 'images/payment_icons/mastercard-dark-large.png';
-  String mcImgUrl = 'images/payment_icons/mastercard.png';
+  static String mcDarkImgUrl = 'images/payment_icons/mastercard-dark-large.png';
+  static String mcImgUrl = 'images/payment_icons/mastercard.png';
 
 // american express
-  String aeColorImgUrl = 'images/payment_icons/americanexpress-color-large.png';
+  static String aeColorImgUrl =
+      'images/payment_icons/americanexpress-color-large.png';
 
 // PayPal
-  String payPalImgUrl = 'images/payment_icons/paypal.png';
+  static String payPalImgUrl = 'images/payment_icons/paypal.png';
 
 // Visa
-  String visaImgUrl = 'images/payment_icons/visa-color_large.png';
+  static String visaImgUrl = 'images/payment_icons/visa-color_large.png';
 
 // Gift Card Image
-  String promoCodeImgUrl = 'images/payment_icons/gift_card.png';
-
+  static String promoCodeImgUrl = 'images/payment_icons/gift_card.png';
 }
 
+//REGEX
+RegExp emailRegExp = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 /*
 *
 *
@@ -61,7 +64,7 @@ class PaymentMethodImages {
 
 // INNER PADDING FOR FORM FIELDS
 EdgeInsets bigInnerPadding = EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 25.0);
-EdgeInsets smallInnerPadding = EdgeInsets.fromLTRB(15.0, 20.0, 20.0, 20.0);
+EdgeInsets smallInnerPadding = EdgeInsets.fromLTRB(15.0, 16.0, 20.0, 16.0);
 
 /*
 *
@@ -84,7 +87,7 @@ OutlineInputBorder formBorderDefault = OutlineInputBorder(
 //border style when input is in focus
 OutlineInputBorder formBorderFocused = formBorderDefault.copyWith(
   borderSide: BorderSide(
-    color: capitalVotesTheme().primaryColor,
+    color: CupertinoColors.activeBlue,
     width: 2.0,
   ),
 );
@@ -113,6 +116,11 @@ InputDecoration formInputDecoration(String hintText, EdgeInsets padding) {
     enabledBorder: formBorderDefault,
     focusedBorder: formBorderFocused,
     errorBorder: formBorderError,
+    errorStyle: TextStyle(
+      fontSize: 12.0,
+    ),
+    errorMaxLines: 3,
+    focusedErrorBorder: formBorderError,
   );
 }
 
@@ -127,7 +135,7 @@ InputDecoration formInputDecoration(String hintText, EdgeInsets padding) {
 //TEXT STYLES
 //For smaller INPUTS
 TextStyle miniInputStyle =
-    TextStyle(fontWeight: FontWeight.w500, fontSize: 12.8);
+    TextStyle(fontWeight: FontWeight.w500, fontSize: 15.0);
 
 TextStyle miniFormTxtStyle = display2TextStyle.copyWith(fontSize: 14.0);
 
@@ -191,5 +199,57 @@ class CustomInputFormatter extends TextInputFormatter {
       }
     }
     return newValue;
+  }
+}
+
+class CardDateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    var newText = newValue.text;
+
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var buffer = new StringBuffer();
+    for (int i = 0; i < newText.length; i++) {
+      buffer.write(newText[i]);
+      var nonZeroIndex = i + 1;
+      if (nonZeroIndex % 2 == 0 && nonZeroIndex != newText.length) {
+        buffer.write('/');
+      }
+    }
+
+    var string = buffer.toString();
+    return newValue.copyWith(
+        text: string,
+        selection: new TextSelection.collapsed(offset: string.length));
+  }
+}
+
+class CardNumberInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    var text = newValue.text;
+
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var buffer = new StringBuffer();
+    for (int i = 0; i < text.length; i++) {
+      buffer.write(text[i]);
+      var nonZeroIndex = i + 1;
+      if (nonZeroIndex % 4 == 0 && nonZeroIndex != text.length) {
+        buffer.write('  '); // Add double spaces.
+      }
+    }
+
+    var string = buffer.toString();
+    return newValue.copyWith(
+        text: string,
+        selection: new TextSelection.collapsed(offset: string.length));
   }
 }
