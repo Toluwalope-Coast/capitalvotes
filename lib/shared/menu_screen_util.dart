@@ -1,4 +1,5 @@
 import 'package:capitalvotes/shared/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //Created by: Ajayi Eniola
@@ -40,22 +41,37 @@ Widget menuOption(String title, VoidCallback onPressed, IconData icon) {
 }
 
 // Helper widget to create LogOut button in UI
-Widget logOutButton = FlatButton.icon(
-  padding: menuOptionPadding.copyWith(
-    left: 0.0,
-  ),
-  icon: Icon(
-    Icons.exit_to_app,
-    color: capitalVotesTheme().primaryColor,
-    size: 30.0,
-  ),
-  label: Text('Log Out',
+Widget logOutButton(String title, VoidCallback onPressed, IconData icon) {
+  return ListTile(
+    leading: Icon(
+      icon,
+      size: 30.0,
+      color: capitalVotesTheme().primaryColor,
+    ),
+    title: Text(
+      title,
       style: menuOptionTextStyle.copyWith(
         color: capitalVotesTheme().primaryColor,
         fontSize: 18.0,
-      )),
-  shape: Border(
-    top: BorderSide(width: 2.0, color: Colors.grey[200]),
-  ),
-  onPressed: () {},
-);
+      ),
+    ),
+    onTap: onPressed,
+  );
+}
+// Helper widget to create LogOut button in UI
+//Widget logOutButton = (
+//  padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+//  icon: Icon(
+//    Icons.exit_to_app,
+//    color: capitalVotesTheme().primaryColor,
+//    size: 30.0,
+//  ),
+//  label: Text(
+//    'Log Out',
+//    style: menuOptionTextStyle.copyWith(
+//      color: capitalVotesTheme().primaryColor,
+//      fontSize: 18.0,
+//    ),
+//  ),
+//  onPressed: () {},
+//);
