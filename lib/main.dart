@@ -35,9 +35,6 @@ void main() => runApp(CapitalVotes());
 class CapitalVotes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
-
 //    return StreamProvider<User>.value(
 //      value: AuthenticationService().authenticatedUser,
 //      child: MaterialApp(
@@ -50,21 +47,30 @@ class CapitalVotes extends StatelessWidget {
 
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider<ContestBloc>(create: (context) => ContestBloc()),
-          ChangeNotifierProvider<UserProfileBloc>(create: (context) => UserProfileBloc()),
-          ChangeNotifierProvider<LocalCategoryBlocState>(create: (context) => LocalCategoryBlocState()),
-          ChangeNotifierProvider<LocalCategoryUpdateBlocState>(create: (context) => LocalCategoryUpdateBlocState()),
-          ChangeNotifierProvider<NomineeLocalBlocState>(create: (context) => NomineeLocalBlocState()),
+          ChangeNotifierProvider<ContestBloc>(
+              create: (context) => ContestBloc()),
+          ChangeNotifierProvider<UserProfileBloc>(
+              create: (context) => UserProfileBloc()),
+          ChangeNotifierProvider<LocalCategoryBlocState>(
+              create: (context) => LocalCategoryBlocState()),
+          ChangeNotifierProvider<LocalCategoryUpdateBlocState>(
+              create: (context) => LocalCategoryUpdateBlocState()),
+          ChangeNotifierProvider<NomineeLocalBlocState>(
+              create: (context) => NomineeLocalBlocState()),
 //          ChangeNotifierProvider<SocialMediaHandleBloc>(create: (context) => SocialMediaHandleBloc()),
-          ChangeNotifierProvider<LocalUpdateNomineeWithCategoryBlocState>(create: (context) => LocalUpdateNomineeWithCategoryBlocState()),
-          ChangeNotifierProvider<LocalNomineeWithoutCategoryBlocState>(create: (context) => LocalNomineeWithoutCategoryBlocState()),
-          ChangeNotifierProvider<LocalNomineeWithoutUpdateBlocState>(create: (context) => LocalNomineeWithoutUpdateBlocState()),
-          ChangeNotifierProvider<PayPalLocalBloc>(create: (context) => PayPalLocalBloc()),
+          ChangeNotifierProvider<LocalUpdateNomineeWithCategoryBlocState>(
+              create: (context) => LocalUpdateNomineeWithCategoryBlocState()),
+          ChangeNotifierProvider<LocalNomineeWithoutCategoryBlocState>(
+              create: (context) => LocalNomineeWithoutCategoryBlocState()),
+          ChangeNotifierProvider<LocalNomineeWithoutUpdateBlocState>(
+              create: (context) => LocalNomineeWithoutUpdateBlocState()),
+          ChangeNotifierProvider<PayPalLocalBloc>(
+              create: (context) => PayPalLocalBloc()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: capitalVotesTheme(),
-          initialRoute: '/AddNominee',
+          initialRoute: '/PageLoader',
           routes: {
             '/': (context) => PageLoader(),
             '/Home': (context) => Home(),
@@ -77,14 +83,14 @@ class CapitalVotes extends StatelessWidget {
             '/UpdateCategoryData': (context) => UpdateCategoryData(),
             '/AddNominee': (context) => AddNominee(),
             '/AddNomineeWithCategory': (context) => AddNomineeWithCategory(),
-            '/UpdateNomineeWithCategory': (context) => UpdateNomineeWithCategory(),
-            '/UpdateNomineeWithOutCategory': (context) => UpdateNomineeWithCategory(),
+            '/UpdateNomineeWithCategory': (context) =>
+                UpdateNomineeWithCategory(),
+            '/UpdateNomineeWithOutCategory': (context) =>
+                UpdateNomineeWithCategory(),
             '/ConfirmContest': (context) => ConfirmContest(),
             '/CreatorContestView': (context) => CreatorContestView(),
             '/VoteScreen': (context) => VoteCartScreen(),
           },
-
-        )
-    );
+        ));
   }
 }
