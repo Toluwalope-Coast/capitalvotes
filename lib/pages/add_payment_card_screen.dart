@@ -15,6 +15,82 @@ class AddPaymentCardScreen extends StatefulWidget {
 }
 
 class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
+  String userVerificationValue;
+  String userCardFirstName;
+  String userCardLastName;
+  String userCardNum;
+  String userMonth;
+  String userYear;
+  String userPhoneNumber;
+  String userEmail;
+  bool isType;
+  CardType userCardType;
+  Country _selected;
+
+// Form key
+  final _formKey = GlobalKey<FormState>();
+
+// Input controllers
+  TextEditingController cardNumberController = TextEditingController();
+
+// variables
+  bool _autoValidate = false;
+
+//  instantiate new payment card
+  PaymentCard paymentCard = new PaymentCard();
+
+  @override
+  void initState() {
+    super.initState();
+    //  Default country
+    _selected = Country.US;
+    // Default card image
+    userCardType = CardType.others;
+//    Listen and detect card
+    cardNumberController.addListener(getCardType);
+//    set switch
+    isType = false;
+  }
+
+//  Helper method to get date requirements
+  getDateRequirements(value) {
+    List monthYearDateList = CardUtil.expiryDateList(value);
+    setState(() {
+      userMonth = monthYearDateList[0];
+      userYear = monthYearDateList[1];
+    });
+  }
+
+//  Helper method to get card type
+  getCardType() {
+    String number = cardNumberController.text;
+    String cleanedNumber = CardUtil.cleanCardNumber(number);
+    CardType cardType = CardUtil.cardTypeFromNumber(cleanedNumber);
+    setState(() {
+      userCardType = cardType;
+    });
+  }
+
+//  Helper method to get img url of card type
+  String getCardTypeImgUrl(cardType) {
+    switch (cardType) {
+      case CardType.masterCard:
+        return PaymentCardImgUrls.mcImgUrl;
+        break;
+      case CardType.visa:
+        return PaymentCardImgUrls.visaImgUrl;
+        break;
+      case CardType.verve:
+        return PaymentCardImgUrls.aeColorImgUrl;
+        break;
+      case CardType.others:
+        return PaymentCardImgUrls.promoCodeImgUrl;
+        break;
+    }
+    return PaymentCardImgUrls.promoCodeImgUrl;
+  }
+
+//  widgets
   AppBar _screenAppBar(context) {
     return AppBar(
       leading: IconButton(
@@ -33,16 +109,6 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
     );
   }
 
-//  Country _selectedCountry;
-
-  final _formKey = GlobalKey<FormState>();
-  Country _selected;
-  String userCardNum;
-  String userExpiryDate;
-  String userVerificationValue;
-  String userCountry;
-  String userCardType = PaymentMethodImages().mcImgUrl;
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -50,35 +116,42 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
     UserProfileBloc userProfileBloc = Provider.of<UserProfileBloc>(context);
 
     _save(userProfileBloc) {
-      PaymentCard paymentCard = new PaymentCard();
       paymentCard.verificationValue = userVerificationValue;
-      paymentCard.cardVendorImageUrl = userCardType;
-      paymentCard.expiryDate = userExpiryDate;
+      paymentCard.expiryMonth = userMonth;
+      paymentCard.expiryYear = userYear;
+      paymentCard.firstName = userCardFirstName;
+      paymentCard.lastName = userCardLastName;
       paymentCard.cardNum = userCardNum;
-      paymentCard.country = userCountry;
-      paymentCard.isDebit = true;
-
-//      ADD PAYMENT CARD INSTANCE TO LIST OF PAYMENT CARDS
+      paymentCard.country = _selected.name;
+      paymentCard.currency = _selected.currency;
+      paymentCard.email = userProfileBloc.getEmail;
+      paymentCard.cardVendorImageUrl = getCardTypeImgUrl(userCardType);
+//    add card instance to list
       userProfileBloc.addPaymentCardToList(paymentCard);
-
-
-      print('the length of paymentCardList : ${userProfileBloc.paymentCardList.length}');
-      print('the entered verification value is: ${paymentCard.verificationValue}');
-      print('the entered expiry date is: ${paymentCard.expiryDate}');
-      print('the entered card number is: ${paymentCard.cardNum}');
-      print('the selected country is: ${paymentCard.country}');
-
-
     }
 
-//    detectCardType(String cardNum) {
-//      RegExp regExpVisa = RegExp(r'^4[0-9]{12}(?:[0-9]{3})?$');
-//      if (regExpVisa.firstMatch(cardNum) != null) {
-//          debugPrint('it is a visa card');
-//      }
-//    }
-//    String testIt = '4012888888881881';
-//    print(detectCardType(testIt));
+    bool _formReady = (userVerificationValue != null &&
+        userMonth != null &&
+        userYear != null &&
+        userCardLastName != null &&
+        userCardFirstName != null &&
+        userCardNum != null &&
+        _selected != null);
+
+    bool _setType(value) {
+      if (isType = value) {
+        setState(() {
+          isType = value;
+          paymentCard.isCredit = value;
+        });
+      } else {
+        setState(() {
+          isType = value;
+          paymentCard.isCredit = value;
+        });
+      }
+      return isType;
+    }
 
     return Scaffold(
       appBar: _screenAppBar(context),
@@ -104,11 +177,7 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                           .copyWith(
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Image(
-                            width: 40.0,
-                            height: 40.0,
-                            image: AssetImage(PaymentMethodImages().mcImgUrl),
-                          ),
+                          child: CardUtil.cardImage(cardType: userCardType),
                         ),
                       ),
                       inputFormatters: <TextInputFormatter>[
@@ -122,22 +191,78 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                         signed: false,
                         decimal: false,
                       ),
+                      controller: cardNumberController,
                       onChanged: (value) {
                         setState(() {
-                          userCardNum = value;
+                          userCardNum = CardUtil.cleanCardNumber(value);
                         });
                       },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter your card number';
-                        }
-                        if (value.length < 19) {
-                          return 'Please enter your card number';
-                        }
-                        return null;
-                      },
+                      validator: CardUtil.validateCardNum,
                     ),
                   ),
+//                  name
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              miniInputLabel('First Name'),
+                              SizedBox(
+                                width: miniInputWidth + 20,
+                                child: TextFormField(
+                                  style: miniInputStyle,
+                                  decoration: formInputDecoration(
+                                      'First Name', smallInnerPadding),
+                                  inputFormatters: <TextInputFormatter>[],
+                                  keyboardType: TextInputType.text,
+                                  textCapitalization: TextCapitalization.words,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      userCardFirstName = value;
+                                    });
+                                  },
+                                  validator: CardUtil.validateFirstName,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              miniInputLabel('Last Name'),
+                              SizedBox(
+                                width: miniInputWidth + 50,
+                                child: TextFormField(
+                                  style: miniInputStyle,
+                                  decoration: formInputDecoration(
+                                      'Last Name', smallInnerPadding),
+                                  inputFormatters: <TextInputFormatter>[],
+                                  keyboardType: TextInputType.text,
+                                  textCapitalization: TextCapitalization.words,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      userCardLastName = value;
+                                    });
+                                  },
+                                  validator: CardUtil.validateLastName,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+//                  cvv ex date
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.0),
                     child: Row(
@@ -158,21 +283,14 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                                       'MM/YY', smallInnerPadding),
                                   inputFormatters: <TextInputFormatter>[
                                     LengthLimitingTextInputFormatter(5),
-                                    CustomInputFormatter(
-                                        mask: 'xx/xx', separator: '/'),
+                                    WhitelistingTextInputFormatter.digitsOnly,
+                                    CardDateInputFormatter(),
                                   ],
                                   keyboardType: TextInputType.datetime,
                                   onChanged: (value) {
-                                    setState(() {
-                                      userExpiryDate = value;
-                                    });
+                                    getDateRequirements(value);
                                   },
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Please enter your card number';
-                                    }
-                                    return null;
-                                  },
+                                  validator: CardUtil.validateExpiryDate,
                                 ),
                               ),
                             ],
@@ -190,25 +308,17 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                                   style: miniInputStyle,
                                   decoration: formInputDecoration(
                                       'CVV', smallInnerPadding),
-                                  textCapitalization:
-                                      TextCapitalization.characters,
                                   inputFormatters: <TextInputFormatter>[
-                                    LengthLimitingTextInputFormatter(3)
+                                    LengthLimitingTextInputFormatter(3),
+                                    WhitelistingTextInputFormatter.digitsOnly,
                                   ],
                                   onChanged: (value) {
                                     setState(() {
                                       userVerificationValue = value;
                                     });
                                   },
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Please enter your card number';
-                                    }
-                                    if (value.length < 3) {
-                                      return 'This is not three letters long';
-                                    }
-                                    return null;
-                                  },
+                                  keyboardType: TextInputType.number,
+                                  validator: CardUtil.validateCVV,
                                 ),
                               ),
                             ],
@@ -243,40 +353,61 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                       onChanged: (Country country) {
                         setState(() {
                           _selected = country;
-                          userCountry = country.name;
                         });
                       },
                       selectedCountry: _selected,
                     ),
                   ),
+                  Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+                  SwitchListTile.adaptive(
+                    title: Text('Credit card?', style: miniFormTxtStyle),
+                    value: isType,
+                    activeColor: capitalVotesTheme().primaryColor,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _setType(value);
+                        print(value);
+                      });
+                    },
+                  )
                 ],
               ),
             ),
           ),
           RaisedButton(
             child: Text('ADD CARD'),
-            color: userCardNum != null &&
-                    userVerificationValue != null &&
-                    userExpiryDate != null
+            color: _formReady
                 ? capitalVotesTheme().primaryColor
                 : Color(0x65E5306C),
             textColor: Colors.white,
+            elevation: _formReady ? 2.0 : 0.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),
             padding: EdgeInsets.symmetric(vertical: screenWidth * 0.05),
-            onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.reset();
-                _formKey.currentState.save();
-                _save(userProfileBloc);
-                popGoTo(context, 'PaymentMethodScreen');
-                _save(userProfileBloc);
-              }
-            },
+            onPressed: _formReady
+                ? () {
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.reset();
+                      _formKey.currentState.save();
+                      _save(userProfileBloc);
+                      popGoTo(context, '/PaymentMethodScreen');
+                    } else {
+                      _autoValidate = true;
+                    }
+                  }
+                : () {},
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // dispose controller
+    cardNumberController.removeListener(getCardType);
+    cardNumberController.dispose();
+    super.dispose();
   }
 }
