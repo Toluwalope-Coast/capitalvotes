@@ -1,7 +1,12 @@
 import 'package:capitalvotes/blocs/contest_bloc.dart';
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
 import 'package:capitalvotes/pages/add_nominee_with_category.dart';
+import 'package:capitalvotes/pages/add_payment_card_screen.dart';
+import 'package:capitalvotes/pages/add_paypal_account_screen.dart';
+import 'package:capitalvotes/pages/add_promo_code_screen.dart';
 import 'package:capitalvotes/pages/pageLoader.dart';
+import 'package:capitalvotes/pages/payment_method_screen.dart';
+import 'package:capitalvotes/pages/vote_ana;ytics_screen.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
 import 'package:capitalvotes/services/nominee_local_state.dart';
@@ -89,7 +94,12 @@ class CapitalVotes extends StatelessWidget {
                 UpdateNomineeWithCategory(),
             '/ConfirmContest': (context) => ConfirmContest(),
             '/CreatorContestView': (context) => CreatorContestView(),
-            '/VoteScreen': (context) => VoteCartScreen(),
+            '/PaymentMethodScreen': (context) => PaymentMethodScreen(),
+            '/AddPaymentCardScreen': (context) => AddPaymentCardScreen(),
+            '/AddPayPalAccountScreen': (context) => AddPayPalAccountScreen(),
+            '/PromoCodeScreen': (context) => AddPromoCodeScreen(),
+            '/VoteAnalyticScreen': (context) => VoteAnalyticScreen(),
+            '/SeeAllContestScreen': (context) => VoteAnalyticScreen(),
           },
         ));
   }
