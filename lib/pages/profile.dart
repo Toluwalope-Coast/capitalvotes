@@ -42,116 +42,108 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: _menuAppBar(context),
       drawer: _pageDrawer(context),
-      body: CustomScrollView(
-        slivers: <Widget>[
+      body: ListView(
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
 //          USER PROFILE BIO SECTION
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                _userProfileBar(screenHeight, screenWidth, userProfileBloc),
-                Divider(),
-                Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.09),
-                  child: recentContestHeader('See All Contest'),
+          _userProfileBar(screenHeight, screenWidth, userProfileBloc),
+          Divider(),
+          Padding(
+            padding: EdgeInsets.only(left: screenWidth * 0.09),
+            child: recentContestHeader('See All Contest'),
+          ),
+          Container(
+            height: screenHeight * 0.15,
+            margin: EdgeInsets.symmetric(vertical: 6.0),
+            padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
+            child: ListView(
+              primary: false,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                miniContestCardWidget(
+                  context: context,
+                  contestImgUrl: miniContestData[0].contestImgUrl,
+                  contestTitle: miniContestData[0].contestTitle,
+                  onTap: () {},
                 ),
-                Container(
-                  height: screenHeight * 0.18,
-                  margin: EdgeInsets.symmetric(vertical: 6.0),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      miniContestCardWidget(
-                        context: context,
-                        contestImgUrl: miniContestData[0].contestImgUrl,
-                        contestTitle: miniContestData[0].contestTitle,
-                        onTap: () {},
-                      ),
-                      miniContestCardWidget(
-                        context: context,
-                        contestImgUrl: miniContestData[1].contestImgUrl,
-                        contestTitle: miniContestData[1].contestTitle,
-                        onTap: () {},
-                      ),
+                miniContestCardWidget(
+                  context: context,
+                  contestImgUrl: miniContestData[1].contestImgUrl,
+                  contestTitle: miniContestData[1].contestTitle,
+                  onTap: () {},
+                ),
 //                      SEE ALL BUTTON
-                      InkWell(
-                        radius: 400.0,
-                        onTap: () {},
-                        child: Container(
-                          width: 120.0,
-                          height: 110.0,
-                          margin: EdgeInsets.fromLTRB(2.0, 0.0, 4.0, 5.0),
-                          padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 5.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Stack(
-                            overflow: Overflow.visible,
-                            alignment: Alignment.topCenter,
-                            children: <Widget>[
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(12.0),
-                                child: Image(
-                                  width: 110.0,
-                                  height: 75.0,
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      miniContestData[1].contestImgUrl),
-                                ),
-                              ),
-                              Container(
-                                width: 110.0,
-                                height: 75.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffE5306C).withOpacity(0.8),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'See All',
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                InkWell(
+                  radius: 400.0,
+                  onTap: () {},
+                  child: Container(
+                    width: 120.0,
+                    height: 110.0,
+                    margin: EdgeInsets.fromLTRB(2.0, 0.0, 4.0, 5.0),
+                    padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 5.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: Stack(
+                      overflow: Overflow.visible,
+                      alignment: Alignment.topCenter,
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.0),
+                          child: Image(
+                            width: 110.0,
+                            height: 75.0,
+                            fit: BoxFit.cover,
+                            image: AssetImage(miniContestData[1].contestImgUrl),
                           ),
                         ),
-                      )
-                    ],
+                        Container(
+                          width: 110.0,
+                          height: 75.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE5306C).withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'See All',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
 //          ACTIVITY FEED HEADER
-          SliverToBoxAdapter(
-            child: activityHeaderWidget('Activity Feed'),
-          ),
-          SliverPadding(
-//            ACTIVITY NOTIFICATION BUILDER
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                ((BuildContext context, int index) {
-                  ActivityNotification _activity =
-                      activityNotificationData[index];
-                  return activityNotificationWidget(
-                    context: context,
-                    userImgUrl: _activity.userImgUrl,
-                    userName: _activity.userName,
-                    contestImgUrl: _activity.contestImgUrl,
-                  );
-                }),
-                childCount: activityNotificationData.length,
-              ),
-            ),
+          activityHeaderWidget('Activity Feed'),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 14.0),
+            child: ListView.builder(
+              primary: false,
+              shrinkWrap: true,
+              itemBuilder: ((BuildContext context, int index) {
+                ActivityNotification _activity =
+                    activityNotificationData[index];
+                return activityNotificationWidget(
+                  context: context,
+                  userImgUrl: _activity.userImgUrl,
+                  userName: _activity.userName,
+                  contestImgUrl: _activity.contestImgUrl,
+                );
+              }),
+              itemCount: activityNotificationData.length,
+            ),
           ),
         ],
       ),
@@ -204,7 +196,9 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.only(top: 20.0),
             child: CircleAvatar(
               backgroundColor: Colors.grey[200],
-              radius: screenWidth * 0.12,
+              radius: MediaQuery.of(context).size.width < 360
+                  ? screenWidth * 0.1
+                  : screenWidth * 0.12,
               child: ClipOval(
                 child: userProfileBloc.getUserImage != null
                     ? Image.memory(
@@ -238,19 +232,23 @@ class _ProfileState extends State<Profile> {
               : 'Capital Votes',
           style: Theme.of(context).textTheme.headline1.copyWith(
                 fontWeight: FontWeight.w700,
-                fontSize: 16.0,
+                fontSize: MediaQuery.of(context).size.width < 360 ? 14.0 : 16.0,
                 color: Colors.black87,
               ),
         ),
 //        USER BIO DESCRIPTION
         SizedBox(
-          width: 230.0, // to contain text // might need better implementation
+          width: MediaQuery.of(context).size.width < 360
+              ? 200.0
+              : 230.0, // to contain text // might need better implementation
           child: Text(
             userProfileBloc.getBio != null
                 ? '${userProfileBloc.getBio}'
                 : 'My awesome profile bio is still loading..'
                     '...feel free me to contact me though. hello bold world',
-            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width < 360 ? 10.0 : 12.0,
+                fontWeight: FontWeight.w500),
           ),
         ),
 //        USER WEBSITE
@@ -429,7 +427,7 @@ Widget miniContestCardWidget({
       margin: EdgeInsets.fromLTRB(2.0, 0.0, 4.0, 5.0),
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 5.0),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: Colors.grey[100],
         borderRadius: _borderRadius,
       ),
       child: Column(
@@ -447,6 +445,7 @@ Widget miniContestCardWidget({
           ),
           Text(
             '$contestTitle',
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: 10.0,
               fontWeight: FontWeight.w600,
@@ -545,9 +544,9 @@ List<ActivityNotification> activityNotificationData = [
 Widget activityNotificationWidget(
     {BuildContext context, userImgUrl, userName, contestImgUrl}) {
   return Container(
-    height: 20.0,
+    height: 50.0,
     margin: EdgeInsets.symmetric(
-      vertical: 12.0,
+      vertical: 4.0,
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -555,7 +554,7 @@ Widget activityNotificationWidget(
       children: <Widget>[
         CircleAvatar(
           backgroundColor: Colors.black,
-          radius: 22.0,
+          radius: 20.0,
           child: ClipOval(
             child: Image.asset(
               userImgUrl,
@@ -563,30 +562,36 @@ Widget activityNotificationWidget(
             ),
           ),
         ),
-        Expanded(
-          child: Text(
-            '$userName voted on your contest',
-            style: TextStyle(
-              fontSize: 10.0,
-              fontWeight: FontWeight.w600,
-            ),
+        Padding(padding: EdgeInsets.only(right: 8.0)),
+        Text(
+          '$userName',
+          style: TextStyle(
+            fontSize: 10.0,
+            fontWeight: FontWeight.w700,
           ),
         ),
         Text(
-          '10h ago',
+          'voted on your contest',
           style: TextStyle(
-            fontSize: 11.0,
-            fontWeight: FontWeight.w400,
+            fontSize: 10.0,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        SizedBox(
-          width: 10.0,
+        Padding(padding: EdgeInsets.only(right: 8.0)),
+        Expanded(
+          child: Text(
+            '10h ago',
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ),
         ClipRRect(
           borderRadius: BorderRadius.circular(4.0),
           child: Image(
-            width: 30.0,
-            height: 20.0,
+            width: 45.0,
+            height: 30.0,
             fit: BoxFit.cover,
             image: AssetImage(contestImgUrl),
           ),
@@ -639,8 +644,7 @@ Widget _pageDrawer(BuildContext context) {
 
             menuOption(
               'Payment Method',
-              ()
-              {
+              () {
                 pushGoTo(context, '/PaymentMethodScreen');
               },
               Icons.credit_card,
@@ -652,7 +656,9 @@ Widget _pageDrawer(BuildContext context) {
             ),
             menuOption(
               'Vote Analytics',
-              () {},
+              () {
+                pushGoTo(context, '/SeeAllContestScreen');
+              },
               Icons.pie_chart,
             ),
             menuOption(
@@ -677,7 +683,11 @@ Widget _pageDrawer(BuildContext context) {
             ),
             SizedBox(height: 42.0),
             Divider(),
-            logOutButton,
+            logOutButton(
+              'Log Out',
+              () {},
+              Icons.exit_to_app,
+            ),
           ],
         )),
   );
