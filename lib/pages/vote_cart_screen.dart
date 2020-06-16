@@ -1,8 +1,10 @@
+import 'package:capitalvotes/blocs/user_profile_bloc.dart';
 import 'package:capitalvotes/services/vote_function_widget.dart';
 import 'package:capitalvotes/shared/form_util.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class VoteCartScreen extends StatefulWidget {
   @override
@@ -34,7 +36,6 @@ class _VoteCartScreenState extends State<VoteCartScreen> {
   AssetImage _contestantImg = AssetImage('assets/images/users/user-1.jpg');
   String _slctedContestantName = 'Chloe Hermann';
   String _slctedContestantDesc = 'Lagos, Nigeria';
-
   // WIDGETS
   Widget slctedContestantInfo() {
     double _bgContainerHeight = 90.0;
@@ -94,6 +95,7 @@ class _VoteCartScreenState extends State<VoteCartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserProfileBloc userProfileBloc = Provider.of<UserProfileBloc>(context);
     return Scaffold(
       appBar: _screenAppBar,
       body: ListView(
