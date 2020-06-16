@@ -1,10 +1,7 @@
-
 import 'package:capitalvotes/blocs/payment_card.dart';
 import 'package:flutter/material.dart';
 
-
-
-class UserProfileBloc extends ChangeNotifier{
+class UserProfileBloc extends ChangeNotifier {
   String _uID;
   String _fullName;
   String _userName = 'Michael Kings';
@@ -13,12 +10,11 @@ class UserProfileBloc extends ChangeNotifier{
   String _website = 'www.michaelkings.com';
   String _phoneNo;
   String _userImage;
-  String _country= 'Lagos,Nigeria';
-  String _bio = '😭connoisseur of RAREGEMS 😁 hey go p 🎨🎞️🎥2D/3D still and motion graphics designer did and Mesa doing and any checks but and the and hmm and and and did';
-
+  String _country = 'Lagos,Nigeria';
+  String _bio =
+      '😭connoisseur of RAREGEMS 😁 hey go p 🎨🎞️🎥2D/3D still and motion graphics designer did and Mesa doing and any checks but and the and hmm and and and did';
 
   // Getters
-
 
   String get getUid => _uID;
 
@@ -39,8 +35,6 @@ class UserProfileBloc extends ChangeNotifier{
   String get getCountry => _country;
 
   String get getBio => _bio;
-
-
 
   // Setters
 
@@ -96,7 +90,7 @@ class UserProfileBloc extends ChangeNotifier{
   List<PaymentCard> paymentCardList = [];
 //  List<ContestBloc> userContestList = [ContestBloc()];
 
-  addPaymentCardToList(PaymentCard paymentCard){
+  addPaymentCardToList(PaymentCard paymentCard) {
     paymentCardList.add(paymentCard);
     notifyListeners();
   }
@@ -106,6 +100,6 @@ class UserProfileBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-// Constructors
+
 
 }
