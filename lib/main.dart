@@ -100,6 +100,7 @@ class CapitalVotes extends StatelessWidget {
             '/PromoCodeScreen': (context) => AddPromoCodeScreen(),
             '/VoteAnalyticScreen': (context) => VoteAnalyticScreen(),
             '/SeeAllContestScreen': (context) => VoteAnalyticScreen(),
+            '/VoteCartScreen': (context) => VoteCartScreen(),
           },
         ));
   }
