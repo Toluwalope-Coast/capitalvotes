@@ -1,4 +1,5 @@
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
+import 'package:capitalvotes/blocs/view_nominee_bloc.dart';
 import 'package:capitalvotes/services/vote_function_widget.dart';
 import 'package:capitalvotes/shared/form_util.dart';
 import 'package:capitalvotes/shared/theme.dart';
@@ -96,6 +97,7 @@ class _VoteCartScreenState extends State<VoteCartScreen> {
   @override
   Widget build(BuildContext context) {
     UserProfileBloc userProfileBloc = Provider.of<UserProfileBloc>(context);
+    ViewNomineeLocalBloc viewNomineeLocalBloc = Provider.of<ViewNomineeLocalBloc>(context);
     return Scaffold(
       appBar: _screenAppBar,
       body: ListView(
