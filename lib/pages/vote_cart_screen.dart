@@ -1,6 +1,7 @@
 import 'package:capitalvotes/blocs/user_profile_bloc.dart';
 import 'package:capitalvotes/blocs/view_nominee_bloc.dart';
 import 'package:capitalvotes/services/vote_function_widget.dart';
+import 'package:capitalvotes/shared/constants.dart';
 import 'package:capitalvotes/shared/form_util.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,21 +86,22 @@ class _VoteCartScreenState extends State<VoteCartScreen> {
                         child: ClipRRect(
                           borderRadius:
                               BorderRadius.circular(_imgContainerRadius),
-                          child: Image(
+                          child: Image.memory(
+                            stringToImageFile(
+                                viewNomineeLocalBloc.getNomineeImage),
                             fit: BoxFit.cover,
-                            image: _contestantImg,
                           ),
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(top: 10.0)),
                       Text(
-                        _slctedContestantName,
+                        viewNomineeLocalBloc.getNomineeName,
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14.5,
                         ),
                       ),
-                      Text(_slctedContestantDesc,
+                      Text(viewNomineeLocalBloc.getNomineeNumber,
                           style: TextStyle(fontSize: 11.0)),
                     ],
                   ),
