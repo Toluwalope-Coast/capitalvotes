@@ -99,4 +99,9 @@ class UserProfileBloc extends ChangeNotifier {
     paymentCardList.removeAt(index);
     notifyListeners();
   }
+
+  getSelectedCardFromList(index) {
+    paymentCardList.elementAt(index);
+    notifyListeners();
+  }
 }
