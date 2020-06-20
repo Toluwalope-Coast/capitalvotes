@@ -37,6 +37,21 @@ class _SearchState extends State<Search> {
     );
   }
 
+  TextStyle _headingTxtStyle = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.w700,
+  );
+
+  TextStyle _bodyTxtStyle = TextStyle(
+    fontSize: 12.0,
+  );
+
+  TextStyle _heading2TxtStyle = TextStyle(
+    fontSize: 14.0,
+    fontWeight: FontWeight.w600,
+    color: capitalVotesTheme().primaryColor,
+  );
+
   TextEditingController searchFieldController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -115,6 +130,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
+          searchInfoContestWidget(),
         ],
       ),
     );
@@ -164,61 +180,56 @@ class SearchInfoContest {
       this.contestCreator});
 }
 
-//Widget searchInfoContestWidget() {
-//  Widget _header(){
-//    return SizedBox(
-//      child: Row(
-//        children: <Widget>[
-////          CircleAvatar(
-////            backgroundColor: Colors.grey[200],
-////            radius: MediaQuery.of(context).size.width < 360
-////                ? screenWidth * 0.1
-////                : screenWidth * 0.12,
-////            child: ClipOval(
-////              child: userProfileBloc.getUserImage != null
-////                  ? Image.memory(
-////                stringToImageFile(userProfileBloc.getUserImage),
-////                fit: BoxFit.cover,
-////              )
-////                  : Image.asset(
-////                'images/logo.png',
-////                fit: BoxFit.cover,
-////              ),
-////            ),
-//////
-////          ),
-//          Column(
-//            children: <Widget>[
-//              Text(''),
-//              Text(''),
-//            ],
-//          ),
-//        ],
-//      ),
-//    );
-//  }
-//  Widget _about(){
-//    return Column(
-//      children: <Widget>[
-//        Text(''),
-//        Text('ongoing contest'),
-//      ],
-//    );
-//  }
-//  Widget _aside(){
-//    return Image(
-//      image: AssetImage(''),
-//    );
-//  }
-//  return Row(
-//    children: <Widget>[
-//      Column(
-//        children: <Widget>[
-//          _header(),
-//          _about(),
-//        ],
-//      ),
-//      _aside(),
-//    ],
-//  );
-//}
+Widget searchInfoContestWidget() {
+  Widget _header() {
+    return SizedBox(
+      child: Row(
+        children: <Widget>[
+          CircleAvatar(
+            backgroundColor: Colors.grey[200],
+            radius: 20.0,
+            child: ClipOval(
+              child: Image.asset(
+                'images/logo.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              Text(''),
+              Text(''),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _about() {
+    return Column(
+      children: <Widget>[
+        Text(''),
+        Text('ongoing contest'),
+      ],
+    );
+  }
+
+  Widget _aside() {
+    return Image(
+      image: AssetImage(''),
+    );
+  }
+
+  return Row(
+    children: <Widget>[
+      Column(
+        children: <Widget>[
+          _header(),
+          _about(),
+        ],
+      ),
+      _aside(),
+    ],
+  );
+}
