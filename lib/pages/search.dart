@@ -93,11 +93,63 @@ class SearchInfoContest {
       this.contestCreator});
 }
 
-Widget searchInfoUserWidget({Widget trailing, String title, String subtitle}) {
-  return ListTile(
-//    preferably a circle avatar
-    trailing: trailing,
-    title: Text(title),
-    subtitle: Text(subtitle),
-  );
-}
+
+
+//Widget searchInfoContestWidget() {
+//  Widget _header(){
+//    return SizedBox(
+//      child: Row(
+//        children: <Widget>[
+////          CircleAvatar(
+////            backgroundColor: Colors.grey[200],
+////            radius: MediaQuery.of(context).size.width < 360
+////                ? screenWidth * 0.1
+////                : screenWidth * 0.12,
+////            child: ClipOval(
+////              child: userProfileBloc.getUserImage != null
+////                  ? Image.memory(
+////                stringToImageFile(userProfileBloc.getUserImage),
+////                fit: BoxFit.cover,
+////              )
+////                  : Image.asset(
+////                'images/logo.png',
+////                fit: BoxFit.cover,
+////              ),
+////            ),
+//////
+////          ),
+//          Column(
+//            children: <Widget>[
+//              Text(''),
+//              Text(''),
+//            ],
+//          ),
+//        ],
+//      ),
+//    );
+//  }
+//  Widget _about(){
+//    return Column(
+//      children: <Widget>[
+//        Text(''),
+//        Text('ongoing contest'),
+//      ],
+//    );
+//  }
+//  Widget _aside(){
+//    return Image(
+//      image: AssetImage(''),
+//    );
+//  }
+//  return Row(
+//    children: <Widget>[
+//      Column(
+//        children: <Widget>[
+//          _header(),
+//          _about(),
+//        ],
+//      ),
+//      _aside(),
+//    ],
+//  );
+//}
