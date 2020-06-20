@@ -76,4 +76,19 @@ class SearchInfoUser {
   SearchInfoUser({this.name, this.description, this.leading});
 }
 
+class SearchInfoContest {
+  bool ongoing;
+  Widget leading;
+  Widget trailing;
+  String description;
+  String contestName;
+  String contestCreator;
 
+  SearchInfoContest(
+      {this.ongoing,
+      this.leading,
+      this.trailing,
+      this.description,
+      this.contestName,
+      this.contestCreator});
+}
