@@ -43,7 +43,7 @@ class _SearchState extends State<Search> {
   );
 
   TextStyle _bodyTxtStyle = TextStyle(
-    fontSize: 12.0,
+    fontSize: 10.0,
   );
 
   TextStyle _heading2TxtStyle = TextStyle(
@@ -124,18 +124,36 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
+          Text(
+            'Contest',
+            style: _heading2TxtStyle,
+          ),
+          ListView.builder(
+              primary: false,
+              shrinkWrap: true,
+              itemCount: searchInfoContestData.length,
+              itemBuilder: ((BuildContext context, int index) {
+                SearchInfoContest data = searchInfoContestData[index];
+                return searchResultCard(
+                    data.ongoing,
+                    data.creatorImgUrl,
+                    data.contestBanner,
+                    data.contestDescription,
+                    data.contestName,
+                    data.creatorUsername);
+              }))
         ],
       ),
     );
   }
 
-  Widget searchInfoContestWidget(
+  Widget searchResultCard(
     bool ongoing,
-    String contestImageUrl,
-    String contestBannerUrl,
-    String contestDescription,
-    String contestName,
-    String contestCreator,
+    String leadingImgUrl,
+    String trailingImgUrl,
+    String description,
+    String title,
+    String subtitle,
   ) {
     Widget _header() {
       return SizedBox(
@@ -146,7 +164,7 @@ class _SearchState extends State<Search> {
               radius: 20.0,
               child: ClipOval(
                 child: Image.asset(
-                  'images/logo.png',
+                  leadingImgUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -154,23 +172,27 @@ class _SearchState extends State<Search> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.0),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Face of capital votes',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.0,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12.0,
+                    ),
+//                    softWrap: true,
+//                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                Text(
-                  'CAPITAL VOTES',
-                  style: TextStyle(
-                    fontSize: 13.0,
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -183,20 +205,17 @@ class _SearchState extends State<Search> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           SizedBox(
-            height: 80.0,
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do '
-              'eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              ' Ut enim ad minim veniam, quis nostrud ',
-              overflow: TextOverflow.ellipsis,
+              description,
+//              overflow: TextOverflow.ellipsis,
               style: _bodyTxtStyle,
             ),
           ),
           Text(
-            'ongoing contest',
+            ongoing ? 'Ongoing contest' : '',
             style: TextStyle(
               color: capitalVotesTheme().primaryColor,
-              fontSize: 12.0,
+              fontSize: 10.0,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -211,19 +230,25 @@ class _SearchState extends State<Search> {
           width: 80.0,
           height: 70.0,
           fit: BoxFit.cover,
-          image: AssetImage('images/default_cover_pic.jpg'),
+          image: AssetImage(trailingImgUrl),
         ),
       );
     }
 
     return Container(
-      height: 180.0,
+//      height: 180.0,
+      constraints: BoxConstraints(
+        minHeight: 140.0,
+        maxHeight: 200.0,
+      ),
       padding: EdgeInsets.fromLTRB(12.5, 14.0, 12.5, 8.0),
+      margin: EdgeInsets.symmetric(vertical: 2.5),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey[200], width: 1.0),
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             child: Column(
@@ -270,33 +295,56 @@ List searchInfoUserData = [
     imgUrl: 'images/logo.png',
   ),
 ];
+
 List searchInfoContestData = [
   SearchInfoContest(
     ongoing: true,
-    leadingImgUrl: 'images/logo.png',
-    trailingImgUrl: 'images/default_cover_pic.jpg',
-    description:
+    creatorImgUrl: 'images/logo.png',
+    contestBanner: 'images/default_cover_pic.jpg',
+    contestDescription:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do '
         'eiusmod tempor incididunt ut labore et dolore magna aliqua.'
         ' Ut enim ad minim veniam, quis nostrud ',
     contestName: 'Face of capital votes',
-    contestCreator: 'CAPITAL VOTES',
+    creatorUsername: 'CAPITAL VOTES',
+  ),
+  SearchInfoContest(
+    ongoing: true,
+    creatorImgUrl: 'images/logo.png',
+    contestBanner: 'images/default_cover_pic.jpg',
+    contestDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do '
+        'eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        ' Ut enim ad minim veniam, quis nostrud ',
+    contestName: 'BBN 2020',
+    creatorUsername: 'Multichoice',
+  ),
+  SearchInfoContest(
+    ongoing: true,
+    creatorImgUrl: 'images/logo.png',
+    contestBanner: 'images/default_cover_pic.jpg',
+    contestDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do '
+        'eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        ' Ut enim ad minim veniam, quis nostrud ',
+    contestName: 'WHO WANT TO BE A MILLIONAIRE',
+    creatorUsername: 'MTN-NG',
   ),
 ];
 
 class SearchInfoContest {
   bool ongoing;
-  String leadingImgUrl;
-  String trailingImgUrl;
-  String description;
+  String creatorImgUrl;
+  String contestBanner;
+  String contestDescription;
   String contestName;
-  String contestCreator;
+  String creatorUsername;
 
   SearchInfoContest(
       {this.ongoing,
-      this.leadingImgUrl,
-      this.trailingImgUrl,
-      this.description,
+      this.creatorImgUrl,
+      this.contestBanner,
+      this.contestDescription,
       this.contestName,
-      this.contestCreator});
+      this.creatorUsername});
 }
