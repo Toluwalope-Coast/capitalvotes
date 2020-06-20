@@ -53,7 +53,7 @@ class _SearchState extends State<Search> {
               cursorColor: capitalVotesTheme().primaryColor,
               decoration: searchInputDecoration(
                 'Search....',
-                EdgeInsets.symmetric(vertical: 16.0, horizontal: 18.0),
+                EdgeInsets.symmetric(vertical: 14.5, horizontal: 18.0),
               ).copyWith(
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
@@ -66,4 +66,12 @@ class _SearchState extends State<Search> {
       ),
     );
   }
+}
+
+class SearchInfo {
+  String name;
+  String description;
+  Widget leading;
+
+  SearchInfo({this.name, this.description, this.leading});
 }
