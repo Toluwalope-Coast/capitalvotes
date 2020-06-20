@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:capitalvotes/shared/constants.dart';
 
 class AddContest extends StatefulWidget {
-
   @override
   _AddContestState createState() => _AddContestState();
 }
@@ -18,9 +17,7 @@ class _AddContestState extends State<AddContest> {
   final DateTime _selectedDate = DateTime.now();
   final TimeOfDay _selectedTime = TimeOfDay.now();
 
-
   _multiLineNav() => navigateToMultilineText(context, 'contest');
-
 
 // Date picker
 
@@ -110,12 +107,13 @@ class _AddContestState extends State<AddContest> {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
 
-      if (contestBloc.getIsCategory == false && contestBloc.getIsPaidFor == false) {
+      if (contestBloc.getIsCategory == false &&
+          contestBloc.getIsPaidFor == false) {
         pushGoTo(context, '/ConfirmContest');
-      } else if (contestBloc.getIsCategory == false && contestBloc.getIsPaidFor == true) {
+      } else if (contestBloc.getIsCategory == false &&
+          contestBloc.getIsPaidFor == true) {
         pushGoTo(context, '/VoteRate');
-      }
-      else {
+      } else {
         pushGoTo(context, '/AddCategory');
       }
 //
@@ -128,7 +126,6 @@ class _AddContestState extends State<AddContest> {
 
   // Assigning Variable for getting form inputs
 
-
   @override
   Widget build(BuildContext context) {
     // Media Query Responsiveness
@@ -138,18 +135,20 @@ class _AddContestState extends State<AddContest> {
 
     ContestBloc contestBloc = Provider.of<ContestBloc>(context);
 
-    _startTime() =>  _pickTime(context).then((String formattedTime) => contestBloc.setStartTime = formattedTime);
-    _endTime() =>  _pickTime(context).then((String formattedTime) => contestBloc.setEndTime = formattedTime);
-    _startDate() =>  _pickDate(context).then((String formattedTime) => contestBloc.setStartDate = formattedTime);
-    _endDate() =>  _pickDate(context).then((String formattedTime) => contestBloc.setEndDate = formattedTime);
-
+    _startTime() => _pickTime(context).then(
+        (String formattedTime) => contestBloc.setStartTime = formattedTime);
+    _endTime() => _pickTime(context)
+        .then((String formattedTime) => contestBloc.setEndTime = formattedTime);
+    _startDate() => _pickDate(context).then(
+        (String formattedTime) => contestBloc.setStartDate = formattedTime);
+    _endDate() => _pickDate(context)
+        .then((String formattedTime) => contestBloc.setEndDate = formattedTime);
 
     return Scaffold(
         appBar: topAppBar2('Create Contest', context),
         backgroundColor: Colors.white,
         body: Builder(
-            builder: (context) => ListView(
-                children: <Widget>[
+            builder: (context) => ListView(children: <Widget>[
                   InkWell(
                     onTap: () {
                       navigateToImageCapture(context, 'add_contest');
@@ -172,7 +171,11 @@ class _AddContestState extends State<AddContest> {
                               )),
                           Positioned.fill(
                               child: contestBloc.getContestBanner != null
-                                  ? Image.memory(stringToImageFile(contestBloc.getContestBanner), fit: BoxFit.cover,)
+                                  ? Image.memory(
+                                      stringToImageFile(
+                                          contestBloc.getContestBanner),
+                                      fit: BoxFit.cover,
+                                    )
                                   : Container(color: Colors.transparent)),
 //                                  : Text('')),
                           Positioned(
@@ -181,12 +184,18 @@ class _AddContestState extends State<AddContest> {
                               child: FlatButton.icon(
                                   padding: EdgeInsets.all(5.0),
                                   color: Color(0x65E5306C),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    navigateToImageCapture(
+                                        context, 'add_contest');
+                                  },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40)),
                                   icon: Icon(Icons.photo_library,
                                       color: Colors.white, size: 16.0),
-                                  label: Text(contestBloc.getContestBanner == null ? 'Add Cover Picture' :  'Edit Cover Image' ,
+                                  label: Text(
+                                      contestBloc.getContestBanner == null
+                                          ? 'Add Cover Picture'
+                                          : 'Edit Cover Image',
                                       style: TextStyle(
                                           fontSize: 9.0,
                                           fontFamily: 'poppins',
@@ -210,10 +219,15 @@ class _AddContestState extends State<AddContest> {
                               Container(
                                   height: screenHeight * 0.06,
                                   padding: EdgeInsets.all(0.0),
-                                  child: TextFormField( textAlignVertical: TextAlignVertical.bottom,
+                                  child: TextFormField(
+                                      textAlignVertical:
+                                          TextAlignVertical.bottom,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(fontSize: 16.0),
-                                      initialValue: contestBloc.getContestName == null ? '' : contestBloc.getContestName,
+                                      initialValue:
+                                          contestBloc.getContestName == null
+                                              ? ''
+                                              : contestBloc.getContestName,
                                       autovalidate: true,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
@@ -244,36 +258,40 @@ class _AddContestState extends State<AddContest> {
                                 child: Container(
                                   height: screenHeight * 0.06,
                                   width: screenWidth,
-                                  padding: EdgeInsets.only(top: 4.0, right: 8.0, bottom: 0.0, left: 8.0),
+                                  padding: EdgeInsets.only(
+                                      top: 4.0,
+                                      right: 8.0,
+                                      bottom: 0.0,
+                                      left: 8.0),
                                   decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(color: Color(0X553D2960)),
-                                  color: Colors.white),
+                                      borderRadius: BorderRadius.circular(4),
+                                      border:
+                                          Border.all(color: Color(0X553D2960)),
+                                      color: Colors.white),
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Text(
-                                            contestBloc.getContestDescription ==
-                                                    null
-                                                ? 'Contest Description'
-                                                : contestBloc.getContestDescription,
-                                            style:
-                                                contestBloc.getContestDescription ==
-                                                        null
-                                                    ? TextStyle(
-                                                        fontSize: 14.0,
-                                                        fontFamily: 'poppins',
-                                                        fontStyle: FontStyle.italic,
-                                                        color: Color(0X553D2960))
-                                                    : TextStyle(
-                                                        fontSize: 16.0,
-                                                        fontFamily: 'poppins',
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Colors.black),
-                                            textAlign: TextAlign.left,
-                                            maxLines: 1,
-                                        softWrap: false,
-                                        overflow: TextOverflow.visible,
-                                          ),
+                                      contestBloc.getContestDescription == null
+                                          ? 'Contest Description'
+                                          : contestBloc.getContestDescription,
+                                      style:
+                                          contestBloc.getContestDescription ==
+                                                  null
+                                              ? TextStyle(
+                                                  fontSize: 14.0,
+                                                  fontFamily: 'poppins',
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Color(0X553D2960))
+                                              : TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontFamily: 'poppins',
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.black),
+                                      textAlign: TextAlign.left,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      overflow: TextOverflow.visible,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -291,29 +309,35 @@ class _AddContestState extends State<AddContest> {
                                     child: Container(
                                       width: screenWidth * 0.36,
                                       height: screenHeight * 0.06,
-                                      padding: EdgeInsets.only(top: 8.0, right: 8.0, bottom: 0.0, left: 8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 8.0,
+                                          right: 8.0,
+                                          bottom: 0.0,
+                                          left: 8.0),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
-                                          border: Border.all(color: Color(0X553D2960)),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          border: Border.all(
+                                              color: Color(0X553D2960)),
                                           color: Colors.white),
-                                          child: Text(
-                                            contestBloc.getStartTime == null
-                                                ? 'Start Time'
-                                                : contestBloc.getStartTime,
-                                            style: contestBloc.getStartTime ==
-                                                    null
-                                                ? TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'poppins',
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Color(0X553D2960))
-                                                : TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'poppins',
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.black, letterSpacing: 2.0),
-                                            textAlign: TextAlign.left,
-                                          ),
+                                      child: Text(
+                                        contestBloc.getStartTime == null
+                                            ? 'Start Time'
+                                            : contestBloc.getStartTime,
+                                        style: contestBloc.getStartTime == null
+                                            ? TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'poppins',
+                                                fontStyle: FontStyle.italic,
+                                                color: Color(0X553D2960))
+                                            : TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'poppins',
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
+                                                letterSpacing: 2.0),
+                                        textAlign: TextAlign.left,
+                                      ),
                                     ),
                                   ),
                                   InkWell(
@@ -321,29 +345,35 @@ class _AddContestState extends State<AddContest> {
                                     child: Container(
                                       width: screenWidth * 0.36,
                                       height: screenHeight * 0.06,
-                                      padding: EdgeInsets.only(top: 8.0, right: 8.0, bottom: 0.0, left: 8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 8.0,
+                                          right: 8.0,
+                                          bottom: 0.0,
+                                          left: 8.0),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
-                                          border: Border.all(color: Color(0X553D2960)),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          border: Border.all(
+                                              color: Color(0X553D2960)),
                                           color: Colors.white),
                                       child: Text(
-                                            contestBloc.getEndTime == null
-                                                ? 'End Time'
-                                                : contestBloc.getEndTime,
-                                            style: contestBloc.getEndTime ==
-                                                    null
-                                                ? TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'poppins',
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Color(0X553D2960))
-                                                : TextStyle(
+                                        contestBloc.getEndTime == null
+                                            ? 'End Time'
+                                            : contestBloc.getEndTime,
+                                        style: contestBloc.getEndTime == null
+                                            ? TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'poppins',
+                                                fontStyle: FontStyle.italic,
+                                                color: Color(0X553D2960))
+                                            : TextStyle(
                                                 fontSize: 14.0,
                                                 fontFamily: 'poppins',
                                                 fontWeight: FontWeight.w500,
-                                                color: Colors.black, letterSpacing: 2.0),
+                                                color: Colors.black,
+                                                letterSpacing: 2.0),
                                         textAlign: TextAlign.left,
-                                          ),
+                                      ),
                                     ),
                                   )
                                 ],
@@ -358,29 +388,35 @@ class _AddContestState extends State<AddContest> {
                                     child: Container(
                                       width: screenWidth * 0.36,
                                       height: screenHeight * 0.06,
-                                      padding: EdgeInsets.only(top: 8.0, right: 8.0, bottom: 0.0, left: 8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 8.0,
+                                          right: 8.0,
+                                          bottom: 0.0,
+                                          left: 8.0),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
-                                          border: Border.all(color: Color(0X553D2960)),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          border: Border.all(
+                                              color: Color(0X553D2960)),
                                           color: Colors.white),
                                       child: Text(
-                                            contestBloc.getStartDate == null
-                                                ? 'Start Date'
-                                                : contestBloc.getStartDate,
-                                            style: contestBloc.getStartDate ==
-                                                    null
-                                                ? TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'poppins',
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Color(0X553D2960))
-                                                : TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'poppins',
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.black87,),
+                                        contestBloc.getStartDate == null
+                                            ? 'Start Date'
+                                            : contestBloc.getStartDate,
+                                        style: contestBloc.getStartDate == null
+                                            ? TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'poppins',
+                                                fontStyle: FontStyle.italic,
+                                                color: Color(0X553D2960))
+                                            : TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'poppins',
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black87,
+                                              ),
                                         textAlign: TextAlign.left,
-                                          ),
+                                      ),
                                     ),
                                   ),
                                   InkWell(
@@ -388,29 +424,35 @@ class _AddContestState extends State<AddContest> {
                                     child: Container(
                                       width: screenWidth * 0.36,
                                       height: screenHeight * 0.06,
-                                      padding: EdgeInsets.only(top: 8.0, right: 8.0, bottom: 0.0, left: 8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 8.0,
+                                          right: 8.0,
+                                          bottom: 0.0,
+                                          left: 8.0),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(4),
-                                          border: Border.all(color: Color(0X553D2960)),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          border: Border.all(
+                                              color: Color(0X553D2960)),
                                           color: Colors.white),
                                       child: Text(
-                                            contestBloc.getEndDate == null
-                                                ? 'End Date'
-                                                : contestBloc.getEndDate,
-                                            style: contestBloc.getEndDate ==
-                                                    null
-                                                ? TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'poppins',
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Color(0X553D2960))
-                                                : TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'poppins',
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.black87,),
-                                            textAlign: TextAlign.left,
-                                          ),
+                                        contestBloc.getEndDate == null
+                                            ? 'End Date'
+                                            : contestBloc.getEndDate,
+                                        style: contestBloc.getEndDate == null
+                                            ? TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'poppins',
+                                                fontStyle: FontStyle.italic,
+                                                color: Color(0X553D2960))
+                                            : TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'poppins',
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black87,
+                                              ),
+                                        textAlign: TextAlign.left,
+                                      ),
                                     ),
                                   )
                                 ],
@@ -463,22 +505,28 @@ class _AddContestState extends State<AddContest> {
                               Container(
                                 width: screenWidth,
                                 child: RaisedButton(
-                                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02,),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: screenHeight * 0.02,
+                                    ),
                                     color: contestBloc.getContestName != null &&
-                                        contestBloc.getContestBanner != null &&
+                                            contestBloc.getContestBanner !=
+                                                null &&
                                             contestBloc.getStartTime != null &&
-                                        contestBloc.getEndTime != null &&
-                                        contestBloc.getStartDate != null &&
-                                        contestBloc.getEndDate != null
+                                            contestBloc.getEndTime != null &&
+                                            contestBloc.getStartDate != null &&
+                                            contestBloc.getEndDate != null
                                         ? Color(0xffE5306C)
                                         : Color(0x65E5306C),
                                     onPressed: () {
                                       contestBloc.getContestName != null &&
-                                          contestBloc.getContestBanner != null &&
-                                          contestBloc.getStartTime != null &&
-                                          contestBloc.getEndTime != null &&
-                                          contestBloc.getStartDate != null &&
-                                          contestBloc.getEndDate != null
+                                              contestBloc.getContestBanner !=
+                                                  null &&
+                                              contestBloc.getStartTime !=
+                                                  null &&
+                                              contestBloc.getEndTime != null &&
+                                              contestBloc.getStartDate !=
+                                                  null &&
+                                              contestBloc.getEndDate != null
                                           ? _save(contestBloc)
                                           : print('Not enabled');
                                     },
