@@ -71,10 +71,28 @@ class _SearchState extends State<Search> {
 class SearchInfoUser {
   String name;
   String description;
-  Widget leading;
+  String imgUrl;
 
-  SearchInfoUser({this.name, this.description, this.leading});
+  SearchInfoUser({this.name, this.description, this.imgUrl});
 }
+
+List searchInfoUserData = [
+  SearchInfoUser(
+    name: 'Michael Joe',
+    description: 'Lorem ipsum dolor sit',
+    imgUrl: 'images/logo.png',
+  ),
+  SearchInfoUser(
+    name: 'Joe Michael',
+    description: 'Lorem ipsum dolor sit',
+    imgUrl: 'images/logo.png',
+  ),
+  SearchInfoUser(
+    name: 'Michael Joeboy',
+    description: 'Lorem ipsum dolor sit',
+    imgUrl: 'images/logo.png',
+  ),
+];
 
 class SearchInfoContest {
   bool ongoing;
@@ -92,8 +110,6 @@ class SearchInfoContest {
       this.contestName,
       this.contestCreator});
 }
-
-
 
 //Widget searchInfoContestWidget() {
 //  Widget _header(){
