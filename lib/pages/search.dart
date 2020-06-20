@@ -62,6 +62,7 @@ class _SearchState extends State<Search> {
         padding: EdgeInsets.fromLTRB(12.0, 55.0, 12.0, 12.0),
         physics: BouncingScrollPhysics(),
         children: <Widget>[
+//          SEARCH BAR
           Container(
             margin: EdgeInsets.symmetric(vertical: 23.0),
             child: TextField(
@@ -79,6 +80,7 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
+          //BUILD WIDGET FOR NOMINEE RESULTS
           ListView.builder(
             primary: false,
             shrinkWrap: true,
@@ -114,6 +116,7 @@ class _SearchState extends State<Search> {
               );
             }),
           ),
+//          SEE ALL BUTTON
           Align(
             alignment: Alignment.bottomRight,
             child: FlatButton(
@@ -124,10 +127,12 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
+//          SHOW CONTEST HEADER IF THERE ARE CONTEST IN RESULT
           Text(
             'Contest',
             style: _heading2TxtStyle,
           ),
+//          BUILD WIDGET FOR CONTEST RESULTS
           ListView.builder(
               primary: false,
               shrinkWrap: true,
@@ -147,6 +152,7 @@ class _SearchState extends State<Search> {
     );
   }
 
+//  SEARCH RESULT CARD WIDGET
   Widget searchResultCard(
     bool ongoing,
     String leadingImgUrl,
@@ -155,6 +161,7 @@ class _SearchState extends State<Search> {
     String title,
     String subtitle,
   ) {
+//    Helper methods for building custom card widget
     Widget _header() {
       return SizedBox(
         child: Row(
@@ -163,34 +170,19 @@ class _SearchState extends State<Search> {
               backgroundColor: Colors.grey[200],
               radius: 20.0,
               child: ClipOval(
-                child: Image.asset(
-                  leadingImgUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  child: Image.asset(leadingImgUrl, fit: BoxFit.cover)),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.0),
-            ),
+            Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12.0,
-                    ),
-//                    softWrap: true,
-//                    overflow: TextOverflow.ellipsis,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0),
                   ),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                    ),
-                  ),
+                  Text(subtitle, style: TextStyle(fontSize: 12.0)),
                 ],
               ),
             ),
@@ -205,11 +197,7 @@ class _SearchState extends State<Search> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           SizedBox(
-            child: Text(
-              description,
-//              overflow: TextOverflow.ellipsis,
-              style: _bodyTxtStyle,
-            ),
+            child: Text(description, style: _bodyTxtStyle),
           ),
           Text(
             ongoing ? 'Ongoing contest' : '',
@@ -235,35 +223,32 @@ class _SearchState extends State<Search> {
       );
     }
 
+//   main custom search card widget
     return Container(
-//      height: 180.0,
-      constraints: BoxConstraints(
-        minHeight: 140.0,
-        maxHeight: 200.0,
-      ),
+      constraints: BoxConstraints(minHeight: 140.0, maxHeight: 200.0),
       padding: EdgeInsets.fromLTRB(12.5, 14.0, 12.5, 8.0),
       margin: EdgeInsets.symmetric(vertical: 2.5),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey[200], width: 1.0),
         borderRadius: BorderRadius.circular(12.0),
       ),
+//
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+//
           Expanded(
             child: Column(
               children: <Widget>[
                 _header(),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4.0),
-                ),
-                Expanded(
-                  child: _about(),
-                ),
+                Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
+                Expanded(child: _about()),
               ],
             ),
           ),
+//
           _aside(),
+//
         ],
       ),
     );
