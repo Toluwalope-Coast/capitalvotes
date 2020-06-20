@@ -2,7 +2,7 @@ import 'package:capitalvotes/blocs/category_bloc.dart';
 import 'package:capitalvotes/blocs/nominee_bloc.dart';
 import 'package:flutter/material.dart';
 
-class ContestBloc extends ChangeNotifier{
+class ContestBloc extends ChangeNotifier {
   String _contestID;
   String _creatorUsername = 'ToluwalopeCoast43';
   String _creatorCountry = 'Nigeria';
@@ -16,20 +16,16 @@ class ContestBloc extends ChangeNotifier{
   bool _isPaidFor = false;
   double _voteRate;
   String _currencyType;
-  bool _isCategory = false;
+  bool _hasCategory = false;
 //  String _categoryDescription;
 //  String _nomineeDescription;
   int _contestCategoryIndex;
 
-
-
-
 //  bool _brand;
 
-  List <NomineeBloc> nomineeWithOutCategoryList = [];
+  List<NomineeBloc> nomineeWithOutCategoryList = [];
 
-  List <CategoryBloc> contestCategoryList = [];
-
+  List<CategoryBloc> contestCategoryList = [];
 
   // Getters
 
@@ -53,7 +49,7 @@ class ContestBloc extends ChangeNotifier{
 
   String get getContestName => _contestName;
 
-  bool get getIsCategory => _isCategory;
+  bool get getIsCategory => _hasCategory;
 
   bool get getIsPaidFor => _isPaidFor;
 
@@ -68,7 +64,6 @@ class ContestBloc extends ChangeNotifier{
   String get getCurrencyType => _currencyType;
 
   int get getContestCategoryIndex => _contestCategoryIndex;
-
 
   set setContestID(String value) {
     _creatorUsername = value;
@@ -119,7 +114,6 @@ class ContestBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-
   set setStartTime(String value) {
     _startTime = value;
     notifyListeners();
@@ -136,7 +130,7 @@ class ContestBloc extends ChangeNotifier{
   }
 
   set setIsCategory(bool value) {
-    _isCategory = value;
+    _hasCategory = value;
     notifyListeners();
   }
 
@@ -159,76 +153,75 @@ class ContestBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-
   // Special Functions
 
 // Nominee without Category
 
-
-  addNomineeToContestList(NomineeBloc nominee){
+  addNomineeToContestList(NomineeBloc nominee) {
     nomineeWithOutCategoryList.add(nominee);
     notifyListeners();
   }
 
-  removeNomineeFromContestList(int index){
+  removeNomineeFromContestList(int index) {
     nomineeWithOutCategoryList.removeAt(index);
     notifyListeners();
   }
-  updateNomineeFromContestList(int index, NomineeBloc nominee){
+
+  updateNomineeFromContestList(int index, NomineeBloc nominee) {
     nomineeWithOutCategoryList.removeAt(index);
     nomineeWithOutCategoryList.insert(index, nominee);
     notifyListeners();
   }
 
-  deleteTheEntireNomineeFromContestList(){
+  deleteTheEntireNomineeFromContestList() {
     nomineeWithOutCategoryList.clear();
     notifyListeners();
   }
 
-
-
 // Category
 
-
-  addCategoryList(CategoryBloc category){
+  addCategoryList(CategoryBloc category) {
     contestCategoryList.add(category);
     notifyListeners();
   }
 
-  removeCategoryFromContest(CategoryBloc category){
+  removeCategoryFromContest(CategoryBloc category) {
     contestCategoryList.removeAt(contestCategoryList.indexOf(category));
     notifyListeners();
   }
-  updateCategoryListFromContest(int index, CategoryBloc category){
+
+  updateCategoryListFromContest(int index, CategoryBloc category) {
     contestCategoryList.removeAt(index);
     contestCategoryList.insert(index, category);
     notifyListeners();
   }
 
-  removeTheEntireCategoryList(){
+  removeTheEntireCategoryList() {
     contestCategoryList.clear();
     notifyListeners();
   }
 
-
 // Category Nominee
 
-
-  addNomineeToContestCategory(int categoryIndex, NomineeBloc nominee){
+  addNomineeToContestCategory(int categoryIndex, NomineeBloc nominee) {
     contestCategoryList[categoryIndex].addNomineeToCategoryList(nominee);
     notifyListeners();
   }
 
-  removeNomineeFromContestCategory(int categoryIndex, int nomineeIndex){
-    contestCategoryList[categoryIndex].removeNomineeFromCategoryList(nomineeIndex);
-    notifyListeners();
-  }
-  updateNomineeListFromContestCategory(int categoryIndex, int nomineeIndex, NomineeBloc nominee){
-    contestCategoryList[categoryIndex].updateNomineeFromCategoryList(nomineeIndex, nominee);
+  removeNomineeFromContestCategory(int categoryIndex, int nomineeIndex) {
+    contestCategoryList[categoryIndex]
+        .removeNomineeFromCategoryList(nomineeIndex);
     notifyListeners();
   }
 
-  removeTheEntireNomineeFromContestCategory(){
+  updateNomineeListFromContestCategory(
+      int categoryIndex, int nomineeIndex, NomineeBloc nominee) {
+    contestCategoryList[categoryIndex]
+        .updateNomineeFromCategoryList(nomineeIndex, nominee);
+    notifyListeners();
+  }
+
+  removeTheEntireNomineeFromContestCategory() {
     contestCategoryList.clear();
     notifyListeners();
   }
@@ -249,7 +242,6 @@ class ContestBloc extends ChangeNotifier{
 //    this._endDate = obj['Contest End Date'];
 //    this._brand = obj['Brand'];
 //  }
-
 
 //// from map
 //  Contest.fromMap(Map<String, dynamic> map) {
