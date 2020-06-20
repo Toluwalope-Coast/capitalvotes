@@ -68,10 +68,12 @@ class _SearchState extends State<Search> {
   }
 }
 
-class SearchInfo {
+class SearchInfoUser {
   String name;
   String description;
   Widget leading;
 
-  SearchInfo({this.name, this.description, this.leading});
+  SearchInfoUser({this.name, this.description, this.leading});
 }
+
+
