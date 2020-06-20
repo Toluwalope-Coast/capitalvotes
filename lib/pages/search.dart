@@ -44,9 +44,11 @@ class _SearchState extends State<Search> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: ListView(
+        padding: EdgeInsets.fromLTRB(12.0, 55.0, 12.0, 12.0),
+        physics: BouncingScrollPhysics(),
         children: <Widget>[
           Container(
-            margin: EdgeInsets.symmetric(vertical: 23.0, horizontal: 18.0),
+            margin: EdgeInsets.symmetric(vertical: 23.0),
             child: TextField(
               controller: searchFieldController,
               style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
@@ -59,6 +61,57 @@ class _SearchState extends State<Search> {
                   icon: Icon(Icons.search),
                   onPressed: () {},
                 ),
+              ),
+            ),
+          ),
+          ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            itemCount: searchInfoUserData.length,
+            itemBuilder: ((BuildContext context, int index) {
+              SearchInfoUser data = searchInfoUserData[index];
+              return Container(
+                margin: EdgeInsets.symmetric(vertical: 2.5),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1.0, color: Colors.grey[200]),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    child: ClipOval(
+                      child: Image.asset(
+                        data.imgUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  dense: true,
+                  title: Text(
+                    data.name,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  subtitle: Text(
+                    data.description,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+          FlatButton(
+            onPressed: () {},
+            child: Text(
+              'See all',
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w600,
+                color: capitalVotesTheme().primaryColor,
               ),
             ),
           ),
