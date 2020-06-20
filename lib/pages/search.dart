@@ -124,13 +124,19 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-          searchInfoContestWidget(),
         ],
       ),
     );
   }
 
-  Widget searchInfoContestWidget() {
+  Widget searchInfoContestWidget(
+    bool ongoing,
+    String contestImageUrl,
+    String contestBannerUrl,
+    String contestDescription,
+    String contestName,
+    String contestCreator,
+  ) {
     Widget _header() {
       return SizedBox(
         child: Row(
@@ -177,10 +183,12 @@ class _SearchState extends State<Search> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           SizedBox(
+            height: 80.0,
             child: Text(
               'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do '
               'eiusmod tempor incididunt ut labore et dolore magna aliqua.'
               ' Ut enim ad minim veniam, quis nostrud ',
+              overflow: TextOverflow.ellipsis,
               style: _bodyTxtStyle,
             ),
           ),
@@ -262,19 +270,32 @@ List searchInfoUserData = [
     imgUrl: 'images/logo.png',
   ),
 ];
+List searchInfoContestData = [
+  SearchInfoContest(
+    ongoing: true,
+    leadingImgUrl: 'images/logo.png',
+    trailingImgUrl: 'images/default_cover_pic.jpg',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do '
+        'eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        ' Ut enim ad minim veniam, quis nostrud ',
+    contestName: 'Face of capital votes',
+    contestCreator: 'CAPITAL VOTES',
+  ),
+];
 
 class SearchInfoContest {
   bool ongoing;
-  Widget leading;
-  Widget trailing;
+  String leadingImgUrl;
+  String trailingImgUrl;
   String description;
   String contestName;
   String contestCreator;
 
   SearchInfoContest(
       {this.ongoing,
-      this.leading,
-      this.trailing,
+      this.leadingImgUrl,
+      this.trailingImgUrl,
       this.description,
       this.contestName,
       this.contestCreator});
