@@ -92,3 +92,12 @@ class SearchInfoContest {
       this.contestName,
       this.contestCreator});
 }
+
+Widget searchInfoUserWidget({Widget trailing, String title, String subtitle}) {
+  return ListTile(
+//    preferably a circle avatar
+    trailing: trailing,
+    title: Text(title),
+    subtitle: Text(subtitle),
+  );
+}
