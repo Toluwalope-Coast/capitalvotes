@@ -104,33 +104,127 @@ class _SearchState extends State<Search> {
                   dense: true,
                   title: Text(
                     data.name,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: _headingTxtStyle,
                   ),
                   subtitle: Text(
                     data.description,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                    ),
+                    style: _bodyTxtStyle,
                   ),
                 ),
               );
             }),
           ),
-          FlatButton(
-            onPressed: () {},
-            child: Text(
-              'See all',
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w600,
-                color: capitalVotesTheme().primaryColor,
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FlatButton(
+              onPressed: () {},
+              child: Text(
+                'See all',
+                style: _heading2TxtStyle,
               ),
             ),
           ),
           searchInfoContestWidget(),
+        ],
+      ),
+    );
+  }
+
+  Widget searchInfoContestWidget() {
+    Widget _header() {
+      return SizedBox(
+        child: Row(
+          children: <Widget>[
+            CircleAvatar(
+              backgroundColor: Colors.grey[200],
+              radius: 20.0,
+              child: ClipOval(
+                child: Image.asset(
+                  'images/logo.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.0),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Face of capital votes',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.0,
+                  ),
+                ),
+                Text(
+                  'CAPITAL VOTES',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget _about() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          SizedBox(
+            child: Text(
+              'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do '
+              'eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+              ' Ut enim ad minim veniam, quis nostrud ',
+              style: _bodyTxtStyle,
+            ),
+          ),
+          Text(
+            'ongoing contest',
+            style: TextStyle(
+              color: capitalVotesTheme().primaryColor,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget _aside() {
+      return Image(
+        image: AssetImage(''),
+      );
+    }
+
+    return Container(
+      height: 180.0,
+      padding: EdgeInsets.fromLTRB(12.5, 14.0, 12.5, 8.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[200], width: 1.0),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                _header(),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.0),
+                ),
+                Expanded(
+                  child: _about(),
+                ),
+              ],
+            ),
+          ),
+          _aside(),
         ],
       ),
     );
@@ -178,58 +272,4 @@ class SearchInfoContest {
       this.description,
       this.contestName,
       this.contestCreator});
-}
-
-Widget searchInfoContestWidget() {
-  Widget _header() {
-    return SizedBox(
-      child: Row(
-        children: <Widget>[
-          CircleAvatar(
-            backgroundColor: Colors.grey[200],
-            radius: 20.0,
-            child: ClipOval(
-              child: Image.asset(
-                'images/logo.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              Text(''),
-              Text(''),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _about() {
-    return Column(
-      children: <Widget>[
-        Text(''),
-        Text('ongoing contest'),
-      ],
-    );
-  }
-
-  Widget _aside() {
-    return Image(
-      image: AssetImage(''),
-    );
-  }
-
-  return Row(
-    children: <Widget>[
-      Column(
-        children: <Widget>[
-          _header(),
-          _about(),
-        ],
-      ),
-      _aside(),
-    ],
-  );
 }
