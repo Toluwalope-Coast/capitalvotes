@@ -75,7 +75,7 @@ class CapitalVotes extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: capitalVotesTheme(),
-          initialRoute: '/PageLoader',
+          initialRoute: '/',
           routes: {
             '/': (context) => PageLoader(),
             '/Home': (context) => Home(),
