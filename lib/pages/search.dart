@@ -197,8 +197,14 @@ class _SearchState extends State<Search> {
     }
 
     Widget _aside() {
-      return Image(
-        image: AssetImage(''),
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(4.0),
+        child: Image(
+          width: 80.0,
+          height: 70.0,
+          fit: BoxFit.cover,
+          image: AssetImage('images/default_cover_pic.jpg'),
+        ),
       );
     }
 
