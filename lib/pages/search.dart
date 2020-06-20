@@ -1,3 +1,6 @@
+import 'package:capitalvotes/shared/form_util.dart';
+import 'package:capitalvotes/shared/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
@@ -6,29 +9,61 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  int feedCounts;
-  bool isSearching = false;
+  OutlineInputBorder searchBorderDefault = OutlineInputBorder(
+    borderSide: BorderSide(
+      width: 2.0,
+      color: Colors.grey[200],
+    ),
+    borderRadius: BorderRadius.circular(50.0),
+  );
+  //border style when input is in focus
+  OutlineInputBorder searchBorderFocused = formBorderDefault.copyWith(
+    borderSide: BorderSide(
+      color: capitalVotesTheme().primaryColor,
+      width: 2.0,
+    ),
+    borderRadius: BorderRadius.circular(50.0),
+  );
 
+  InputDecoration searchInputDecoration(String hintText, EdgeInsets padding) {
+    return InputDecoration(
+      hintText: hintText,
+      hintStyle: TextStyle(
+        color: Colors.black,
+      ),
+      contentPadding: padding,
+      enabledBorder: searchBorderDefault,
+      focusedBorder: searchBorderFocused,
+    );
+  }
+
+  TextEditingController searchFieldController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: !isSearching
-              ? Text('Search')
-              : TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      hintText: 'Search here . . . . . ',
-                      hintStyle: TextStyle(color: Colors.white, fontSize: 16.0, fontFamily: 'poppins')),
+      body: ListView(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 23.0, horizontal: 18.0),
+            child: TextField(
+              controller: searchFieldController,
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+              cursorColor: capitalVotesTheme().primaryColor,
+              decoration: searchInputDecoration(
+                'Search....',
+                EdgeInsets.symmetric(vertical: 16.0, horizontal: 18.0),
+              ).copyWith(
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {},
                 ),
-          elevation: 0.0,
-        ),
-        body: Column()
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
