@@ -117,6 +117,7 @@ class _SearchState extends State<Search> {
                     data.description,
                     style: _bodyTxtStyle,
                   ),
+                  onTap: () {},
                 ),
               );
             }),
@@ -229,32 +230,35 @@ class _SearchState extends State<Search> {
     }
 
 //   main custom search card widget
-    return Container(
-      constraints: BoxConstraints(minHeight: 120.0, maxHeight: 180.0),
-      padding: EdgeInsets.fromLTRB(12.5, 14.0, 12.5, 8.0),
-      margin: EdgeInsets.symmetric(vertical: 2.5),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[200], width: 1.0),
-        borderRadius: BorderRadius.circular(12.0),
-      ),
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        constraints: BoxConstraints(minHeight: 120.0, maxHeight: 180.0),
+        padding: EdgeInsets.fromLTRB(12.5, 14.0, 12.5, 8.0),
+        margin: EdgeInsets.symmetric(vertical: 2.5),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[200], width: 1.0),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
 //
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
 //
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                _header(),
-                Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
-                Expanded(child: _about()),
-              ],
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  _header(),
+                  Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
+                  Expanded(child: _about()),
+                ],
+              ),
             ),
-          ),
 //
-          _aside(),
+            _aside(),
 //
-        ],
+          ],
+        ),
       ),
     );
   }
