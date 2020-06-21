@@ -68,7 +68,7 @@ class _SearchState extends State<Search> {
         children: <Widget>[
 //          SEARCH BAR
           Container(
-//            margin: EdgeInsets.symmetric(vertical: 23.0),
+            margin: EdgeInsets.only(bottom: 12.0),
             child: TextField(
               controller: searchFieldController,
               style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
