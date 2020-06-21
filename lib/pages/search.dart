@@ -58,13 +58,17 @@ class _SearchState extends State<Search> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+      ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(12.0, 55.0, 12.0, 12.0),
         physics: BouncingScrollPhysics(),
         children: <Widget>[
 //          SEARCH BAR
           Container(
-            margin: EdgeInsets.symmetric(vertical: 23.0),
+//            margin: EdgeInsets.symmetric(vertical: 23.0),
             child: TextField(
               controller: searchFieldController,
               style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
@@ -225,7 +229,7 @@ class _SearchState extends State<Search> {
 
 //   main custom search card widget
     return Container(
-      constraints: BoxConstraints(minHeight: 140.0, maxHeight: 200.0),
+      constraints: BoxConstraints(minHeight: 120.0, maxHeight: 180.0),
       padding: EdgeInsets.fromLTRB(12.5, 14.0, 12.5, 8.0),
       margin: EdgeInsets.symmetric(vertical: 2.5),
       decoration: BoxDecoration(
