@@ -63,12 +63,13 @@ class _SearchState extends State<Search> {
         elevation: 0.0,
       ),
       body: ListView(
-        padding: EdgeInsets.fromLTRB(12.0, 55.0, 12.0, 12.0),
+        padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 12.0),
         physics: BouncingScrollPhysics(),
         children: <Widget>[
 //          SEARCH BAR
           Container(
-            margin: EdgeInsets.only(bottom: 12.0),
+            margin: EdgeInsets.only(bottom: 24.0),
+            height: 60.0,
             child: TextField(
               controller: searchFieldController,
               style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
