@@ -22,7 +22,6 @@ class _PageLoader extends State<PageLoader> {
 
   @override
   Widget build(BuildContext context) {
-
     // Media Query Responsiveness
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -38,11 +37,34 @@ class _PageLoader extends State<PageLoader> {
           child: BottomNavigationBar(
             currentIndex: _selectedIndex,
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('', style: TextStyle(fontSize: 0.0))),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), title: Text('', style: TextStyle(fontSize: 0.0))),
-              BottomNavigationBarItem(icon: Icon(Icons.add), title: Text('', style: TextStyle(fontSize: 0.0))),
-              BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('', style: TextStyle(fontSize: 0.0)))
+                icon: Icon(Icons.home),
+                title: Text(
+                  '',
+                  style: TextStyle(fontSize: 0.0),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                title: Text(
+                  '',
+                  style: TextStyle(fontSize: 0.0),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add),
+                title: Text(
+                  '',
+                  style: TextStyle(fontSize: 0.0),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                title: Text(
+                  '',
+                  style: TextStyle(fontSize: 0.0),
+                ),
+              )
             ],
             selectedItemColor: Color(0xffE5306C),
             onTap: _onItemTapped,
@@ -51,7 +73,6 @@ class _PageLoader extends State<PageLoader> {
             elevation: 16.0,
             type: BottomNavigationBarType.fixed,
             iconSize: 30,
-
           ),
         ));
   }
