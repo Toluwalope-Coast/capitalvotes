@@ -256,13 +256,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               textColor: Colors.white,
               disabledColor: Colors.white,
               disabledTextColor: Colors.black,
-              onPressed: userProfileBloc.paymentCardList
-                      .elementAt(paymentCardIndex)
-                      .isSelected
-                  ? () {
-                      pushGoTo(context, '/VoteCartScreen');
-                    }
-                  : null,
+              onPressed: null,
               padding: EdgeInsets.symmetric(vertical: screenWidth * 0.05),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
