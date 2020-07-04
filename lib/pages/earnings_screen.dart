@@ -48,10 +48,28 @@ class _EarningsScreenState extends State<EarningsScreen>
           ),
         ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            color: Colors.white,
-            onPressed: () {},
+          PopupMenuButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.black,
+            ),
+            offset: Offset(0.0, 12.0),
+            itemBuilder: ((BuildContext context) {
+              return <PopupMenuEntry>[
+                PopupMenuItem(
+                  child: FlatButton(
+                    child: Text(
+                      'Report...',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ];
+            }),
           ),
         ],
       ),
