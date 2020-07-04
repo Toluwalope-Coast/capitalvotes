@@ -51,7 +51,7 @@ class _EarningsScreenState extends State<EarningsScreen>
           PopupMenuButton(
             icon: Icon(
               Icons.more_vert,
-              color: Colors.black,
+              color: Colors.white,
             ),
             offset: Offset(0.0, 12.0),
             itemBuilder: ((BuildContext context) {
@@ -59,7 +59,7 @@ class _EarningsScreenState extends State<EarningsScreen>
                 PopupMenuItem(
                   child: FlatButton(
                     child: Text(
-                      'Report...',
+                      'History',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16.0,
