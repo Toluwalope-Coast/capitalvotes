@@ -1,7 +1,9 @@
+import 'package:capitalvotes/pages/withdrawal_screen.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:capitalvotes/shared/form_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:capitalvotes/shared/bank_list_for_transfer_screen.dart';
 
 class TransferToBankScreen extends StatefulWidget {
   @override
@@ -9,6 +11,8 @@ class TransferToBankScreen extends StatefulWidget {
 }
 
 class _TransferToBankScreenState extends State<TransferToBankScreen> {
+  String bankCode;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -46,7 +50,7 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   width: screenWidth,
-                  height: screenHeight * 0.76,
+                  height: screenHeight * 0.8,
                   margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
                   padding: EdgeInsets.symmetric(
                     horizontal: 16.0,
@@ -78,6 +82,16 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
                             ),
                           ),
                         ),
+                        optionWidget(
+                          title: 'Select bank for transfer',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BankListScreen()),
+                            );
+                          },
+                        ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 12.0),
                           child: Text(
@@ -89,39 +103,6 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
                             ),
                           ),
                         ),
-//                        DropdownButtonFormField(
-//                          decoration: InputDecoration(
-//                            border: InputBorder.none,
-//                            contentPadding: EdgeInsets.zero,
-//                            isDense: true,
-//                          ),
-////                          value: _monthValue,
-//                          isExpanded: false,
-//                          elevation: 2,
-//                          icon: Icon(Icons.expand_more),
-//                          iconSize: 18.0,
-//                          iconEnabledColor: capitalVotesTheme().primaryColor,
-//                          onChanged: (newValue) {
-////                            setState(() {
-////                              _monthValue = newValue;
-////                            });
-//                          },
-////                          items: monthsInAYear.map((month) {
-////                            return DropdownMenuItem(
-////                              value: month,
-////                              child: SizedBox(
-////                                child: Text(
-////                                  month.monthName.toUpperCase(),
-////                                  style: TextStyle(
-////                                    fontSize: 14.0,
-////                                    color: capitalVotesTheme()
-////                                        .primaryColor,
-////                                  ),
-////                                ),
-////                              ),
-////                            );
-////                          }).toList(),
-//                        ),
                         TextFormField(
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
