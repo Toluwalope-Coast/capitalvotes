@@ -123,69 +123,69 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
       ),
     );
   }
+}
 
-  Widget optionWidget({String title, VoidCallback onTap}) {
-    double _borderWidth = 1.0;
-    Color _borderColor = Color(0x22707070);
-    Color _shadowColor = Color(0x11000000);
-    String _imgAssetPath = 'images/payment_icons/bank_icon.png';
-    Image _optionWidgetImg = Image.asset(_imgAssetPath, fit: BoxFit.cover);
-    BoxBorder _optionWidgetBorder = Border.all(
-      width: _borderWidth,
-      color: _borderColor,
-    );
-    List<BoxShadow> _optionWidgetShadow = [
-      BoxShadow(color: _shadowColor, offset: Offset(0, 3), blurRadius: 6.0)
-    ];
-    TextStyle _optionTxtStyle = TextStyle(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w600,
-    );
+Widget optionWidget({String title, VoidCallback onTap}) {
+  double _borderWidth = 1.0;
+  Color _borderColor = Color(0x22707070);
+  Color _shadowColor = Color(0x11000000);
+  String _imgAssetPath = 'images/payment_icons/bank_icon.png';
+  Image _optionWidgetImg = Image.asset(_imgAssetPath, fit: BoxFit.cover);
+  BoxBorder _optionWidgetBorder = Border.all(
+    width: _borderWidth,
+    color: _borderColor,
+  );
+  List<BoxShadow> _optionWidgetShadow = [
+    BoxShadow(color: _shadowColor, offset: Offset(0, 3), blurRadius: 6.0)
+  ];
+  TextStyle _optionTxtStyle = TextStyle(
+    fontSize: 14.0,
+    fontWeight: FontWeight.w600,
+  );
 
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 18.0),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: _optionWidgetBorder,
-          boxShadow: _optionWidgetShadow,
-        ),
-        child: ListTile(
-          leading: ClipOval(child: _optionWidgetImg),
-          title: Text(title, style: _optionTxtStyle),
-          onTap: onTap,
-          dense: false,
-          enabled: true,
+  return Padding(
+    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 18.0),
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: _optionWidgetBorder,
+        boxShadow: _optionWidgetShadow,
+      ),
+      child: ListTile(
+        leading: ClipOval(child: _optionWidgetImg),
+        title: Text(title, style: _optionTxtStyle),
+        onTap: onTap,
+        dense: false,
+        enabled: true,
+      ),
+    ),
+  );
+}
+
+Widget totalEarningsWidget(String title, String earnings, bool earningGain) {
+  TextStyle _txtStyle = TextStyle(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w700,
+  );
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      SizedBox(child: Text(title, style: _txtStyle)),
+      Icon(
+        earningGain ? Icons.arrow_upward : Icons.arrow_downward,
+        color: earningGain ? Colors.greenAccent : Colors.redAccent,
+        size: 12.0,
+      ),
+      Expanded(
+        child: Text(
+          "N" + earnings + ".00",
+          style: _txtStyle.copyWith(
+            color: earningGain ? Colors.greenAccent : Colors.redAccent,
+          ),
+          textAlign: TextAlign.right,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
-    );
-  }
-
-  Widget totalEarningsWidget(String title, String earnings, bool earningGain) {
-    TextStyle _txtStyle = TextStyle(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w700,
-    );
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox(child: Text(title, style: _txtStyle)),
-        Icon(
-          earningGain ? Icons.arrow_upward : Icons.arrow_downward,
-          color: earningGain ? Colors.greenAccent : Colors.redAccent,
-          size: 12.0,
-        ),
-        Expanded(
-          child: Text(
-            "N" + earnings + ".00",
-            style: _txtStyle.copyWith(
-              color: earningGain ? Colors.greenAccent : Colors.redAccent,
-            ),
-            textAlign: TextAlign.right,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
-    );
-  }
+    ],
+  );
 }
