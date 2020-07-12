@@ -274,32 +274,4 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
       ),
     );
   }
-
-  Widget totalEarningsWidget(String title, String earnings, bool earningGain) {
-    TextStyle _txtStyle = TextStyle(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w700,
-    );
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox(child: Text(title, style: _txtStyle)),
-        Icon(
-          earningGain ? Icons.arrow_upward : Icons.arrow_downward,
-          color: earningGain ? Colors.greenAccent : Colors.redAccent,
-          size: 12.0,
-        ),
-        Expanded(
-          child: Text(
-            "N" + earnings + ".00",
-            style: _txtStyle.copyWith(
-              color: earningGain ? Colors.greenAccent : Colors.redAccent,
-            ),
-            textAlign: TextAlign.right,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
-    );
-  }
 }
