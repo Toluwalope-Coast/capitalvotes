@@ -267,34 +267,6 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
               )
             ],
           ),
-//          TOTAL EARNING SECTION
-          Container(
-            width: screenWidth,
-            margin: EdgeInsets.fromLTRB(16.0, 30.0, 16.0, 6.0),
-            padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 20.0)],
-              borderRadius: BorderRadius.circular(9.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                totalEarningsWidget(
-                  'Total Earning',
-                  '48,000',
-                  true,
-                ),
-                Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-                totalEarningsWidget(
-                  'Total Withdrawal',
-                  '30,000',
-                  false,
-                ),
-              ],
-            ),
-          ),
           SizedBox(
             height: screenHeight * 0.1,
           ),
