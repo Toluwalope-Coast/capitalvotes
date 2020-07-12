@@ -9,6 +9,20 @@ class BankListScreen extends StatefulWidget {
 class _BankListScreenState extends State<BankListScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        elevation: 0.0,
+        centerTitle: true,
+        title: Text(
+          'Select bank for transfer',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    );
   }
 }
