@@ -1,4 +1,5 @@
 import 'package:capitalvotes/shared/chart_util.dart';
+import 'package:capitalvotes/shared/constants.dart';
 import 'package:capitalvotes/shared/form_util.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -316,7 +317,9 @@ class _EarningsScreenState extends State<EarningsScreen>
                   _buttonText,
                   style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  pushGoTo(context, '/WithdrawalScreen');
+                },
               ),
             ),
           ],
