@@ -6,7 +6,10 @@ import 'package:capitalvotes/pages/add_paypal_account_screen.dart';
 import 'package:capitalvotes/pages/add_promo_code_screen.dart';
 import 'package:capitalvotes/pages/pageLoader.dart';
 import 'package:capitalvotes/pages/payment_method_screen.dart';
+import 'package:capitalvotes/pages/transfer_to_bank_screen.dart';
 import 'package:capitalvotes/pages/vote_ana;ytics_screen.dart';
+import 'package:capitalvotes/pages/withdrawal_screen.dart';
+import 'package:capitalvotes/services/bank_bloc.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
 import 'package:capitalvotes/services/category_update_local_state.dart';
 import 'package:capitalvotes/services/nominee_local_state.dart';
@@ -71,6 +74,7 @@ class CapitalVotes extends StatelessWidget {
               create: (context) => LocalNomineeWithoutUpdateBlocState()),
           ChangeNotifierProvider<PayPalLocalBloc>(
               create: (context) => PayPalLocalBloc()),
+          ChangeNotifierProvider<BankBloc>(create: (context) => BankBloc()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -101,6 +105,8 @@ class CapitalVotes extends StatelessWidget {
             '/VoteAnalyticScreen': (context) => VoteAnalyticScreen(),
             '/SeeAllContestScreen': (context) => VoteAnalyticScreen(),
             '/VoteCartScreen': (context) => VoteCartScreen(),
+            '/TransferToBankScreen': (context) => TransferToBankScreen(),
+            '/WithdrawalScreen': (context) => WithdrawalScreen(),
           },
         ));
   }
