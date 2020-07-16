@@ -1,7 +1,10 @@
 import 'package:capitalvotes/pages/add_contest.dart';
 import 'package:capitalvotes/pages/home.dart';
 import 'package:capitalvotes/pages/profile.dart';
+import 'package:capitalvotes/pages/third_person_profile_screen.dart';
+import 'package:capitalvotes/pages/withdrawal_screen.dart';
 import 'package:flutter/material.dart';
+import 'earnings_screen.dart';
 import 'search.dart';
 
 class PageLoader extends StatefulWidget {
@@ -12,7 +15,7 @@ class PageLoader extends StatefulWidget {
 class _PageLoader extends State<PageLoader> {
   int feedCounts = 0;
   int _selectedIndex = 0;
-  final _pageOptions = [Home(), Search(), AddContest(), Profile()];
+  final _pageOptions = [EarningsScreen(), Search(), AddContest(), Profile()];
 
   void _onItemTapped(int index) {
     setState(() {
