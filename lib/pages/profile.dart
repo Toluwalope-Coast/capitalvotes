@@ -173,11 +173,8 @@ class _ProfileState extends State<Profile> {
   }
 
   // Helper method for building UI of User profile bar at profile screen
-  Widget _userProfileBar(
-    double screenHeight,
-    double screenWidth,
-    UserProfileBloc userProfileBloc,
-  ) {
+  Widget _userProfileBar(double screenHeight, double screenWidth,
+      UserProfileBloc userProfileBloc) {
     EdgeInsets _containerPadding = EdgeInsets.fromLTRB(12.0, 16.0, 12.0, 8.0);
     return Container(
       constraints: BoxConstraints(
@@ -285,6 +282,51 @@ class _ProfileState extends State<Profile> {
 
 } // end
 
+Widget _contactBottomSheet(double screenWidth, double screenHeight) {
+  return Container(
+    height: 190.0,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(12.0),
+      ),
+//
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
+                GestureDetector(
+                  child: Container(
+                    width: 50.0,
+                    height: 6.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.0),
+                ),
+                Text('contact'),
+              ],
+            ),
+          ),
+        ),
+        Divider(),
+        ListTile(leading: Text('Call'), onTap: () {}),
+        ListTile(leading: Text('Email'), onTap: () {}),
+      ],
+    ),
+  );
+}
+
 class UserProfileBtns extends StatelessWidget {
   Widget _smallBtnWidget(String title, VoidCallback onPressed) {
     return SizedBox(
@@ -303,59 +345,6 @@ class UserProfileBtns extends StatelessWidget {
                   fontSize: 12.0,
                 )),
         onPressed: onPressed,
-      ),
-    );
-  }
-
-  Widget _contactBottomSheet(double screenWidth, double screenHeight) {
-    return Container(
-      height: 190.0,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(12.0),
-        ),
-//
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4.0),
-                  ),
-                  GestureDetector(
-                    child: Container(
-                      width: 50.0,
-                      height: 6.0,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4.0),
-                  ),
-                  Text('contact'),
-                ],
-              ),
-            ),
-          ),
-          Divider(),
-          ListTile(
-            leading: Text('Call'),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: Text('Email'),
-            onTap: () {},
-          ),
-        ],
       ),
     );
   }
@@ -390,7 +379,7 @@ class UserProfileBtns extends StatelessWidget {
       ],
     );
   }
-} // of user profile btn class
+}
 
 Widget recentContestHeader(String title) {
   return Text(
@@ -410,12 +399,11 @@ class MiniContestCard {
   MiniContestCard({this.contestImgUrl, this.contestTitle});
 }
 
-Widget miniContestCardWidget({
-  BuildContext context,
-  String contestImgUrl,
-  String contestTitle,
-  VoidCallback onTap,
-}) {
+Widget miniContestCardWidget(
+    {BuildContext context,
+    String contestImgUrl,
+    String contestTitle,
+    VoidCallback onTap}) {
 //  double _width = context.size.height * 0.05;
 //  double _height = context.size.height * 0.03;
   BorderRadius _borderRadius = BorderRadius.circular(12.0);

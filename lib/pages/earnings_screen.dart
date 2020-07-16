@@ -262,7 +262,7 @@ class _EarningsScreenState extends State<EarningsScreen>
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              'History',
+              'Recent Transactions',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
             ),
           ),

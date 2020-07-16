@@ -15,7 +15,7 @@ class PageLoader extends StatefulWidget {
 class _PageLoader extends State<PageLoader> {
   int feedCounts = 0;
   int _selectedIndex = 0;
-  final _pageOptions = [EarningsScreen(), Search(), AddContest(), Profile()];
+  final _pageOptions = [Home(), Search(), AddContest(), Profile()];
 
   void _onItemTapped(int index) {
     setState(() {

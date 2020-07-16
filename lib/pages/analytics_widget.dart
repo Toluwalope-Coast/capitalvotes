@@ -1,4 +1,5 @@
 import 'package:capitalvotes/shared/theme.dart';
+import 'package:capitalvotes/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -85,13 +86,15 @@ class AnalyticsWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 22.0),
+                FlatButton(
                   child: Text(
                     'View my earnings',
                     style: _headingTxtStyle.copyWith(
                         color: capitalVotesTheme().primaryColor),
                   ),
+                  onPressed: () {
+                    pushGoTo(context, '/EarningScreen');
+                  },
                 ),
               ],
             ),

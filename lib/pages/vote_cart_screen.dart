@@ -35,7 +35,7 @@ class _VoteCartScreenState extends State<VoteCartScreen> {
   );
 
   // VARIABLES
-  AssetImage _contestantImg = AssetImage('assets/images/users/user-1.jpg');
+  AssetImage _contestantImg = AssetImage('images/contestant_1.jpg');
   String _slctedContestantName = 'Chloe Hermann';
   String _slctedContestantDesc = 'Lagos, Nigeria';
 
@@ -52,8 +52,8 @@ class _VoteCartScreenState extends State<VoteCartScreen> {
   @override
   Widget build(BuildContext context) {
     UserProfileBloc userProfileBloc = Provider.of<UserProfileBloc>(context);
-    ViewNomineeLocalBloc viewNomineeLocalBloc =
-        Provider.of<ViewNomineeLocalBloc>(context);
+//    ViewNomineeLocalBloc viewNomineeLocalBloc =
+//        Provider.of<ViewNomineeLocalBloc>(context);
     return Scaffold(
       appBar: _screenAppBar,
       body: ListView(
@@ -86,22 +86,23 @@ class _VoteCartScreenState extends State<VoteCartScreen> {
                         child: ClipRRect(
                           borderRadius:
                               BorderRadius.circular(_imgContainerRadius),
-                          child: Image.memory(
-                            stringToImageFile(
-                                viewNomineeLocalBloc.getNomineeImage),
+                          child: Image(
+//                            stringToImageFile(
+//                                viewNomineeLocalBloc.getNomineeImage),
+                            image: _contestantImg,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(top: 10.0)),
                       Text(
-                        viewNomineeLocalBloc.getNomineeName,
+                        _slctedContestantName,
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14.5,
                         ),
                       ),
-                      Text(viewNomineeLocalBloc.getNomineeNumber,
+                      Text(_slctedContestantDesc,
                           style: TextStyle(fontSize: 11.0)),
                     ],
                   ),

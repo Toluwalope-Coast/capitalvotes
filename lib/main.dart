@@ -4,10 +4,11 @@ import 'package:capitalvotes/pages/add_nominee_with_category.dart';
 import 'package:capitalvotes/pages/add_payment_card_screen.dart';
 import 'package:capitalvotes/pages/add_paypal_account_screen.dart';
 import 'package:capitalvotes/pages/add_promo_code_screen.dart';
+import 'package:capitalvotes/pages/earnings_screen.dart';
 import 'package:capitalvotes/pages/pageLoader.dart';
 import 'package:capitalvotes/pages/payment_method_screen.dart';
 import 'package:capitalvotes/pages/transfer_to_bank_screen.dart';
-import 'package:capitalvotes/pages/vote_ana;ytics_screen.dart';
+import 'package:capitalvotes/pages/vote_analytics_screen.dart';
 import 'package:capitalvotes/pages/withdrawal_screen.dart';
 import 'package:capitalvotes/services/bank_bloc.dart';
 import 'package:capitalvotes/services/category_local_state.dart';
@@ -105,6 +106,7 @@ class CapitalVotes extends StatelessWidget {
             '/VoteAnalyticScreen': (context) => VoteAnalyticScreen(),
             '/SeeAllContestScreen': (context) => VoteAnalyticScreen(),
             '/VoteCartScreen': (context) => VoteCartScreen(),
+            '/EarningScreen': (context) => EarningsScreen(),
             '/TransferToBankScreen': (context) => TransferToBankScreen(),
             '/WithdrawalScreen': (context) => WithdrawalScreen(),
           },
