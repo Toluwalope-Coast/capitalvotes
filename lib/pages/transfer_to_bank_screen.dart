@@ -1,8 +1,10 @@
 import 'package:capitalvotes/pages/withdrawal_screen.dart';
+import 'package:capitalvotes/services/bank_bloc.dart';
 import 'package:capitalvotes/shared/theme.dart';
 import 'package:capitalvotes/shared/form_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:capitalvotes/shared/bank_list_for_transfer_screen.dart';
 
 class TransferToBankScreen extends StatefulWidget {
@@ -12,11 +14,17 @@ class TransferToBankScreen extends StatefulWidget {
 
 class _TransferToBankScreenState extends State<TransferToBankScreen> {
   String bankCode;
+  String bankName;
+  String accountNumber;
+  String amount;
+  String message;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
+    BankBloc _bankBloc = Provider.of<BankBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +91,9 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
                           ),
                         ),
                         optionWidget(
-                          title: 'Select bank for transfer',
+                          title: _bankBloc.getBankName == null
+                              ? 'Select bank for transfer'
+                              : _bankBloc.getBankName,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -110,12 +120,8 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
                           ),
                           decoration: InputDecoration(
                             hintText: 'Enter account number',
-                            contentPadding: EdgeInsets.fromLTRB(
-                              15.0,
-                              16.0,
-                              20.0,
-                              16.0,
-                            ),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(15.0, 16.0, 20.0, 16.0),
                             hintStyle: TextStyle(
                               fontSize: 14.0,
                               fontWeight: FontWeight.w600,
@@ -151,12 +157,8 @@ class _TransferToBankScreenState extends State<TransferToBankScreen> {
                           ),
                           decoration: InputDecoration(
                             hintText: '0',
-                            contentPadding: EdgeInsets.fromLTRB(
-                              15.0,
-                              16.0,
-                              20.0,
-                              16.0,
-                            ),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(15.0, 16.0, 20.0, 16.0),
                             hintStyle: TextStyle(
                               fontSize: 14.0,
                               fontWeight: FontWeight.w600,
